@@ -4,7 +4,7 @@
     android:id="@+id/header_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Delivery and takeaway only"
+    android:text="Wimfvery and takeaway only"
     android:textColor="@color/colorTextPrimaryLight"
     android:background="@color/colorPrimary"
     android:padding="@dimen/padding"

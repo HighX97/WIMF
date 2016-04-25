@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="moun.com.deli">
+    package="moun.com.wimf">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -32,7 +32,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -40,7 +40,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -49,7 +49,7 @@
             android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -57,7 +57,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -65,7 +65,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -73,7 +73,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
         <activity
@@ -81,7 +81,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.deli.MainActivity" />
+                android:value="moun.com.wimf.MainActivity" />
 
         </activity>
 
@@ -91,9 +91,10 @@
             android:value="@integer/google_play_services_version" />
 
         <!-- this metadata binds the Maps API key with your application -->
+        <!-- Please add your Google Maps API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_api_key"/>
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>
