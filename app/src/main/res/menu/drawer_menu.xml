@@ -10,11 +10,11 @@
         <item
             android:id="@+id/hot_deals"
             android:icon="@mipmap/ic_whatshot_white_24dp"
-            android:title="@string/hot_deals" />
+            android:title="@string/Amis"/>
         <item
             android:id="@+id/location"
             android:icon="@mipmap/ic_location_on_white_24dp"
-            android:title="@string/locations" />
+            android:title="@string/Parametres" />
 
     </group>
 
