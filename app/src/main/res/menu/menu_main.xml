@@ -5,20 +5,19 @@
     <item
         android:id="@+id/our_menu"
         android:orderInCategory="100"
-        android:title="@string/our_menu"
+        android:title="@string/our_profil"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/hot_deals"
         android:orderInCategory="200"
-        android:title="@string/hot_deals"
+        android:title="@string/Amis"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/location"
         android:orderInCategory="300"
-        android:title="@string/locations"
+        android:title="@string/Parametres"
         app:showAsAction="never" />
+
 
     <item
         android:id="@+id/favorites"
@@ -31,8 +30,6 @@
         android:orderInCategory="500"
         android:title="@string/my_cart"
         app:showAsAction="never" />
-
-
 
     <item
         android:id="@+id/action_login"

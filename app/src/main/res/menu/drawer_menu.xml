@@ -6,7 +6,7 @@
         <item
             android:id="@+id/breakfast"
             android:icon="@mipmap/ic_restaurant_menu_white_24dp"
-            android:title="@string/our_menu" />
+            android:title="@string/our_profil" />
         <item
             android:id="@+id/hot_deals"
             android:icon="@mipmap/ic_whatshot_white_24dp"

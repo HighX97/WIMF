@@ -31,13 +31,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        //setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(getString(R.string.login));
+        //mTitle.setText(getString(R.string.login));
+        mTitle.setText("Sign IN");
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
         mInputUsername = (EditText) findViewById(R.id.username);
         mInputPassword = (EditText) findViewById(R.id.password);

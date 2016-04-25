@@ -33,16 +33,21 @@ public class MenuActivityWithTabs extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mTitle = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(getString(R.string.our_menu));
+        mTitle.setText(getString(R.string.our_profil));
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Infos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Positions"));
+        tabLayout.addTab(tabLayout.newTab().setText("Amis"));
+        /*
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.sandwich)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.burgers)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.pizza)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.salads)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.sweets)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.drinks)));
+        */
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
