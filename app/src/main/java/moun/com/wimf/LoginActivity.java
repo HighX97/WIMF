@@ -8,11 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 
+import java.util.List;
+
 import moun.com.wimf.database.UserDAO;
 import moun.com.wimf.fragment.ResetPasswordDialogFragment;
+import moun.com.wimf.model.User;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.SessionManager;
 
@@ -31,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_login);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_login);
+        //setContentView(R.layout.activity_signin);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -42,8 +46,17 @@ public class LoginActivity extends AppCompatActivity {
         mTitle.setText("Sign IN");
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
         mInputUsername = (EditText) findViewById(R.id.username);
+
         mInputPassword = (EditText) findViewById(R.id.password);
         userDAO = new UserDAO(this);
+        List<User> listUsers = userDAO.getAllUserDetails();
+        if (listUsers != null)
+        {
+            for (User u : listUsers)
+            {
+                Toast.makeText(this,listUsers.size()+" " +u.toString(),Toast.LENGTH_LONG).show();
+            }
+        }
         // Session manager
         session = new SessionManager(getApplicationContext());
 

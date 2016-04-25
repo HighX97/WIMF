@@ -4,7 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import moun.com.wimf.LoginActivity;
 import moun.com.wimf.model.User;
 
 /**
@@ -46,8 +51,30 @@ public class UserDAO extends ItemsDBDAO{
         }
 
         // return user
-        Log.d(LOG_TAG, "Fetching user from Sqlite: " + user.toString());
+        //Log.d(LOG_TAG, "Fetching user from Sqlite: " + user.toString());
         return user;
+    }
+    public List<User> getAllUserDetails() {
+        List<User> users = new ArrayList<User>();
+        String sql = "SELECT * FROM " + DataBaseHelper.USER_TABLE;
+        Cursor cursor = database.rawQuery(sql, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            User user;
+            user = new User();
+            user.setId(cursor.getInt(0));
+            user.setUserName(cursor.getString(1));
+            user.setEmail(cursor.getString(2));
+            user.setAddress(cursor.getString(3));
+            user.setPhone(cursor.getString(4));
+            //Add to list
+                users.add(user);
+        }
+
+        // return user
+        //Log.d(LOG_TAG, "Fetching user from Sqlite: " + user.toString());
+        return users;
     }
 
 

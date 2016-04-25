@@ -2,9 +2,11 @@ package moun.com.wimf;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -50,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
 
         mInputUsername = (EditText) findViewById(R.id.name);
-        mInputEmail = (EditText) findViewById(R.id.email);
-        mInputAddress = (EditText) findViewById(R.id.address);
+        //mInputEmail = (EditText) findViewById(R.id.email);
+        ////mInputAddress = (EditText) findViewById(R.id.address);
         mInputPhone = (EditText) findViewById(R.id.phone);
         mInputPassword = (EditText) findViewById(R.id.password);
         registerButton = (Button) findViewById(R.id.register_btn);
@@ -64,84 +66,85 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         boolean isEmptyUsername = isEmpty(mInputUsername);
-        boolean isEmptyEmail = isEmpty(mInputEmail);
-        boolean isEmptyAddress = isEmpty(mInputAddress);
+        //boolean isEmptyEmail = isEmpty(MInputEmail);
+        //boolean isEmptyAddress = isEmpty(mInputAddress);
         boolean isEmptyPhone = isEmpty(mInputPhone);
         boolean isEmptyPassword = isEmpty(mInputPassword);
         if (isEmptyUsername) {
             mInputUsername.setError("Please enter a username");
-            mInputEmail.setError(null);
-            mInputAddress.setError(null);
+            //mInputEmail.setError(null);
+            ////mInputAddress.setError(null);
             mInputPhone.setError(null);
             mInputPassword.setError(null);
-        } else if (isEmptyEmail) {
-            mInputEmail.setError("Please enter an email address");
+        } /*else if (isEmptyEmail) {
+            //mInputEmail.setError("Please enter an email address");
             mInputUsername.setError(null);
-            mInputAddress.setError(null);
+            ////mInputAddress.setError(null);
             mInputPhone.setError(null);
             mInputPassword.setError(null);
         } else if (isEmptyAddress) {
-            mInputAddress.setError("Please enter your address");
+            ////mInputAddress.setError("Please enter your address");
             mInputUsername.setError(null);
-            mInputEmail.setError(null);
+            //mInputEmail.setError(null);
             mInputPhone.setError(null);
             mInputPassword.setError(null);
-        } else if (isEmptyPhone) {
+        }*/ else if (isEmptyPhone) {
             mInputPhone.setError("Please enter your phone number");
             mInputUsername.setError(null);
-            mInputEmail.setError(null);
-            mInputAddress.setError(null);
+            //mInputEmail.setError(null);
+            ////mInputAddress.setError(null);
             mInputPassword.setError(null);
         } else if (isEmptyPassword) {
             mInputPassword.setError("Please enter a password");
             mInputUsername.setError(null);
-            mInputEmail.setError(null);
-            mInputAddress.setError(null);
+            //mInputEmail.setError(null);
+            ////mInputAddress.setError(null);
             mInputPhone.setError(null);
 
         } else {
             String username = mInputUsername.getText().toString().trim();
-            String email = mInputEmail.getText().toString().trim();
+            //String email = mInputEmail.getText().toString().trim();
             String phone = mInputPhone.getText().toString().trim();
-            String address = mInputAddress.getText().toString().trim();
+           // String address = mInputAddress.getText().toString().trim();
             String password = mInputPassword.getText().toString().trim();
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                mInputEmail.setError("Not valid");
+           /* if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                //mInputEmail.setError("Not valid");
                 mInputUsername.setError(null);
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
                 mInputPassword.setError(null);
-            } else if (!isValidPassword(password)) {
+            } else */if (!isValidPassword(password)) {
                 mInputPassword.setError("Must be at least 6 characters");
                 mInputUsername.setError(null);
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                mInputEmail.setError(null);
+                //mInputEmail.setError(null);
             } else if (username.length() < 3) {
                 mInputUsername.setError("Username is too short");
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                mInputEmail.setError(null);
+                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else if (username.length() > 15) {
                 mInputUsername.setError("Username is too long");
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                mInputEmail.setError(null);
+                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else if (userDAO.searchForUser(username) != null) {
                 mInputUsername.setError("Choose a unique name");
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                mInputEmail.setError(null);
+                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else {
                 mInputUsername.setError(null);
-                mInputAddress.setError(null);
+                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                mInputEmail.setError(null);
+                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
-                userRegister(username, email, phone, address, password);
+                //userRegister(username, email, phone, address, password);
+                userRegister(username, phone, password);
 
             }
 
@@ -156,19 +159,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * and get the response back in JSON format.
      *
      * @param username
-     * @param email
      * @param phone
-     * @param address
      * @param password
      */
-    public void userRegister(final String username, final String email, final String phone,
-                             final String address, final String password) {
+   // public void userRegister(final String username, final String email, final String phone,
+     //                        final String address, final String password) {
+    public void userRegister(final String username, final String phone, final String password) {
 
         user = new User();
         user.setUserName(username);
-        user.setEmail(email);
+       // user.setEmail(email);
         user.setPhone(phone);
-        user.setAddress(address);
+       // user.setAddress(address);
 
         // use AsyncTask to save user data in database
         task = new UserRegisterTask(this);
@@ -190,6 +192,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         protected Long doInBackground(Void... arg0) {
             // Inserting row in user table
             long result = userDAO.saveUserToTable(user);
+
             return result;
         }
 

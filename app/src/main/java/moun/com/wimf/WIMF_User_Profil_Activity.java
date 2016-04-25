@@ -19,7 +19,7 @@ import moun.com.wimf.util.MenuPagerAdapter;
  * An Activity handling two custom {@link android.support.v4.app.Fragment}s,
  * with {@link TabLayout} and {@link ViewPager}.
  */
-public class MenuActivityWithTabs extends AppCompatActivity {
+public class WIMF_User_Profil_Activity extends AppCompatActivity {
 
     FloatingActionButton fab;
     private TextView mTitle;
@@ -37,12 +37,9 @@ public class MenuActivityWithTabs extends AppCompatActivity {
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.sandwich)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.burgers)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.pizza)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.salads)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.sweets)));
-        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.drinks)));
+        tabLayout.addTab(tabLayout.newTab().setText("Infos"));
+        tabLayout.addTab(tabLayout.newTab().setText("Positions"));
+        tabLayout.addTab(tabLayout.newTab().setText("Amis"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -90,7 +87,7 @@ public class MenuActivityWithTabs extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivityWithTabs.this, MyCartActivity.class);
+                Intent intent = new Intent(WIMF_User_Profil_Activity.this, MyCartActivity.class);
                 startActivity(intent);
                 finish();
 
