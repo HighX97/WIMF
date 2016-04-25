@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     //DataBase
-    private static final String DATABASE_NAME = "restaurantdb";
+    private static final String DATABASE_NAME = "WIMFdb";
     private static final int DATABASE_VERSION = 1;
 
     public static final String USER_TABLE = "user";
+    public static final String USER_Friends_TABLE = "friend";
+    public static final String USER_Messages_TABLE = "messages";
     public static final String ITEMS_TABLE = "items";
     public static final String ORDERS_TABLE = "orders";
     public static final String FAVORITE_TABLE = "favorite";
