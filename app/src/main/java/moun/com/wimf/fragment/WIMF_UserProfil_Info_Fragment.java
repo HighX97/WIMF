@@ -26,7 +26,7 @@ import moun.com.wimf.util.AppUtils;
  * This Fragment used to handle the list of items under Sandwich category using
  * {@link RecyclerView} with a {@link LinearLayoutManager}.
  */
-public class MenuSandwichFragment extends Fragment implements MenuListAdapter.ClickListener {
+public class WIMF_UserProfil_Info_Fragment extends Fragment implements MenuListAdapter.ClickListener {
 
     public static final String ARG_ITEM_ID = "menu_sandwich";
     private RecyclerView mRecyclerView;
@@ -157,15 +157,15 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
      */
     private ArrayList<MenuItems> getSandwichMenuList() {
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.grilled_chicken), R.drawable.sandwich1, 8.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.grilled_chicken), R.drawable.sandwich1, 123.25, getString(R.string.short_lorem)));
         ///*
-        menuItems.add(new MenuItems(getString(R.string.krispy_haddock), R.drawable.sandwich2, 7.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.aussie_appetite), R.drawable.sandwich3, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.great_barrier), R.drawable.sandwich4, 9.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.whitefish), R.drawable.sandwich5, 8.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.shrimp), R.drawable.sandwich6, 7.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.breaded_chicken), R.drawable.sandwich7, 10.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.french_dip), R.drawable.sandwich8, 9.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.krispy_haddock), R.drawable.sandwich2, 321.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.aussie_appetite), R.drawable.sandwich3, 321.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.great_barrier), R.drawable.sandwich4, 123.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.whitefish), R.drawable.sandwich5, 213.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.shrimp), R.drawable.sandwich6, 321.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.breaded_chicken), R.drawable.sandwich7, 123.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.french_dip), R.drawable.sandwich8, 213.50, getString(R.string.short_lorem)));
         //*/
         return menuItems;
     }

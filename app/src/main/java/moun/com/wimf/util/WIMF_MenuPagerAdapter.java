@@ -5,21 +5,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import moun.com.wimf.fragment.MenuBurgersFragment;
+import moun.com.wimf.fragment.MenuDessertsFragment;
 import moun.com.wimf.fragment.MenuDrinksFragment;
 import moun.com.wimf.fragment.MenuPizzaFragment;
 import moun.com.wimf.fragment.MenuSaladsFragment;
-import moun.com.wimf.fragment.MenuSandwichFragment;
-import moun.com.wimf.fragment.MenuDessertsFragment;
+import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
 
 /**
  * Class define a view pager adapter for the swipe tabs feature.
  */
 
-public class MenuPagerAdapter extends FragmentStatePagerAdapter {
+public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public WIMF_MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -30,13 +30,13 @@ public class MenuPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 // Create a new fragment
-                MenuSandwichFragment tab1 = new MenuSandwichFragment();
+                WIMF_UserProfil_Info_Fragment tab1 = new WIMF_UserProfil_Info_Fragment();
                 return tab1;
             case 1:
                 MenuBurgersFragment tab2 = new MenuBurgersFragment();
                 return tab2;
             case 2:
-                MenuPizzaFragment tab3 = new MenuPizzaFragment();
+                WIMF_UserProfil_Friends_Fragment tab3 = new WIMF_UserProfil_Friends_Fragment();
                 return tab3;
             case 3:
                 MenuSaladsFragment tab4 = new MenuSaladsFragment();

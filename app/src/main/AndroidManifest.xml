@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".WIMF_MainActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.BrandedLaunch">
             <intent-filter>
@@ -33,7 +33,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
 
@@ -42,7 +42,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
 
@@ -51,7 +51,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
         <activity
@@ -60,7 +60,7 @@
             android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
         <activity
@@ -68,7 +68,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
         <activity
@@ -76,7 +76,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
         <activity
@@ -84,7 +84,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
         <activity
@@ -92,7 +92,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="moun.com.wimf.MainActivity" />
+                android:value="moun.com.wimf.WIMF_MainActivity" />
 
         </activity>
 

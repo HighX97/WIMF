@@ -155,7 +155,7 @@ public class MenuBurgersFragment extends Fragment implements MenuListAdapter.Cli
      */
     private ArrayList<MenuItems> getBurgerMenuList() {
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.major), R.drawable.burger1, 6.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.major), R.drawable.burger1, 96.25, getString(R.string.short_lorem)));
         menuItems.add(new MenuItems(getString(R.string.fair), R.drawable.burger2, 7.00, getString(R.string.short_lorem)));
         menuItems.add(new MenuItems(getString(R.string.jack), R.drawable.burger3, 10.50, getString(R.string.short_lorem)));
         menuItems.add(new MenuItems(getString(R.string.black), R.drawable.burger4, 8.50, getString(R.string.short_lorem)));

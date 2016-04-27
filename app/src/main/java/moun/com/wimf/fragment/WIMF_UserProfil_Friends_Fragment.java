@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.MenuListAdapter;
 import moun.com.wimf.database.ItemsDAO;
@@ -26,25 +27,23 @@ import moun.com.wimf.util.AppUtils;
  * This Fragment used to handle the list of items under Sandwich category using
  * {@link RecyclerView} with a {@link LinearLayoutManager}.
  */
-public class MenuSandwichFragment extends Fragment implements MenuListAdapter.ClickListener {
+public class WIMF_UserProfil_Friends_Fragment extends Fragment implements MenuListAdapter.ClickListener {
 
-    public static final String ARG_ITEM_ID = "menu_sandwich";
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MenuListAdapter menuListAdapter;
     ArrayList<MenuItems> listItems;
     private static final String ITEMS_STATE = "items_state";
+    private AlphaInAnimationAdapter alphaAdapter;
     private ItemsDAO itemDAO;
     private AddItemTask task;
     private MenuItems menuItemsFavorite = null;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         itemDAO = new ItemsDAO(getActivity());
-
     }
 
     @Override
@@ -52,21 +51,20 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
         View rootView = inflater.inflate(R.layout.fragment_menu_list_items, container, false);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.sandwich_recyclerView);
-        //    mRecyclerView.setHasFixedSize(true);
-
+        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
-
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Used for orientation change.
         if (savedInstanceState != null) {
-            // We will restore the state of data list when the activity is re-created.
+            // We will restore the state of data list when the activity is re-created
             listItems = savedInstanceState.getParcelableArrayList(ITEMS_STATE);
         } else {
             // Initialize listItems.
-            listItems = getSandwichMenuList();
+            listItems = getFriendsList();
+
         }
+        //menuListAdapter = new MenuListAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_user_list);
         menuListAdapter = new MenuListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
-        // Set MenuListAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(menuListAdapter);
         menuListAdapter.setClickListener(this);
 
@@ -87,7 +85,7 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
 
     @Override
     public void itemClicked(View view, int position, boolean isLongClick) {
-        MenuItems menuItems = getSandwichMenuList().get(position);
+        MenuItems menuItems = getFriendsList().get(position);
         if (isLongClick) {
             if (itemDAO.getItemFavorite(menuItems.getItemName()) == null) {
                 menuItemsFavorite = new MenuItems();
@@ -105,6 +103,7 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
             }
 
         } else {
+
             if (menuItems != null) {
                 Bundle arguments = new Bundle();
                 arguments.putParcelable("selectedItem", menuItems);
@@ -116,8 +115,6 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
                         CustomDialogFragment.ARG_ITEM_ID);
             }
         }
-
-
     }
 
     /**
@@ -148,27 +145,25 @@ public class MenuSandwichFragment extends Fragment implements MenuListAdapter.Cl
         }
     }
 
-
     /**
      * Generates data for RecyclerView's adapter, this data would usually come from a local content provider
      * or remote server.
      *
      * @return items list
      */
-    private ArrayList<MenuItems> getSandwichMenuList() {
+    private ArrayList<MenuItems> getFriendsList() {
+
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.grilled_chicken), R.drawable.sandwich1, 8.25, getString(R.string.short_lorem)));
-        ///*
-        menuItems.add(new MenuItems(getString(R.string.krispy_haddock), R.drawable.sandwich2, 7.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.aussie_appetite), R.drawable.sandwich3, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.great_barrier), R.drawable.sandwich4, 9.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.whitefish), R.drawable.sandwich5, 8.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.shrimp), R.drawable.sandwich6, 7.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.breaded_chicken), R.drawable.sandwich7, 10.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.french_dip), R.drawable.sandwich8, 9.50, getString(R.string.short_lorem)));
-        //*/
+        menuItems.add(new MenuItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
+
         return menuItems;
     }
-
 
 }

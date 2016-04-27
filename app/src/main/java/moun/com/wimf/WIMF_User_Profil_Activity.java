@@ -7,13 +7,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import moun.com.wimf.util.AppUtils;
-import moun.com.wimf.util.MenuPagerAdapter;
+import moun.com.wimf.util.WIMF_MenuPagerAdapter;
 
 /**
  * An Activity handling two custom {@link android.support.v4.app.Fragment}s,
@@ -43,7 +45,7 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final MenuPagerAdapter adapter = new MenuPagerAdapter
+        final WIMF_MenuPagerAdapter adapter = new WIMF_MenuPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         int i = getIntent().getIntExtra("currentItem", 0);
@@ -69,6 +71,7 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("MyApp","-------------------------------I am here : "+tab.getPosition());
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
