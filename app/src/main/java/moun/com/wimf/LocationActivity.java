@@ -153,25 +153,25 @@ public class LocationActivity extends AppCompatActivity implements
                 .position(MAIN_BRANCH)
                 .title("Main Branch")
                 .snippet("Le Mant st. / Tel: + 123 456789")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.usericon1)));
 
         branchTwo = mMap.addMarker(new MarkerOptions()
                 .position(BRANCH_TWO)
                 .title("Branch II")
                 .snippet("Saint-Brieuc / Tel: + 123 456789")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.usericon2)));
 
         branchThree = mMap.addMarker(new MarkerOptions()
                 .position(BRANCH_THREE)
                 .title("Branch III")
                 .snippet("Lorient / Tel: + 123 456789")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.usericon1)));
 
         branchFour = mMap.addMarker(new MarkerOptions()
                 .position(BRANCH_FOUR)
                 .title("Branch IV")
                 .snippet("Mont-Dol / Tel: + 123 456789")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.usericon2)));
 
     }
 

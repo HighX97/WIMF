@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/empty"
-        android:text="@string/empty_cart"
+        android:text="@string/already_added_to_favorites"
         android:visibility="gone"
         style="@style/textEmptyStyle"
         android:layout_gravity="center"

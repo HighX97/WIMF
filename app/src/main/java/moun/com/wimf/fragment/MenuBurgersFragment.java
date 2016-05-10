@@ -155,14 +155,14 @@ public class MenuBurgersFragment extends Fragment implements MenuListAdapter.Cli
      */
     private ArrayList<MenuItems> getBurgerMenuList() {
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.major), R.drawable.burger1, 96.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.fair), R.drawable.burger2, 7.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.jack), R.drawable.burger3, 10.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.black), R.drawable.burger4, 8.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.endeavor), R.drawable.burger5, 9.30, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.mexican), R.drawable.burger6, 11.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.pepperjack), R.drawable.burger7, 9.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.texas), R.drawable.burger8, 8.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.major), R.drawable.map_icon1, 96.25, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.fair), R.drawable.map_icon2, 7.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.jack), R.drawable.map_icon3, 10.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.black), R.drawable.map_icon4, 8.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.endeavor), R.drawable.map_icon5, 9.30, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.mexican), R.drawable.map_icon6, 11.00, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.pepperjack), R.drawable.map_icon7, 9.50, getString(R.string.short_lorem)));
+        menuItems.add(new MenuItems(getString(R.string.texas), R.drawable.map_icon8, 8.00, getString(R.string.short_lorem)));
 
         return menuItems;
     }

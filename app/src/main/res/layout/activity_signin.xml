@@ -23,15 +23,17 @@
             android:paddingBottom="16dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:weightSum="1">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="194dp"
+                android:layout_height="179dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:background="@drawable/deli_logo_header"
-                android:scaleType="fitCenter" />
+                android:background="@drawable/wimf_logo_red"
+                android:scaleType="fitCenter"
+                android:layout_weight="0.32" />
 
 
             <android.support.design.widget.TextInputLayout

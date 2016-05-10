@@ -30,7 +30,7 @@ import moun.com.wimf.util.AppUtils;
 /**
  * This Fragment used to handle the list of items with header on the top.
  */
-public class MainFragment extends Fragment implements HomeMenuCustomAdapter.ClickListener {
+public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapter.ClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -48,8 +48,8 @@ public class MainFragment extends Fragment implements HomeMenuCustomAdapter.Clic
 
 
     /**
-     * Callback used to communicate with MainFragment to Determine the Current Layout.
-     * MainActivity implements this interface and communicates with MainFragment.
+     * Callback used to communicate with WIMF_Main_Fragment to Determine the Current Layout.
+     * MainActivity implements this interface and communicates with WIMF_Main_Fragment.
      */
     public interface OnItemSelectedListener {
         public void onItemSelected(int position);
@@ -231,12 +231,16 @@ public class MainFragment extends Fragment implements HomeMenuCustomAdapter.Clic
      */
     private ArrayList<MenuItems> getMenuList() {
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.sandwich), R.mipmap.user_profil));
-        menuItems.add(new MenuItems(getString(R.string.burgers), R.drawable.items3));
-        menuItems.add(new MenuItems(getString(R.string.pizza), R.drawable.items4));
-        menuItems.add(new MenuItems(getString(R.string.salads), R.drawable.items5));
-        menuItems.add(new MenuItems(getString(R.string.sweets), R.drawable.items7));
-        menuItems.add(new MenuItems(getString(R.string.drinks), R.drawable.items6));
+        menuItems.add(new MenuItems(getString(R.string.our_profil), R.mipmap.user_profil));
+        menuItems.add(new MenuItems(getString(R.string.burgers), R.mipmap.friends));
+        menuItems.add(new MenuItems(getString(R.string.pizza), R.mipmap.ic_location_on_white_24dp));
+        menuItems.add(new MenuItems(getString(R.string.salads), R.mipmap.parametre_icon));
         return menuItems;
     }
+
+
+    /*
+    menuItems.add(new MenuItems(getString(R.string.sweets), R.drawable.items7));
+    menuItems.add(new MenuItems(getString(R.string.drinks), R.drawable.items6));
+    */
 }
