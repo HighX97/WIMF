@@ -233,7 +233,7 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
         menuItems.add(new MenuItems(getString(R.string.our_profil), R.mipmap.user_profil));
         menuItems.add(new MenuItems(getString(R.string.Amis), R.mipmap.friends));
-        menuItems.add(new MenuItems(getString(R.string.Parametres), R.mipmap.parametre_icon));
+        menuItems.add(new MenuItems(getString(R.string.Messages), R.mipmap.message_icon_ur_min));
         menuItems.add(new MenuItems(getString(R.string.Position), R.mipmap.ic_location_on_white_24dp));
         return menuItems;
     }

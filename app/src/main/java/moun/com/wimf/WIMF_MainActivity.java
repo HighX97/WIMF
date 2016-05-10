@@ -25,9 +25,7 @@ import moun.com.wimf.fragment.WIMF_Main_Fragment;
 import moun.com.wimf.fragment.MenuBurgersFragment;
 import moun.com.wimf.fragment.MenuDessertsFragment;
 import moun.com.wimf.fragment.MenuDrinksFragment;
-import moun.com.wimf.fragment.MenuPizzaFragment;
 import moun.com.wimf.fragment.MenuSaladsFragment;
-import moun.com.wimf.fragment.MenuSandwichFragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
 import moun.com.wimf.util.AppUtils;
@@ -229,7 +227,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(WIMF_MainActivity.this, LocationActivity.class);
+                    Intent intent = new Intent(WIMF_MainActivity.this, WIMF_LocationActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }
@@ -332,7 +330,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.location:
-                intent = new Intent(this, LocationActivity.class);
+                intent = new Intent(this, WIMF_LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;

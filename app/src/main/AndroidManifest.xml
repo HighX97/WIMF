@@ -96,6 +96,16 @@
 
         </activity>
 
+        <activity
+            android:name=".WIMF_LocationActivity"
+            android:configChanges="orientation|screenSize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="moun.com.wimf.WIMF_MainActivity" />
+        </activity>
+
+
+
         <!-- this metadata informs the application that Play Services are used -->
         <meta-data
             android:name="com.google.android.gms.version"

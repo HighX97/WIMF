@@ -17,9 +17,9 @@
             android:title="@string/Position" />
 
         <item
-            android:id="@+id/parametre"
-            android:icon="@mipmap/parametre_icon"
-            android:title="@string/Parametres" />
+            android:id="@+id/message"
+            android:icon="@mipmap/message_icon_ur_min"
+            android:title="@string/Messages" />
 
     </group>
 
