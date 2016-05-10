@@ -188,7 +188,8 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 }
             }, 200);
 
-        } else if (mSelectedId == R.id.cart) {
+        } /*
+        else if (mSelectedId == R.id.cart) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -199,7 +200,9 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 }
             }, 200);
 
-        } else if (mSelectedId == R.id.favorites) {
+        }
+        */
+        else if (mSelectedId == R.id.favorites) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -233,7 +236,9 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             }, 200);
 
 
-        } else if (mSelectedId == R.id.orders) {
+        }
+        /*
+        else if (mSelectedId == R.id.orders) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -246,6 +251,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             }, 200);
 
         }
+        */
 
 
     }
@@ -319,6 +325,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
+
             case R.id.hot_deals:
                 intent = new Intent(this, HotDealsActivity.class);
                 startActivity(intent);

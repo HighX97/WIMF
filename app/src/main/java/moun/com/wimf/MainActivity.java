@@ -188,7 +188,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, 200);
 
-        } else if (mSelectedId == R.id.cart) {
+        }
+        /*else if (mSelectedId == R.id.cart) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -199,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, 200);
 
-        } else if (mSelectedId == R.id.favorites) {
+        } */
+        else if (mSelectedId == R.id.favorites) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -233,7 +235,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }, 200);
 
 
-        } else if (mSelectedId == R.id.orders) {
+        }
+        /*
+        else if (mSelectedId == R.id.orders) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -246,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }, 200);
 
         }
+        */
 
 
     }

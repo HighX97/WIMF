@@ -14,26 +14,13 @@
         <item
             android:id="@+id/location"
             android:icon="@mipmap/ic_location_on_white_24dp"
+            android:title="@string/Position" />
+
+        <item
+            android:id="@+id/parametre"
+            android:icon="@mipmap/ic_location_on_white_24dp"
             android:title="@string/Parametres" />
 
     </group>
-
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/cart"
-            android:icon="@mipmap/ic_shopping_cart_white_24dp"
-            android:title="@string/my_cart" />
-        <item
-            android:id="@+id/favorites"
-            android:icon="@mipmap/ic_favorite_white_24dp"
-            android:title="@string/favorites" />
-
-        <item
-            android:id="@+id/orders"
-            android:icon="@mipmap/ic_history_white_24dp"
-            android:title="@string/orders" />
-    </group>
-
 
 </menu>
