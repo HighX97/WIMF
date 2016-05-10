@@ -116,7 +116,7 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
         hotDealheaderText = (TextView) header.findViewById(R.id.hot_deal_header_title);
         hotDealheaderText.setTypeface(AppUtils.getTypeface(getActivity(), AppUtils.FONT_BOLD));
 
-        homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.single_row_grid_layout);
+        homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.wimf_single_row_grid_layout);
         alphaAdapter = new AlphaInAnimationAdapter(homeMenuCustomAdapter);
         // Set HomeMenuCustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
@@ -161,7 +161,7 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
                 mLinearShown = !mLinearShown;
                 if (mLinearShown) {
                     setRecyclerViewLayoutManager(LayoutManagerType.LINEAR_LAYOUT_MANAGER);
-                    homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.single_row_linear_layout);
+                    homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.wimf_single_row_linear_layout);
                     alphaAdapter = new AlphaInAnimationAdapter(homeMenuCustomAdapter);
                     mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
                     homeMenuCustomAdapter.setClickListener(this);
@@ -169,7 +169,7 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
 
                 } else {
                     setRecyclerViewLayoutManager(LayoutManagerType.GRID_LAYOUT_MANAGER);
-                    homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.single_row_grid_layout);
+                    homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.wimf_single_row_grid_layout);
                     alphaAdapter = new AlphaInAnimationAdapter(homeMenuCustomAdapter);
                     mRecyclerView.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
                     homeMenuCustomAdapter.setClickListener(this);
@@ -232,9 +232,9 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
     private ArrayList<MenuItems> getMenuList() {
         ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
         menuItems.add(new MenuItems(getString(R.string.our_profil), R.mipmap.user_profil));
-        menuItems.add(new MenuItems(getString(R.string.burgers), R.mipmap.friends));
-        menuItems.add(new MenuItems(getString(R.string.pizza), R.mipmap.ic_location_on_white_24dp));
-        menuItems.add(new MenuItems(getString(R.string.salads), R.mipmap.parametre_icon));
+        menuItems.add(new MenuItems(getString(R.string.Amis), R.mipmap.friends));
+        menuItems.add(new MenuItems(getString(R.string.Parametres), R.mipmap.parametre_icon));
+        menuItems.add(new MenuItems(getString(R.string.Position), R.mipmap.ic_location_on_white_24dp));
         return menuItems;
     }
 

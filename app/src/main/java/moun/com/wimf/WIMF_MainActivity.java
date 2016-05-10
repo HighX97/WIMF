@@ -21,7 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import moun.com.wimf.database.UserDAO;
-import moun.com.wimf.fragment.MainFragment;
+import moun.com.wimf.fragment.WIMF_Main_Fragment;
 import moun.com.wimf.fragment.MenuBurgersFragment;
 import moun.com.wimf.fragment.MenuDessertsFragment;
 import moun.com.wimf.fragment.MenuDrinksFragment;
@@ -41,7 +41,7 @@ import moun.com.wimf.util.SessionManager;
  */
 
 public class WIMF_MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        MainFragment.OnItemSelectedListener {
+        WIMF_Main_Fragment.OnItemSelectedListener {
 
     private Toolbar mToolbar;
     private TextView mTitle;
@@ -116,7 +116,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             // Add the main fragment (whatever current layout) to the 'content_fragment' FrameLayout.
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             // Create a new Fragment to be placed in the activity layout
-            MainFragment mainFragment = new MainFragment();
+            WIMF_Main_Fragment mainFragment = new WIMF_Main_Fragment();
             transaction.replace(R.id.content_fragment, mainFragment);
             // Commit the transaction
             transaction.commit();
@@ -182,7 +182,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 @Override
                 public void run() {
                     // Start an new activity.
-                    Intent intent = new Intent(WIMF_MainActivity.this, MenuActivityWithTabs.class);
+                    Intent intent = new Intent(WIMF_MainActivity.this, WIMF_User_Profil_Activity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }
@@ -386,7 +386,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onItemSelected(int position) {
-        // The user selected an item from the MainFragment.
+        // The user selected an item from the WIMF_Main_Fragment.
         if (isTwoPane) {
             /* display article on the right pane */
             if (position == 1) {
@@ -411,7 +411,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
 
         } else {
             /* The application is in single-pane mode, the content should be displayed on its own (in a different activity). */
-            Intent intent = new Intent(WIMF_MainActivity.this, MenuActivityWithTabs.class);
+            Intent intent = new Intent(WIMF_MainActivity.this, WIMF_User_Profil_Activity.class);
             intent.putExtra("currentItem", position);
             startActivity(intent);
         }

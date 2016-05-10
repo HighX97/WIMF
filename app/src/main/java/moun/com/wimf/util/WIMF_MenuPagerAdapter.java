@@ -33,13 +33,13 @@ public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
                 WIMF_UserProfil_Info_Fragment tab1 = new WIMF_UserProfil_Info_Fragment();
                 return tab1;
             case 1:
-                MenuBurgersFragment tab2 = new MenuBurgersFragment();
+                WIMF_UserProfil_Info_Fragment tab2 = new WIMF_UserProfil_Info_Fragment();
                 return tab2;
             case 2:
                 WIMF_UserProfil_Friends_Fragment tab3 = new WIMF_UserProfil_Friends_Fragment();
                 return tab3;
             case 3:
-                MenuSaladsFragment tab4 = new MenuSaladsFragment();
+                WIMF_UserProfil_Friends_Fragment tab4 = new WIMF_UserProfil_Friends_Fragment  ();
                 return tab4;
             case 4:
                 MenuDessertsFragment tab5 = new MenuDessertsFragment();

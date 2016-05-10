@@ -23,7 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import moun.com.wimf.database.UserDAO;
-import moun.com.wimf.fragment.MainFragment;
+import moun.com.wimf.fragment.WIMF_Main_Fragment;
 import moun.com.wimf.fragment.MenuBurgersFragment;
 import moun.com.wimf.fragment.MenuDrinksFragment;
 import moun.com.wimf.fragment.MenuPizzaFragment;
@@ -41,7 +41,7 @@ import moun.com.wimf.util.SessionManager;
  */
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        MainFragment.OnItemSelectedListener {
+        WIMF_Main_Fragment.OnItemSelectedListener {
 
     private Toolbar mToolbar;
     private TextView mTitle;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Add the main fragment (whatever current layout) to the 'content_fragment' FrameLayout.
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             // Create a new Fragment to be placed in the activity layout
-            MainFragment mainFragment = new MainFragment();
+            WIMF_Main_Fragment mainFragment = new WIMF_Main_Fragment();
             transaction.replace(R.id.content_fragment, mainFragment);
             // Commit the transaction
             transaction.commit();
@@ -384,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onItemSelected(int position) {
-        // The user selected an item from the MainFragment.
+        // The user selected an item from the WIMF_Main_Fragment.
         if (isTwoPane) {
             /* display article on the right pane */
             if (position == 1) {

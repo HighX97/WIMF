@@ -15,7 +15,7 @@
     <item
         android:id="@+id/location"
         android:orderInCategory="300"
-        android:title="@string/Parametres"
+        android:title="@string/Messages"
         app:showAsAction="never" />
 
 
