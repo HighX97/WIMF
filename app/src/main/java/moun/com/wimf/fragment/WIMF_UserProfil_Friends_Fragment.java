@@ -18,32 +18,32 @@ import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
-import moun.com.wimf.adapter.MenuListAdapter;
-import moun.com.wimf.database.ItemsDAO;
-import moun.com.wimf.model.MenuItems;
+import moun.com.wimf.adapter.WIMF_UserListAdapter;
+import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
 
 /**
  * This Fragment used to handle the list of items under Sandwich category using
  * {@link RecyclerView} with a {@link LinearLayoutManager}.
  */
-public class WIMF_UserProfil_Friends_Fragment extends Fragment implements MenuListAdapter.ClickListener {
+public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_UserListAdapter.ClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private MenuListAdapter menuListAdapter;
-    ArrayList<MenuItems> listItems;
+    private WIMF_UserListAdapter menuListAdapter;
+    ArrayList<WIMF_UserItems> listItems;
     private static final String ITEMS_STATE = "items_state";
     private AlphaInAnimationAdapter alphaAdapter;
-    private ItemsDAO itemDAO;
+    private WIMF_ItemsDAO itemDAO;
     private AddItemTask task;
-    private MenuItems menuItemsFavorite = null;
+    private WIMF_UserItems menuItemsFavorite = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        itemDAO = new ItemsDAO(getActivity());
+        itemDAO = new WIMF_ItemsDAO(getActivity());
     }
 
     @Override
@@ -63,8 +63,8 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements MenuLi
             listItems = getFriendsList();
 
         }
-        //menuListAdapter = new MenuListAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_user_list);
-        menuListAdapter = new MenuListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
+        menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_user_list);
+        //menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
         mRecyclerView.setAdapter(menuListAdapter);
         menuListAdapter.setClickListener(this);
 
@@ -85,10 +85,10 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements MenuLi
 
     @Override
     public void itemClicked(View view, int position, boolean isLongClick) {
-        MenuItems menuItems = getFriendsList().get(position);
+        WIMF_UserItems menuItems = getFriendsList().get(position);
         if (isLongClick) {
             if (itemDAO.getItemFavorite(menuItems.getItemName()) == null) {
-                menuItemsFavorite = new MenuItems();
+                menuItemsFavorite = new WIMF_UserItems();
                 menuItemsFavorite.setItemName(menuItems.getItemName());
                 menuItemsFavorite.setItemDescription(menuItems.getItemDescription());
                 menuItemsFavorite.setItemImage(menuItems.getItemImage());
@@ -151,17 +151,17 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements MenuLi
      *
      * @return items list
      */
-    private ArrayList<MenuItems> getFriendsList() {
+    private ArrayList<WIMF_UserItems> getFriendsList() {
 
-        ArrayList<MenuItems> menuItems = new ArrayList<MenuItems>();
-        menuItems.add(new MenuItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
-        menuItems.add(new MenuItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
+        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
+        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
 
         return menuItems;
     }
