@@ -72,6 +72,14 @@
 
         </activity>
         <activity
+            android:name=".MonEssaiDeLocalisation"
+            android:configChanges="orientation|screenSize">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="moun.com.wimf.WIMF_MainActivity" />
+        </activity>
+
+        <activity
             android:name=".LoginActivity"
             android:configChanges="orientation|screenSize">
             <meta-data
