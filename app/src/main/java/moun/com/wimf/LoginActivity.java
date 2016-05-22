@@ -102,15 +102,17 @@ public class LoginActivity extends AppCompatActivity {
             mInputPassword.setError(null);
             final String tel = mInputUsername.getText().toString().trim();
             final String password = mInputPassword.getText().toString().trim();
-            /*
+
             String url = "http://46.101.40.23:8585/utilisateur/connect";
             HashMap<String, String> parametres = new HashMap<String, String>();
             parametres.put("tel", tel);
             parametres.put("password", password);
             final String post_result = RestHelper.executePOST(url, parametres);
             Log.d("post_result ", " post_result: " + post_result);
-            */
-            new PostClass(this).execute();
+
+
+
+            new PostClass(this,parametres,url).execute();
 
         }
 
@@ -159,18 +161,18 @@ public class LoginActivity extends AppCompatActivity {
     private class PostClass extends AsyncTask<String, Void, Void> {
 
         private final Context context;
+        private final String url;
+        private final HashMap<String, String> parametres;
 
-        public PostClass(Context c) {
+        public PostClass(Context c, HashMap<String, String> parametres, String url) {
             this.context = c;
+            this.parametres = parametres;
+            this.url = url;
         }
 
         @Override
         protected Void doInBackground(String... params) {
-            String url = "http://46.101.40.23:8585/utilisateur/connect";
-            HashMap<String, String> parametres = new HashMap<String, String>();
-            parametres.put("tel", "0695504940");
-            parametres.put("password", "password");
-            final String post_result = RestHelper.executePOST(url, parametres);
+            final String post_result = RestHelper.executePOST(this.url, this.parametres);
 
             LoginActivity.this.runOnUiThread(new Runnable() {
 
