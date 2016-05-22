@@ -20,7 +20,6 @@
             android:id="@+id/message"
             android:icon="@mipmap/message_icon_ur_min"
             android:title="@string/Messages" />
-
     </group>
 
 </menu>

@@ -94,7 +94,7 @@
                 android:focusable="true"
                 android:onClick="LoginClick"
                 android:text="Login"
-                android:textColor="@color/colorTextPrimaryLight" />
+                android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

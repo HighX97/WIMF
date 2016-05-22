@@ -1,6 +1,7 @@
 package moun.com.wimf;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private User user;
     private UserDAO userDAO;
     private UserRegisterTask task;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,19 +78,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             ////mInputAddress.setError(null);
             mInputPhone.setError(null);
             mInputPassword.setError(null);
-        } /*else if (isEmptyEmail) {
-            //mInputEmail.setError("Please enter an email address");
-            mInputUsername.setError(null);
-            ////mInputAddress.setError(null);
-            mInputPhone.setError(null);
-            mInputPassword.setError(null);
-        } else if (isEmptyAddress) {
-            ////mInputAddress.setError("Please enter your address");
-            mInputUsername.setError(null);
-            //mInputEmail.setError(null);
-            mInputPhone.setError(null);
-            mInputPassword.setError(null);
-        }*/ else if (isEmptyPhone) {
+        } else if (isEmptyPhone) {
             mInputPhone.setError("Please enter your phone number");
             mInputUsername.setError(null);
             //mInputEmail.setError(null);
@@ -103,39 +93,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         } else {
             String username = mInputUsername.getText().toString().trim();
-            //String email = mInputEmail.getText().toString().trim();
             String phone = mInputPhone.getText().toString().trim();
-           // String address = mInputAddress.getText().toString().trim();
             String password = mInputPassword.getText().toString().trim();
-           /* if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                //mInputEmail.setError("Not valid");
-                mInputUsername.setError(null);
-                ////mInputAddress.setError(null);
-                mInputPhone.setError(null);
-                mInputPassword.setError(null);
-            } else */if (!isValidPassword(password)) {
+            if (!isValidPassword(password)) {
                 mInputPassword.setError("Must be at least 6 characters");
                 mInputUsername.setError(null);
-                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                //mInputEmail.setError(null);
             } else if (username.length() < 3) {
                 mInputUsername.setError("Username is too short");
-                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else if (username.length() > 15) {
                 mInputUsername.setError("Username is too long");
-                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else if (userDAO.searchForUser(username) != null) {
                 mInputUsername.setError("Choose a unique name");
-                ////mInputAddress.setError(null);
                 mInputPhone.setError(null);
-                //mInputEmail.setError(null);
                 mInputPassword.setError(null);
             } else {
                 mInputUsername.setError(null);

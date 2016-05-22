@@ -25,7 +25,8 @@ public class RestHelper {
 
     /*
 
-    Test Commit
+    Mariam : Test Commit
+    Loïc : Test Commit
 
      */
 
