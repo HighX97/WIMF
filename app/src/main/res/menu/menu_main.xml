@@ -8,27 +8,9 @@
         android:title="@string/our_profil"
         app:showAsAction="never" />
     <item
-        android:id="@+id/hot_deals"
-        android:orderInCategory="200"
-        android:title="@string/Amis"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/location"
         android:orderInCategory="300"
-        android:title="@string/Messages"
-        app:showAsAction="never" />
-
-
-    <item
-        android:id="@+id/favorites"
-        android:orderInCategory="400"
-        android:title="@string/favorites"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/my_cart"
-        android:orderInCategory="500"
-        android:title="@string/my_cart"
+        android:title="@string/Position"
         app:showAsAction="never" />
 
     <item

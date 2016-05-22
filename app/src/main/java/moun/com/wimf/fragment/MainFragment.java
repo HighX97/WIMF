@@ -113,8 +113,6 @@ public class MainFragment extends Fragment implements HomeMenuCustomAdapter.Clic
 
         // Inflate the layout header
         header = LayoutInflater.from(getActivity()).inflate(R.layout.home_menu_header, mRecyclerView, false);
-        hotDealheaderText = (TextView) header.findViewById(R.id.hot_deal_header_title);
-        hotDealheaderText.setTypeface(AppUtils.getTypeface(getActivity(), AppUtils.FONT_BOLD));
 
         homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.single_row_grid_layout);
         alphaAdapter = new AlphaInAnimationAdapter(homeMenuCustomAdapter);

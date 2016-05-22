@@ -1,6 +1,9 @@
 package moun.com.wimf.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,6 +112,8 @@ public class WIMF_Utilisateur{
     {
       this.datetimeMaj = datetimeMaj;
     }
+    
+
 
 
 }

@@ -144,8 +144,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                   else
                   {
                       Log.d(route, "not failed");
-                  jsonArray = jsonRootObject.optJSONArray("data");
-
                   }
                 }
             }

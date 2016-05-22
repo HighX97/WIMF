@@ -115,6 +115,7 @@ public class WIMF_UserItems implements Parcelable {
                 '}';
     }
 
+
     public static final Creator<WIMF_UserItems> CREATOR = new Creator<WIMF_UserItems>() {
         public WIMF_UserItems createFromParcel(Parcel in) {
             return new WIMF_UserItems(in);

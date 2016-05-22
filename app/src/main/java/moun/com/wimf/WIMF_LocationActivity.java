@@ -149,8 +149,8 @@ public class WIMF_LocationActivity extends AppCompatActivity implements
 
     private void addMarkersToMap() {
 
-        int height = 100;
-        int width = 100;
+        int height = 10;
+        int width = 10;
         BitmapDrawable bitmapdraw1=(BitmapDrawable)getResources().getDrawable(R.drawable.usericon1);
         BitmapDrawable bitmapdraw2=(BitmapDrawable)getResources().getDrawable(R.drawable.usericon2);
         Bitmap b1=bitmapdraw1.getBitmap();

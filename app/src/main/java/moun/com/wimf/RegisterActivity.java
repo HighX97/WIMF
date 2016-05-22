@@ -19,10 +19,14 @@ import android.widget.TextView;
 
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 import moun.com.wimf.database.UserDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.model.User;
 import moun.com.wimf.util.AppUtils;
+import moun.com.wimf.model.*;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
@@ -37,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText mInputPassword;
     private Button registerButton;
     private User user;
+    private WIMF_Utilisateur utilisateur;
     private UserDAO userDAO;
     private UserRegisterTask task;
     private ProgressDialog progress;
@@ -118,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 //mInputEmail.setError(null);
                 mInputPassword.setError(null);
                 //userRegister(username, email, phone, address, password);
-                userRegister(username, phone, password);
+                utilisateurRegister(username, phone, password);
 
             }
 
@@ -132,25 +137,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * but you need to interact with database server by inserting and fetching data using (GET/POST methods) requests,
      * and get the response back in JSON format.
      *
-     * @param username
-     * @param phone
+     * @param nom
+     * @param tel
      * @param password
      */
-   // public void userRegister(final String username, final String email, final String phone,
-     //                        final String address, final String password) {
-    public void userRegister(final String username, final String phone, final String password) {
+    public void utilisateurRegister(final String nom, final String tel, final String password) {
 
-        user = new User();
-        user.setUserName(username);
-       // user.setEmail(email);
-        user.setPhone(phone);
-       // user.setAddress(address);
+        utilisateur = new WIMF_Utilisateur();
+        utilisateur.set_nom(nom);
+        utilisateur.set_tel(tel);
+        utilisateur.set_password(password);
 
-        // use AsyncTask to save user data in database
-        task = new UserRegisterTask(this);
-        task.execute((Void) null);
-
+        String url = "http://46.101.40.23:8585/utilisateur/new";
+        HashMap<String, String> parametres = new HashMap<String, String>();
+        parametres.put("tel", tel);
+        parametres.put("password", password);
+        parametres.put("nom", nom);
+        final String post_result = RestHelper.executePOST(url, parametres);
+        Log.d("post_result ", " post_result: " + post_result);
+        new PostClass(this,parametres,url).execute();
     }
+
+
+
+
 
     public class UserRegisterTask extends AsyncTask<Void, Void, Long> {
 

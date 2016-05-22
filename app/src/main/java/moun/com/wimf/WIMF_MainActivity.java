@@ -199,35 +199,12 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             }, 200);
 
         }
-        */
-        else if (mSelectedId == R.id.favorites) {
+        */ else if (mSelectedId == R.id.location) {
             hideDrawer();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(WIMF_MainActivity.this, ProfileActivityWithTabs.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                }
-            }, 200);
-
-        } else if (mSelectedId == R.id.hot_deals) {
-            hideDrawer();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(WIMF_MainActivity.this, HotDealsActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                }
-            }, 200);
-
-        } else if (mSelectedId == R.id.location) {
-            hideDrawer();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(WIMF_MainActivity.this, MonEssaiDeLocalisation.class);
+                    Intent intent = new Intent(WIMF_MainActivity.this, LocationActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }
@@ -330,17 +307,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.location:
-                intent = new Intent(this, MonEssaiDeLocalisation.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                return true;
-            case R.id.favorites:
-                intent = new Intent(this, ProfileActivityWithTabs.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                return true;
-            case R.id.my_cart:
-                intent = new Intent(this, MyCartActivity.class);
+                intent = new Intent(this, LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
