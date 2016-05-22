@@ -41,6 +41,14 @@ import moun.com.wimf.util.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+    /*
+
+
+    Lowx
+
+    
+     */
    // private ProgressDialog progress;
     private static final String LOG_TAG = LoginActivity.class.getSimpleName();
     private Toolbar mToolbar;
