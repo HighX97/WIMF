@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -32,6 +31,9 @@ import java.util.Map;
 
 import moun.com.wimf.database.UserDAO;
 import moun.com.wimf.fragment.ResetPasswordDialogFragment;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.helper.PostClass;
+
 import moun.com.wimf.model.User;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.SessionManager;
@@ -39,7 +41,7 @@ import moun.com.wimf.util.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ProgressDialog progress;
+   // private ProgressDialog progress;
     private static final String LOG_TAG = LoginActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
@@ -158,117 +160,6 @@ public class LoginActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    private class PostClass extends AsyncTask<String, Void, Void> {
-
-        private final Context context;
-        private final String url;
-        private final HashMap<String, String> parametres;
-
-        public PostClass(Context c, HashMap<String, String> parametres, String url) {
-            this.context = c;
-            this.parametres = parametres;
-            this.url = url;
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            final String post_result = RestHelper.executePOST(this.url, this.parametres);
-
-            LoginActivity.this.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    dialogMessage("post_result", post_result);
-                    JSONObject jsonRootObject = null;
-                    try {
-                        jsonRootObject = new JSONObject(post_result);
-                        //Get the instance of JSONArray that contains JSONObjects
-                        JSONArray jsonArray = jsonRootObject.optJSONArray("data");
-
-                        //Iterate the jsonArray and print the info of JSONObjects
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                            int idU = Integer.parseInt(jsonObject.optString("idU").toString());
-                            dialogMessage("idU", "" + idU);
-                            String nom = jsonObject.optString("nom").toString();
-                            dialogMessage("nom", nom);
-                            String tel = jsonObject.optString("tel").toString();
-                            dialogMessage("tel", tel);
-                            String gps_lat = jsonObject.optString("gps_lat").toString();
-                            dialogMessage("gps_lat", gps_lat);
-                            String gps_long = jsonObject.optString("gps_long").toString();
-                            dialogMessage("gps_long", gps_long);
-                            String password = jsonObject.optString("password").toString();
-                            dialogMessage("password", password);
-                            String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
-                            dialogMessage("datetimeCrea", datetimeCrea);
-                            String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
-                            dialogMessage("datetimeMaj", datetimeMaj);
-                            if (jsonArray.length() == 0) {
-                                dialogMessage("Couldn't Sign In!", "Please check your username and password and try again.");
-                            } else {
-                                // user successfully logged in
-                                // Create login session
-                                session.setLogin(true);
-                                /*
-                                // Launch main activity
-                                Intent intent = new Intent(this, WIMF_MainActivity.class);
-                                // Closing all the Activities
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                // Add new Flag to start new Activity
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                // Staring Main Activity
-                                startActivity(intent);
-                                finish();
-                                */
-
-
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    progress.dismiss();
-
-                }
-            });
-
-
-            return null;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Loading");
-            progress.show();
-        }
-
-        private String getQuery(HashMap<String, String> params) throws UnsupportedEncodingException {
-            StringBuilder result = new StringBuilder();
-            boolean first = true;
-
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                if (first)
-                    first = false;
-                else
-                    result.append("&");
-
-                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-                result.append("=");
-                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-            }
-
-            return result.toString();
-        }
-
-        protected void onPostExecute() {
-            progress.dismiss();
-        }
-
-    }
 
     // Link to reset password dialog fragment
     public void ResetPassword(View view) {
