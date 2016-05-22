@@ -30,7 +30,7 @@
                 android:layout_height="179dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:background="@drawable/wimf_logo_red"
+                android:background="@drawable/wimf_logo_greenlight"
                 android:scaleType="fitCenter" />
 
 

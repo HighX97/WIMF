@@ -22,7 +22,7 @@
                 android:contentDescription="Android Robot"
                 android:layout_width="225dp"
                 android:layout_height="150dp"
-                android:background="@drawable/wimf_logo_white"
+                android:background="@drawable/wimf_logo_greenlight"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:layout_centerVertical="true"
