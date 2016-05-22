@@ -69,6 +69,9 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                             if (jsonArray.length() == 0) {
                               Log.d("Couldn't Sign In!", "Please check your username and password and try again.");
                             }
+                            else{
+
+                            }
 
                         }
                     } catch (JSONException e) {

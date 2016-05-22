@@ -13,35 +13,40 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "WIMFdb";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String USER_TABLE = "user";
-    public static final String Friends_TABLE = "friends";
-    public static final String Messages_TABLE = "messages";
+    public static final String USER_TABLE = "Utilisateur";
+    public static final String Friends_TABLE = "Amis";
+    public static final String Messages_TABLE = "Message";
     public static final String ITEMS_TABLE = "items";
     public static final String ORDERS_TABLE = "orders";
     public static final String FAVORITE_TABLE = "favorite";
 
+    public static final String ID_COLUMN_USER = "idU";
     public static final String ID_COLUMN = "id";
-    public static final String NAME_COLUMN = "name";
+    public static final String ID_COLUMN_MESSAGE = "idMsg";
+    public static final String NAME_COLUMN = "nom";
     public static final String DESCRIPTION_COLOMN = "decription";
     public static final String IMAGE_COLOMN = "image";
     public static final String PRICE_COLOMN = "price";
     public static final String QUANTITY_COLOMN = "quantity";
     public static final String EMAIL_COLOMN = "email";
     public static final String ADDRESS_COLOMN = "address";
-    public static final String PHONE_COLOMN = "phone";
+    public static final String PHONE_COLOMN = "tel";
     public static final String PASSWORD_COLOMN = "password";
-    public static final String GPS_COLOMN = "gps";
+    public static final String GPS_lat_COLOMN = "gps_lat";
+    public static final String GPS_long_COLOMN = "gps_long";
     public static final String ORDER_ID = "order_id";
     public static final String ORDERED = "ordered";
     public static final String CREATED_AT = "created_at";
-    public static final String CREATION_DATE_COLUMN = "creation_date";
-    public static final String UPDATE_DATE_COLUMN = "update_date";
+    public static final String CREATION_DATE_COLUMN = "datetimeCrea";
+    public static final String UPDATE_DATE_COLUMN = "datetimeMaj";
     public static final String USER1_COLUMN = "user1";
     public static final String USER2_COLUMN = "user2";
-    public static final String STATE_COLUMN = "state";
-    public static final String MESSAGE_COLUMN = "message";
-    public static final String SENDER_COLOMN = "sender";
-    public static final String RECEIVER_COLOMN = "receiver";
+    public static final String STATE_COLUMN = "etat";
+    public static final String MESSAGE_COLUMN = "valeur";
+    public static final String SENDER_COLOMN = "idU_snd";
+    public static final String SENDER_TEL_COLOMN = "tel_snd";
+    public static final String RECEIVER_TEL_COLOMN = "tel_rcv";
+    public static final String RECEIVER_COLOMN = "idU_rcv";
 
     /*public static final String CREATE_USER_TABLE = "CREATE TABLE "
             + USER_TABLE + "(" + ID_COLUMN + " INTEGER PRIMARY KEY, "
@@ -50,22 +55,23 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
             + ")";*/
 
     public static final String CREATE_USER_TABLE = "CREATE TABLE "
-            + USER_TABLE + "(" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + USER_TABLE + "(" + ID_COLUMN_USER + " INTEGER PRIMARY KEY, "
             + NAME_COLUMN + " TEXT, " + PHONE_COLOMN + " TEXT, "
-            + PASSWORD_COLOMN + " TEXT, " + GPS_COLOMN + " TEXT, "
+             + GPS_lat_COLOMN + " TEXT, "+  GPS_long_COLOMN + " TEXT, "+
+             PASSWORD_COLOMN + " TEXT, "
             + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
             + ")";
 
     public static final String CREATE_Friends_TABLE = "CREATE TABLE "
-            + Friends_TABLE + "(" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + USER1_COLUMN + " TEXT, " + USER2_COLUMN + " TEXT, "
+            + Friends_TABLE + "(" + SENDER_COLOMN + " TEXT, " + RECEIVER_COLOMN + " TEXT, "
             + STATE_COLUMN + " INTEGER, "  + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
             + ")";
 
     public static final String CREATE_Messages_TABLE = "CREATE TABLE "
-            + Messages_TABLE  + "(" + ID_COLUMN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + MESSAGE_COLUMN + " TEXT, " + STATE_COLUMN + " INTEGER, "
-            + SENDER_COLOMN + " TEXT, " + RECEIVER_COLOMN + " TEXT, "
+            + Messages_TABLE  + "(" + ID_COLUMN_MESSAGE + " INTEGER PRIMARY KEY, "
+            + MESSAGE_COLUMN + " TEXT, "
+            + SENDER_TEL_COLOMN + " TEXT, " + RECEIVER_TEL_COLOMN + " TEXT, "
+            + STATE_COLUMN + " INTEGER, "
             + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
             + ")";
 
@@ -86,6 +92,7 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
             + NAME_COLUMN + " TEXT, " + DESCRIPTION_COLOMN + " TEXT, "
             + IMAGE_COLOMN + " INTEGER, " + PRICE_COLOMN + " DOUBLE"
             + ")";
+
 
     private static WIMF_DataBaseHelper instance;
 

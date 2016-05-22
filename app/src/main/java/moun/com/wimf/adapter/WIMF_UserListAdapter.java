@@ -10,13 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import moun.com.wimf.R;
 import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
+import moun.com.wimf.util.SessionManager;
 
 /**
  * Provide view to Menu list RecyclerView with data from WIMF_UserItems object.
@@ -104,7 +108,26 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         //    Log.d(LOG_TAG, "Element " + position + " set.");
+       /* SessionManager session;
+        session.checkLogin();
 
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+
+
+        String url = "http://46.101.40.23:8585/ami/list";
+        HashMap<String, String> parametres = new HashMap<String, String>();
+        parametres.put("tel", tel);
+        parametres.put("password", password);
+        final String post_result = RestHelper.executePOST(url, parametres);
+        Log.d("post_result ", " post_result: " + post_result);
+
+
+
+        new PostClass(this,parametres,url).execute();*/
         WIMF_UserItems menuItems = itemList.get(position);
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element

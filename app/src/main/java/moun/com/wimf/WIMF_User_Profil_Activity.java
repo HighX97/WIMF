@@ -103,10 +103,10 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
             viewPager.setCurrentItem(0);
         }
         if (i == 2) {
-            viewPager.setCurrentItem(1);
+            viewPager.setCurrentItem(2);
         }
         if (i == 3) {
-            viewPager.setCurrentItem(2);
+            viewPager.setCurrentItem(1);
         }
         if (i == 4) {
             viewPager.setCurrentItem(3);
