@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.wimf_activity_login);
         //setContentView(R.layout.activity_signin);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         //mTitle.setText(getString(R.string.login));
         mTitle.setText("Sign IN");
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
-        mInputUsername = (EditText) findViewById(R.id.username);
+        mInputUsername = (EditText) findViewById(R.id.phone);
 
         mInputPassword = (EditText) findViewById(R.id.password);
         userDAO = new UserDAO(this);
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean isEmptyPassword = isEmpty(mInputPassword);
         // Check for empty data in the form
         if (isEmptyUsername) {
-            mInputUsername.setError("Enter your username");
+            mInputUsername.setError("Enter your phone number");
             mInputPassword.setError(null);
         } else if (isEmptyPassword) {
             mInputPassword.setError("Enter your password");
@@ -119,9 +119,6 @@ public class LoginActivity extends AppCompatActivity {
             parametres.put("password", password);
             final String post_result = RestHelper.executePOST(url, parametres);
             Log.d("post_result ", " post_result: " + post_result);
-
-
-
             new PostClass(this,parametres,url).execute();
 
         }

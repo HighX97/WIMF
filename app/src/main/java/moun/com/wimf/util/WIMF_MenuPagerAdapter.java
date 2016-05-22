@@ -34,7 +34,7 @@ import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.LocationActivity;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
-import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.database.WIMF_ItemsDBDAO;
 import moun.com.wimf.fragment.MenuBurgersFragment;
 import moun.com.wimf.fragment.MenuDessertsFragment;
 import moun.com.wimf.fragment.MenuDrinksFragment;
@@ -124,7 +124,7 @@ public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
     ArrayList<WIMF_UserItems> listItems;
     private static final String ITEMS_STATE = "items_state";
     private AlphaInAnimationAdapter alphaAdapter;
-    private WIMF_ItemsDAO itemDAO;
+    private WIMF_ItemsDBDAO itemDAO;
     private WIMF_UserProfil_Conversations_Fragment.AddItemTask task;
     private WIMF_UserItems menuItemsFavorite = null;
 }

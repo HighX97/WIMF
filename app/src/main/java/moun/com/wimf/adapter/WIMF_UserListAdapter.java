@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import moun.com.wimf.R;
-import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.database.WIMF_ItemsDBDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.model.WIMF_UserItems;
@@ -32,7 +32,7 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
     private List<WIMF_UserItems> itemList;
     private Context context;
     private ClickListener clickListener;
-    private WIMF_ItemsDAO itemsDAO;
+    private WIMF_ItemsDBDAO itemsDAO;
 
     /**
      * Create a new instance of {@link WIMF_UserListAdapter}.
@@ -70,7 +70,7 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
             //
             this.txtV_header.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
             this.txtV_footer.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
-            itemsDAO = new WIMF_ItemsDAO(v.getContext());
+            itemsDAO = new WIMF_ItemsDBDAO(v.getContext());
 
 
             v.setOnClickListener(new View.OnClickListener(){
