@@ -4,17 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import moun.com.wimf.model.WIMF_Ami;
-import moun.com.wimf.model.WIMF_Friend;
 
 
 /**
  * Created by maiga mariam on 25/04/2016.
  */
-public class WIMF_FriendDAO extends ItemsDBDAO{
+public class WIMF_FriendDAO extends WIMF_ItemsDBDAO{
 
     public WIMF_FriendDAO(Context context) {
         super(context);
@@ -23,8 +23,8 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
     public long saveFriendToTable(WIMF_Ami friend) {
 
         ContentValues values = new ContentValues();
-        values.put(WIMF_DataBaseHelper.SENDER_COLOMN, friend.get_idU_snd());
-        values.put(WIMF_DataBaseHelper.RECEIVER_COLOMN, friend.get_idU_rcv());
+        values.put(WIMF_DataBaseHelper.SENDER_ID_COLOMN, friend.get_idU_snd());
+        values.put(WIMF_DataBaseHelper.RECEIVER_ID_COLOMN, friend.get_idU_rcv());
         values.put(WIMF_DataBaseHelper.STATE_COLUMN, friend.get_etat());
         values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, friend.get_date_request().toString());
         values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, friend.get_date_response().toString());
@@ -33,8 +33,8 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
     }
 
 
-    public List<WIMF_Friend> getUserFriends(String UserPhone) {
-        List<WIMF_Friend> friends = new ArrayList<WIMF_Friend>();
+    public List<WIMF_Ami> getUserFriends(String UserPhone) {
+        List<WIMF_Ami> friends = new ArrayList<WIMF_Ami>();
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.Friends_TABLE
                 + " WHERE " + WIMF_DataBaseHelper.USER1_COLUMN + " = ?";
@@ -43,14 +43,13 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
         cursor.moveToFirst();
         do {
             if (cursor.getCount() > 0) {
-                WIMF_Friend frd;
-                frd = new WIMF_Friend();
-                frd.setId(cursor.getInt(0));
-                frd.setUser1(cursor.getString(1));
-                frd.setUser2(cursor.getString(2));
-                frd.setState(cursor.getInt(3));
-                frd.setCreation_date(cursor.getString(4));
-                frd.setUpdate_date(cursor.getString(5));
+                WIMF_Ami frd;
+                frd = new WIMF_Ami();
+                frd.set_idU_snd(cursor.getInt(0));
+                frd.set_idU_rcv(cursor.getInt(1));
+                frd.set_etat(cursor.getInt(2));
+                frd.set_date_request(new Date(cursor.getLong(3)));
+                frd.set_date_response(new Date(cursor.getLong(4)));
 
                 //Add to list
                 friends.add(frd);
@@ -63,8 +62,8 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
     }
 
 
-    public List<WIMF_Friend> searchForFriendByState(String state) {
-        List<WIMF_Friend> friends = new ArrayList<WIMF_Friend>();
+    public List<WIMF_Ami> searchForFriendByState(String state) {
+        List<WIMF_Ami> friends = new ArrayList<WIMF_Ami>();
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.Friends_TABLE
                 + " WHERE " + WIMF_DataBaseHelper.STATE_COLUMN + " = ?";
@@ -76,14 +75,14 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
             //pas la peine de rajouter le if
             if (cursor.getCount() > 0)
             {
-                WIMF_Friend frd;
-                frd = new WIMF_Friend();
-                frd.setId(cursor.getInt(0));
-                frd.setUser1(cursor.getString(1));
-                frd.setUser2(cursor.getString(2));
-                frd.setState(cursor.getInt(3));
-                frd.setCreation_date(cursor.getString(4));
-                frd.setUpdate_date(cursor.getString(5));
+                WIMF_Ami frd;
+                frd = new WIMF_Ami();
+
+                frd.set_idU_snd(cursor.getInt(0));
+                frd.set_idU_rcv(cursor.getInt(1));
+                frd.set_etat(cursor.getInt(2));
+                frd.set_date_request(new Date(cursor.getLong(3)));
+                frd.set_date_response(new Date(cursor.getLong(4)));
 
                 //Add to list
                 friends.add(frd);
@@ -95,8 +94,8 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
         return friends;
     }
 
-    public WIMF_Friend searchForFriendByNumber(String friendNumber) {
-        WIMF_Friend frd = null;
+    public WIMF_Ami searchForFriendByNumber(String friendNumber) {
+        WIMF_Ami frd = null;
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.Friends_TABLE
                 + " WHERE " + WIMF_DataBaseHelper.USER2_COLUMN + " = ?";
@@ -106,13 +105,13 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
         cursor.moveToFirst();
         if (cursor.moveToNext()) {
 
-                frd = new WIMF_Friend();
-                frd.setId(cursor.getInt(0));
-                frd.setUser1(cursor.getString(1));
-                frd.setUser2(cursor.getString(2));
-                frd.setState(cursor.getInt(3));
-                frd.setCreation_date(cursor.getString(4));
-                frd.setUpdate_date(cursor.getString(5));
+                frd = new WIMF_Ami();
+
+                frd.set_idU_snd(cursor.getInt(0));
+                frd.set_idU_rcv(cursor.getInt(1));
+                frd.set_etat(cursor.getInt(2));
+                frd.set_date_request(new Date(cursor.getLong(3)));
+                frd.set_date_response(new Date(cursor.getLong(4)));
             }
 
 

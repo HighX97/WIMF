@@ -12,13 +12,13 @@ import java.util.List;
 
 import moun.com.wimf.LoginActivity;
 import moun.com.wimf.model.User;
-import moun.com.wimf.model.WIMF_User;
+import moun.com.wimf.model.WIMF_Utilisateur;
 
 /**
  * This Class using SQLiteDatabase object provides methods for SQLite CRUD
  * (Create, Read, Update, Delete) operations.
  */
-public class WIMF_UserDAO extends ItemsDBDAO{
+public class WIMF_UserDAO extends WIMF_ItemsDBDAO{
     private static final String LOG_TAG = UserDAO.class.getSimpleName();
 
 
@@ -26,71 +26,71 @@ public class WIMF_UserDAO extends ItemsDBDAO{
         super(context);
     }
 
-    public long saveUserToTable(WIMF_User user) {
+    public long saveUserToTable(WIMF_Utilisateur user) {
         ContentValues values = new ContentValues();
-        values.put(WIMF_DataBaseHelper.NAME_COLUMN, user.getUserName());
-        //values.put(WIMF_DataBaseHelper.EMAIL_COLOMN, user.getEmail());
-        //values.put(WIMF_DataBaseHelper.ADDRESS_COLOMN, user.getAddress());
-        values.put(WIMF_DataBaseHelper.PHONE_COLOMN, user.getPhone());
-        values.put(WIMF_DataBaseHelper.PASSWORD_COLOMN, user.getPassword());
-        values.put(WIMF_DataBaseHelper.GPS_COLOMN, user.getGPS());
-        values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, user.getCreation_date());
-        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, user.getUpdate_date());
+        values.put(WIMF_DataBaseHelper.ID_COLUMN_USER, user.get_idU());
+        values.put(WIMF_DataBaseHelper.NAME_COLUMN, user.get_nom());
+        values.put(WIMF_DataBaseHelper.PHONE_COLOMN, user.get_tel());
+        values.put(WIMF_DataBaseHelper.GPS_lat_COLOMN, user.get_gps_lat());
+        values.put(WIMF_DataBaseHelper.GPS_long_COLOMN, user.get_gps_lat());
+        values.put(WIMF_DataBaseHelper.PASSWORD_COLOMN, user.get_password());
+         values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, user.get_datetimeCrea().toString());
+        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, user.get_datetimeMaj().toString());
 
         return database.insert(WIMF_DataBaseHelper.USER_TABLE, null, values);
     }
 
-    public long UpdateUser(String number, WIMF_User user) {
+    public long UpdateUser(int idU, WIMF_Utilisateur user) {
         ContentValues values = new ContentValues();
-        values.put(WIMF_DataBaseHelper.NAME_COLUMN, user.getUserName());
-        //values.put(WIMF_DataBaseHelper.EMAIL_COLOMN, user.getEmail());
-        //values.put(WIMF_DataBaseHelper.ADDRESS_COLOMN, user.getAddress());
-       // values.put(WIMF_DataBaseHelper.PHONE_COLOMN, user.getPhone());
-        values.put(WIMF_DataBaseHelper.PASSWORD_COLOMN, user.getPassword());
-        values.put(WIMF_DataBaseHelper.GPS_COLOMN, user.getGPS());
+
+        values.put(WIMF_DataBaseHelper.NAME_COLUMN, user.get_nom());
+        values.put(WIMF_DataBaseHelper.PHONE_COLOMN, user.get_tel());
+        values.put(WIMF_DataBaseHelper.GPS_lat_COLOMN, user.get_gps_lat());
+        values.put(WIMF_DataBaseHelper.GPS_long_COLOMN, user.get_gps_long());
+        values.put(WIMF_DataBaseHelper.PASSWORD_COLOMN, user.get_password());
         values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, new Date().toString());
-        return database.update(WIMF_DataBaseHelper.USER_TABLE, values, WIMF_DataBaseHelper.PHONE_COLOMN + " = " + number, null);
+        return database.update(WIMF_DataBaseHelper.USER_TABLE, values, WIMF_DataBaseHelper.ID_COLUMN_USER + " = " + idU, null);
 
     }
 
-    // Getting user data from WIMF_User table
-    public WIMF_User getUserDetails() {
-        WIMF_User user = null;
+    // Getting user data from WIMF_Utilisateur table
+    public WIMF_Utilisateur getUserDetails() {
+        WIMF_Utilisateur user = null;
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.USER_TABLE;
         Cursor cursor = database.rawQuery(sql, null);
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user = new WIMF_User();
-            user.setId(cursor.getInt(0));
-            user.setUserName(cursor.getString(1));
-            user.setPhone(cursor.getString(2));
-            //user.setEmail(cursor.getString(2));
-           // user.setAddress(cursor.getString(3));
-            user.setPassword(cursor.getString(3));
-            user.setGPS(cursor.getString(4));
+            user = new WIMF_Utilisateur();
+            user.set_idU(cursor.getInt(0));
+            user.set_nom(cursor.getString(1));
+            user.set_tel(cursor.getString(2));
+            user.set_gps_lat(cursor.getDouble(3));
+            user.set_gps_long(cursor.getDouble(4));
+            user.set_password(cursor.getString(5));
+
         }
 
         // return user
         //Log.d(LOG_TAG, "Fetching user from Sqlite: " + user.toString());
         return user;
     }
-    public List<WIMF_User> getAllUserDetails() {
-        List<WIMF_User> users = new ArrayList<WIMF_User>();
+    public List<WIMF_Utilisateur> getAllUserDetails() {
+        List<WIMF_Utilisateur> users = new ArrayList<WIMF_Utilisateur>();
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.USER_TABLE;
         Cursor cursor = database.rawQuery(sql, null);
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            WIMF_User user;
-            user = new WIMF_User();
-            user.setId(cursor.getInt(0));
-            user.setUserName(cursor.getString(1));
-            //user.setEmail(cursor.getString(2));
-           // user.setAddress(cursor.getString(3));
-            user.setPhone(cursor.getString(2));
-            user.setPassword(cursor.getString(3));
-            user.setGPS(cursor.getString(4));
+            WIMF_Utilisateur user;
+            user = new WIMF_Utilisateur();
+            user.set_idU(cursor.getInt(0));
+            user.set_nom(cursor.getString(1));
+            user.set_tel(cursor.getString(2));
+            user.set_gps_lat(cursor.getDouble(3));
+            user.set_gps_long(cursor.getDouble(4));
+            user.set_password(cursor.getString(5));
+
             //Add to list
                 users.add(user);
         }
@@ -101,8 +101,8 @@ public class WIMF_UserDAO extends ItemsDBDAO{
     }
 
 
-    public WIMF_User searchForUser(String name) {
-        WIMF_User user = null;
+    public WIMF_Utilisateur searchForUser(String name) {
+        WIMF_Utilisateur user = null;
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.USER_TABLE
                 + " WHERE " + WIMF_DataBaseHelper.NAME_COLUMN + " = ?";
@@ -110,20 +110,20 @@ public class WIMF_UserDAO extends ItemsDBDAO{
         Cursor cursor = database.rawQuery(sql, new String[] { name + "" });
 
         if (cursor.moveToNext()) {
-            user = new WIMF_User();
-            user.setId(cursor.getInt(0));
-            user.setUserName(cursor.getString(1));
-            //user.setEmail(cursor.getString(2));
-            //user.setAddress(cursor.getString(3));
-            user.setPhone(cursor.getString(2));
-            user.setPassword(cursor.getString(3));
-            user.setGPS(cursor.getString(4));
+            user = new WIMF_Utilisateur();
+            user = new WIMF_Utilisateur();
+            user.set_idU(cursor.getInt(0));
+            user.set_nom(cursor.getString(1));
+            user.set_tel(cursor.getString(2));
+            user.set_gps_lat(cursor.getDouble(3));
+            user.set_gps_long(cursor.getDouble(4));
+            user.set_password(cursor.getString(5));
         }
 
         return user;
     }
-    public WIMF_User searchUserByNumber (String number) {
-        WIMF_User user = null;
+    public WIMF_Utilisateur searchUserByNumber (String number) {
+        WIMF_Utilisateur user = null;
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.USER_TABLE
                 + " WHERE " + WIMF_DataBaseHelper.PHONE_COLOMN + " = ?";
@@ -131,14 +131,14 @@ public class WIMF_UserDAO extends ItemsDBDAO{
         Cursor cursor = database.rawQuery(sql, new String[] { number + "" });
 
         if (cursor.moveToNext()) {
-            user = new WIMF_User();
-            user.setId(cursor.getInt(0));
-            user.setUserName(cursor.getString(1));
-            //user.setEmail(cursor.getString(2));
-            //user.setAddress(cursor.getString(3));
-            user.setPhone(cursor.getString(2));
-            user.setPassword(cursor.getString(3));
-            user.setGPS(cursor.getString(4));
+            user = new WIMF_Utilisateur();
+            user = new WIMF_Utilisateur();
+            user.set_idU(cursor.getInt(0));
+            user.set_nom(cursor.getString(1));
+            user.set_tel(cursor.getString(2));
+            user.set_gps_lat(cursor.getDouble(3));
+            user.set_gps_long(cursor.getDouble(4));
+            user.set_password(cursor.getString(5));
         }
 
         return user;
