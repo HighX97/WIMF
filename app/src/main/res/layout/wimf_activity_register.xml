@@ -162,7 +162,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:text="Register"
-                android:textColor="@color/colorTextPrimaryLight" />
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
     </ScrollView>
