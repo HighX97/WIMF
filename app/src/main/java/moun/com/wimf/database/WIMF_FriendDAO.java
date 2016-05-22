@@ -7,6 +7,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_Friend;
 
 
@@ -19,14 +20,14 @@ public class WIMF_FriendDAO extends ItemsDBDAO{
         super(context);
     }
 
-    public long saveFriendToTable(WIMF_Friend friend) {
+    public long saveFriendToTable(WIMF_Ami friend) {
 
         ContentValues values = new ContentValues();
-        values.put(WIMF_DataBaseHelper.USER1_COLUMN, friend.getUser1());
-        values.put(WIMF_DataBaseHelper.USER2_COLUMN, friend.getUser2());
-        values.put(WIMF_DataBaseHelper.STATE_COLUMN, friend.getState());
-        values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, friend.getCreation_date());
-        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, friend.getUpdate_date());
+        values.put(WIMF_DataBaseHelper.SENDER_COLOMN, friend.get_idU_snd());
+        values.put(WIMF_DataBaseHelper.RECEIVER_COLOMN, friend.get_idU_rcv());
+        values.put(WIMF_DataBaseHelper.STATE_COLUMN, friend.get_etat());
+        values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, friend.get_date_request().toString());
+        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, friend.get_date_response().toString());
 
         return database.insert(WIMF_DataBaseHelper.Friends_TABLE, null, values);
     }
