@@ -204,7 +204,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(WIMF_MainActivity.this, LocationActivity.class);
+                    Intent intent = new Intent(WIMF_MainActivity.this, WIMF_LocationActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }

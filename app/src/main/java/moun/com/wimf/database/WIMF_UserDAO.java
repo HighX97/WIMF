@@ -36,7 +36,7 @@ public class WIMF_UserDAO extends WIMF_ItemsDBDAO{
         values.put(WIMF_DataBaseHelper.PASSWORD_COLOMN, user.get_password());
          values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, user.get_datetimeCrea().toString());
         values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, user.get_datetimeMaj().toString());
-
+        Log.d("WIMF_Utilisateur",user.toString());
         return database.insert(WIMF_DataBaseHelper.USER_TABLE, null, values);
     }
 

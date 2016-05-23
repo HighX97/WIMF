@@ -17,8 +17,8 @@ public class WIMF_Utilisateur{
     protected double gps_lat;
     protected double gps_long;
     private String password;
-    private Date datetimeCrea;
-    protected Date datetimeMaj;
+    private String datetimeCrea;
+    protected String datetimeMaj;
     private List<WIMF_Ami> amis;
 
     public WIMF_Utilisateur()
@@ -35,7 +35,7 @@ public class WIMF_Utilisateur{
         this.gps_long = gps_long;
     }
 
-    public WIMF_Utilisateur(int idU, String nom,String tel,double gps_lat,double gps_long,String password, Date datetimeCrea, Date datetimeMaj)
+    public WIMF_Utilisateur(int idU, String nom,String tel,double gps_lat,double gps_long,String password, String datetimeCrea, String datetimeMaj)
     {
         this.idU = idU;
         this.nom = nom;
@@ -71,11 +71,11 @@ public class WIMF_Utilisateur{
     {
       return password;
     }
-    public Date get_datetimeCrea()
+    public String get_datetimeCrea()
     {
       return datetimeCrea;
     }
-    public Date get_datetimeMaj()
+    public String get_datetimeMaj()
     {
       return datetimeMaj;
     }
@@ -104,16 +104,25 @@ public class WIMF_Utilisateur{
     {
       this.password = password;
     }
-    public void set_datetimeCrea(Date datetimeCrea)
+    public void set_datetimeCrea(String datetimeCrea)
     {
       this.datetimeCrea = datetimeCrea;
     }
-    public void set_datetimeMaj(Date datetimeMaj)
+    public void set_datetimeMaj(String datetimeMaj)
     {
       this.datetimeMaj = datetimeMaj;
     }
 
+    @Override
+    public String toString() {
+        return this.getClass() + " "
+                + this.get_idU() + ","
+                + this.get_nom() + ","
+                + this.get_tel() + ","
+                + this.get_gps_lat() + ","
+                + this.get_gps_long() + ","
+                + this.get_datetimeCrea() + ","
+                + this.get_datetimeMaj();
 
-
-
+    }
 }

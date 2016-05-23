@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -149,8 +148,8 @@ public class WIMF_LocationActivity extends AppCompatActivity implements
 
     private void addMarkersToMap() {
 
-        int height = 10;
-        int width = 10;
+        int height = 100;
+        int width = 100;
         BitmapDrawable bitmapdraw1=(BitmapDrawable)getResources().getDrawable(R.drawable.usericon1);
         BitmapDrawable bitmapdraw2=(BitmapDrawable)getResources().getDrawable(R.drawable.usericon2);
         Bitmap b1=bitmapdraw1.getBitmap();
@@ -194,7 +193,7 @@ public class WIMF_LocationActivity extends AppCompatActivity implements
             final long start = SystemClock.uptimeMillis();
             final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
+            final BounceInterpolator interpolator = new BounceInterpolator();
 
             handler.post(new Runnable() {
                 @Override

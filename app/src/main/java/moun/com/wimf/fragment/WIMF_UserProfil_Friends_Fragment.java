@@ -157,8 +157,8 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
         
 
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1_60, 11.50, getString(R.string.short_lorem)));
+        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2_60px, 12.25, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));

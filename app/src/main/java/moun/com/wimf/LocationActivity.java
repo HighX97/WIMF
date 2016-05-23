@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -184,7 +182,7 @@ public class LocationActivity extends AppCompatActivity implements
             final long start = SystemClock.uptimeMillis();
             final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
+            final BounceInterpolator interpolator = new BounceInterpolator();
 
             handler.post(new Runnable() {
                 @Override

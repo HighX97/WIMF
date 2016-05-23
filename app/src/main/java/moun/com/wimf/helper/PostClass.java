@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.SessionManager;
 
@@ -150,22 +151,13 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           Log.d("password", password);
                           String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
                           String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
-                          Log.d("password", password);
-                          Log.d("password", password);
-                          SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-ddThh:mm:ss.000Z");
-                          Date converted_datetimeCrea = new Date();
-                          Date converted_datetimeMaj = new Date();
-                          try {
-                              converted_datetimeCrea = dateFormat.parse(datetimeCrea);
-                              converted_datetimeMaj = dateFormat.parse(datetimeMaj);
-                              utilisateur_connection.set_datetimeCrea(converted_datetimeCrea);
-                              Log.d("datetimeCrea", datetimeCrea);
-                              utilisateur_connection.set_datetimeMaj(converted_datetimeMaj);
-                              Log.d("datetimeMaj", datetimeMaj);
-                          } catch (java.text.ParseException e) {
-                              e.printStackTrace();
-                          }
+                          utilisateur_connection.set_datetimeCrea(datetimeCrea);
+                          Log.d("datetimeCrea", datetimeCrea);
+                          utilisateur_connection.set_datetimeMaj(datetimeMaj);
+                          Log.d("datetimeMaj", datetimeMaj);
                           // Session manager
+                          WIMF_UserDAO userDAO = new WIMF_UserDAO(activity);
+                          userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
                       }
