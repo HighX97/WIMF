@@ -3,6 +3,8 @@ package moun.com.wimf.helper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.ParseException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,8 +14,13 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import moun.com.wimf.model.WIMF_Utilisateur;
+import moun.com.wimf.util.SessionManager;
 
 /**
 * Created by maiga mariam on 22/05/2016.
@@ -97,15 +104,17 @@ public class PostClass extends AsyncTask<String, Void, Void> {
               {
 
               }
-              else if (action.equalsIgnoreCase("connect"))
-              {
+              else if (action.equalsIgnoreCase("connect")) {
                   Log.d("route", route);
-                  if (err.equalsIgnoreCase("failed"))
-                  {
+                  if (err.equalsIgnoreCase("failed")) {
                       Log.d(route, "failed");
+
+
+
+
+
                   }
-                  else
-                  {
+                  else {
                       Log.d(route, "not failed");
                       //Get the instance of JSONArray that contains JSONObjects
 
@@ -113,27 +122,54 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                       jsonArray = jsonRootObject.optJSONArray("data");
 
                       //Iterate the jsonArray and print the info of JSONObjects
+                      WIMF_Utilisateur utilisateur_connection = new WIMF_Utilisateur();
                       for (int i = 0; i < jsonArray.length(); i++) {
                           JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                           int idU = Integer.parseInt(jsonObject.optString("idU").toString());
+                          utilisateur_connection.set_idU(idU);
                           Log.d("idU", "" + idU);
                           String nom = jsonObject.optString("nom").toString();
+                          utilisateur_connection.set_nom(nom);
                           Log.d("nom", nom);
                           String tel = jsonObject.optString("tel").toString();
+                          utilisateur_connection.set_tel(tel);
                           Log.d("tel", tel);
                           String gps_lat = jsonObject.optString("gps_lat").toString();
                           Log.d("gps_lat", gps_lat);
+                          if(gps_lat != "null" && !gps_lat.isEmpty()) {
+                              utilisateur_connection.set_gps_lat(Double.parseDouble(gps_lat));
+                          }
                           String gps_long = jsonObject.optString("gps_long").toString();
                           Log.d("gps_long", gps_long);
+                          if(gps_lat != "null" && !gps_lat.isEmpty()) {
+                              utilisateur_connection.set_gps_long(Double.parseDouble(gps_long));
+                          }
                           String password = jsonObject.optString("password").toString();
+                          utilisateur_connection.set_password(password);
                           Log.d("password", password);
                           String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
-                          Log.d("datetimeCrea", datetimeCrea);
                           String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
-                          Log.d("datetimeMaj", datetimeMaj);
+                          Log.d("password", password);
+                          Log.d("password", password);
+                          SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-ddThh:mm:ss.000Z");
+                          Date converted_datetimeCrea = new Date();
+                          Date converted_datetimeMaj = new Date();
+                          try {
+                              converted_datetimeCrea = dateFormat.parse(datetimeCrea);
+                              converted_datetimeMaj = dateFormat.parse(datetimeMaj);
+                              utilisateur_connection.set_datetimeCrea(converted_datetimeCrea);
+                              Log.d("datetimeCrea", datetimeCrea);
+                              utilisateur_connection.set_datetimeMaj(converted_datetimeMaj);
+                              Log.d("datetimeMaj", datetimeMaj);
+                          } catch (java.text.ParseException e) {
+                              e.printStackTrace();
+                          }
+                          // Session manager
+                          SessionManager session = new SessionManager(activity);
+                          session.setLogin(true);
+                      }
                   }
-                }
               }
               else if (action.equalsIgnoreCase("new"))
               {
