@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/breakfast"
+            android:icon="@mipmap/ic_account_circle_white_24dp"
+            android:title="@string/our_profil" />
+        <item
+            android:id="@+id/hot_deals"
+            android:icon="@mipmap/friends"
+            android:title="@string/Amis"/>
+        <item
+            android:id="@+id/location"
+            android:icon="@mipmap/ic_location_on_white_24dp"
+            android:title="@string/Position" />
+
+        <item
+            android:id="@+id/message"
+            android:icon="@mipmap/message_icon_ur_min"
+            android:title="@string/Messages" />
+    </group>
+
+</menu>
