@@ -54,17 +54,18 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView txtV_header;
-        public TextView txtV_main1;
-        public TextView txtV_main2;
+        public TextView nom;
+        public TextView tel;
         public TextView txtV_footer;
+
         private ImageView img_utilisateur;
 
         public ViewHolder(View v) {
             super(v);
             //
             txtV_header= (TextView) v.findViewById(R.id.txtV_header);
-            txtV_main1= (TextView) v.findViewById(R.id.txtV_main1);
-            txtV_main2= (TextView) v.findViewById(R.id.txtV_main2);
+            nom= (TextView) v.findViewById(R.id.nom);
+            tel= (TextView) v.findViewById(R.id.tel);
             txtV_footer= (TextView) v.findViewById(R.id.txtV_footer);
             img_utilisateur= (ImageView) v.findViewById(R.id.img_utilisateur);
             //
@@ -132,9 +133,10 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
         viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
-        viewHolder.txtV_header.setText("txtV_header");
-        viewHolder.txtV_main1.setText("txtV_main1");
-        viewHolder.txtV_footer.setText("txtV_footer");
+        viewHolder.txtV_header.setText("");
+        viewHolder.nom.setText("Nom :");
+        viewHolder.tel.setText("Telephone :");
+        viewHolder.txtV_footer.setText("");
 
         // If an item exists in favorite table then set heart_red drawable
         /*

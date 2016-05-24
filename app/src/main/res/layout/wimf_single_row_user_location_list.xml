@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Large Text"
-                    android:id="@+id/txtV_main1" />
+                    android:id="@+id/nom" />
 
             </RelativeLayout>
 
