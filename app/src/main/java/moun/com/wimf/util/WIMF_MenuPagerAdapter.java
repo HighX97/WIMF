@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
@@ -29,6 +30,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.LocationActivity;
@@ -44,6 +47,9 @@ import moun.com.wimf.fragment.WIMF_UserProfil_Conversations_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Locations_Fragment;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_UserItems;
 
 /**
@@ -52,10 +58,16 @@ import moun.com.wimf.model.WIMF_UserItems;
 
 public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
+    public List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
 
-    public WIMF_MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public WIMF_MenuPagerAdapter(FragmentManager fm, int NumOfTabs, List<WIMF_Ami> amis) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        this.amis = amis;
+        for(WIMF_Ami ami : amis)
+        {
+            Log.d("amis",ami.toString());
+        }
     }
 
     private static Context context;
@@ -63,13 +75,14 @@ public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+
         switch (position) {
             case 0:
                 // Create a new fragment
                 WIMF_UserProfil_Info_Fragment tab1 = new WIMF_UserProfil_Info_Fragment();
                 return tab1;
             case 1:
-                WIMF_UserProfil_Friends_Fragment tab2 = new WIMF_UserProfil_Friends_Fragment();
+                WIMF_UserProfil_Friends_Fragment tab2 = new WIMF_UserProfil_Friends_Fragment(amis);
                 return tab2;
             case 2:
                 WIMF_UserProfil_Conversations_Fragment tab3 = new WIMF_UserProfil_Conversations_Fragment();

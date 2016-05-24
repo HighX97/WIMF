@@ -223,8 +223,7 @@ public class RestHelper {
         int len = 999999;
         Log.d("sep : ","-----------------------------------------------------------------");
         Log.d("urlString : ",urlString);
-        Log.d("urlString : ", String.valueOf(paramspos));
-        Log.d("sep : ","-----------------------------------------------------------------");
+
 
         try {
             String urlParameters = getPostDataString(paramspos);
@@ -295,6 +294,8 @@ public class RestHelper {
             System.out.println(e.getMessage());
             return e.getMessage();
         }
+        Log.d("result ", result);
+        Log.d("sep : ","-----------------------------------------------------------------");
         return result;
     }
 

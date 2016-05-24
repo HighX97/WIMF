@@ -2,8 +2,13 @@ package moun.com.wimf;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,9 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +37,18 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.WIMF_MenuPagerAdapter;
 
@@ -48,6 +64,8 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
     private static final String LOG_TAG = LocationActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
+    public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
+    private ProgressDialog progress;
 
     private static final LatLng MAIN_BRANCH = new LatLng(47.840769, -3.510437);
     private static final LatLng BRANCH_TWO = new LatLng(47.969653, -1.813049);
@@ -75,9 +93,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
 
     private int curMapTypeIndex = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,18 +115,19 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+
         final WIMF_MenuPagerAdapter adapter = new WIMF_MenuPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), tabLayout.getTabCount(),amis);
         viewPager.setAdapter(adapter);
         int i = getIntent().getIntExtra("currentItem", 0);
         if (i == 1) {
             viewPager.setCurrentItem(0);
         }
         if (i == 2) {
-            viewPager.setCurrentItem(2);
+            viewPager.setCurrentItem(1);
         }
         if (i == 3) {
-            viewPager.setCurrentItem(1);
+            viewPager.setCurrentItem(2);
         }
         if (i == 4) {
             viewPager.setCurrentItem(3);
@@ -271,7 +292,7 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
             final long start = SystemClock.uptimeMillis();
             final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
+            final BounceInterpolator interpolator = new BounceInterpolator();
 
             handler.post(new Runnable() {
                 @Override
@@ -294,5 +315,156 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+    private class PostClass_U extends AsyncTask<String, Void, Void> {
+
+        private Activity activity;
+        private final String url;
+        private final HashMap<String, String> parametres;
+        private final Context context;
+
+        public PostClass_U(Context context, HashMap<String, String> parametres, String url) {
+            this.context = context;
+            this.parametres = parametres;
+            this.url = url;
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            final String post_result = RestHelper.executePOST(this.url, this.parametres);
+            WIMF_User_Profil_Activity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject jsonRootObject = null;
+                    try {
+                        jsonRootObject = new JSONObject(post_result);
+                        String message = jsonRootObject.optString("message");
+                        String[] separated_message = message.split(":");
+                        String route = separated_message[0].trim();
+                        ; // this will contain "Fruit"
+                        String err = separated_message[1].trim();
+                        ; // this will contain "Fruit"
+                        String[] separated_route = route.split("/"); // this will contain "Fruit"
+                        String table = separated_route[0].trim();
+                        ; // this will contain " they taste good"
+                        String action = separated_route[1].trim();
+                        ; // this will contain " they taste good"
+                        JSONArray jsonArray = null;
+                        Log.d("route", route);
+                        Log.d("action", action);
+                        Log.d("err", err);
+                        Log.d("table", table);
+                        Boolean bool = table.equalsIgnoreCase("Utilisateur");
+                        Boolean bool2 = action.equalsIgnoreCase("connect");
+                        Log.d("table.equalsIgnoreCase(Utilisateur)", bool.toString());
+                        Log.d("action.equalsIgnoreCase(connect)", bool2.toString());
+
+                        if (err.equalsIgnoreCase("failed")) {
+                            Log.d(route, "failed");
+                        }
+                        else {
+                            Log.d(route, "not failed");
+                            //Get the instance of JSONArray that contains JSONObjects
+
+                            //Get the instance of JSONArray that contains JSONObjects
+                            jsonArray = jsonRootObject.optJSONArray("data");
+
+                            //Iterate the jsonArray and print the info of JSONObjects
+                        /*
+                            "idU": 4,
+                            "nom": "chahinaz",
+                            "tel": "0783573458",
+                            "datetimeCrea": "2016-05-22T08:47:38.000Z",
+                            "etat": 0
+                         */
+                            //
+                            List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                WIMF_Ami ami = new WIMF_Ami();
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                                int idU = Integer.parseInt(jsonObject.optString("idU").toString());
+                                ami.set_idU(idU);
+                                Log.d("idU", "" + idU);
+                                String nom = jsonObject.optString("nom").toString();
+                                ami.set_nom(nom);
+                                Log.d("nom", nom);
+                                String tel = jsonObject.optString("tel").toString();
+                                ami.set_tel(tel);
+                                Log.d("tel", tel);
+                                String gps_lat = jsonObject.optString("gps_lat").toString();
+                                Log.d("gps_lat", gps_lat);
+                                if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                    ami.set_gps_lat(Double.parseDouble(gps_lat));
+                                }
+                                String gps_long = jsonObject.optString("gps_long").toString();
+                                Log.d("gps_long", gps_long);
+                                if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                    ami.set_gps_long(Double.parseDouble(gps_long));
+                                }
+                                String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
+                                String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
+                                ami.set_datetimeCrea(datetimeCrea);
+                                Log.d("datetimeCrea", datetimeCrea);
+                                ami.set_datetimeMaj(datetimeMaj);
+                                Log.d("datetimeMaj", datetimeMaj);
+                                amis.add(ami);
+                                Log.d("ami", ami.toString());
+                            }
+                            WIMF_User_Profil_Activity.amis = amis;
+                            for (WIMF_Ami ami : amis)
+                            {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                                        context);
+
+                                // set title
+                                alertDialogBuilder.setTitle("Your Title");
+
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setMessage(ami.toString())
+                                        .setCancelable(false)
+                                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                // if this button is clicked, close
+                                                // current activity
+                                                WIMF_User_Profil_Activity.this.finish();
+                                            }
+                                        })
+                                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,int id) {
+                                                // if this button is clicked, just close
+                                                // the dialog box and do nothing
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                // show it
+                                alertDialog.show();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    progress.dismiss();
+                }
+            });
+                    return null;
+            }
+
+        protected void onPreExecute() {
+            progress = new ProgressDialog(this.context);
+            progress.setMessage("Loading");
+            progress.show();
+        }
+
+        protected void onPostExecute() {
+            progress.dismiss();
+        }
+
     }
 }

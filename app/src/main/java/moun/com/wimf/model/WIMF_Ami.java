@@ -80,6 +80,7 @@ public class WIMF_Ami extends WIMF_Utilisateur{
     {
       this.date_response = date_response ;
     }
+
     
 
 

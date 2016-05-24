@@ -15,12 +15,19 @@ import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
 import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_UserItems;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
 
 /**
@@ -37,6 +44,7 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
     private AlphaInAnimationAdapter alphaAdapter;
     private WIMF_ItemsDAO itemDAO;
     private AddItemTask task;
+    public static List<WIMF_Message> messages = new ArrayList<WIMF_Message>();
     private WIMF_UserItems menuItemsFavorite = null;
 
     @Override
@@ -153,16 +161,30 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
      */
     private ArrayList<WIMF_UserItems> getFriendsList() {
 
-        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
+            String url = "http://46.101.40.23:8585/ami/list";
+            HashMap<String, String> parametres = new HashMap<String, String>();
+            parametres.put("tel", "0695504940");
+            final String post_result = RestHelper.executePOST(url, parametres);
+            Log.d("post_result ", " post_result: " + post_result);
+            new PostClass(getActivity(),parametres,url).execute();
 
+        Log.d("amis : ", String.valueOf(messages.size()));
+
+        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
+        for(WIMF_Message message : messages) {
+            menuItems.add(new WIMF_UserItems(message.get_valeur(), R.drawable.usericon2, 18.50, message.get_tel_snd()));
+        }
+
+        return menuItems;
+    }
+
+    public static ArrayList<WIMF_UserItems> get_rest(List<WIMF_Message> messages)
+    {
+        WIMF_UserProfil_Conversations_Fragment.messages = messages;
+        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
+        for(WIMF_Message message : messages) {
+            menuItems.add(new WIMF_UserItems(message.get_valeur(), R.drawable.usericon2, 18.50, message.get_tel_snd()));
+        }
         return menuItems;
     }
 
