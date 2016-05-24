@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ParseException;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,11 +16,18 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import moun.com.wimf.WIMF_User_Profil_Activity;
+import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.fragment.WIMF_UserProfil_Conversations_Fragment;
+import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.SessionManager;
 
@@ -83,7 +91,59 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                 }
                 else if (action.equalsIgnoreCase("list"))
                 {
+                    Log.d("route", route);
+                    if (err.equalsIgnoreCase("failed")) {
+                        Log.d(route, "failed");
+                    }
+                    else {
+                        Log.d(route, "not failed");
+                        //Get the instance of JSONArray that contains JSONObjects
 
+                        //Get the instance of JSONArray that contains JSONObjects
+                        jsonArray = jsonRootObject.optJSONArray("data");
+
+                        //Iterate the jsonArray and print the info of JSONObjects
+                        /*
+                            "idU": 4,
+                            "nom": "chahinaz",
+                            "tel": "0783573458",
+                            "datetimeCrea": "2016-05-22T08:47:38.000Z",
+                            "etat": 0
+                         */
+                        //
+                        List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            WIMF_Ami ami = new WIMF_Ami();
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                            int idU = Integer.parseInt(jsonObject.optString("idU").toString());
+                            ami.set_idU(idU);
+                            Log.d("idU", "" + idU);
+                            String nom = jsonObject.optString("nom").toString();
+                            ami.set_nom(nom);
+                            Log.d("nom", nom);
+                            String tel = jsonObject.optString("tel").toString();
+                            ami.set_tel(tel);
+                            Log.d("tel", tel);
+                            String gps_lat = jsonObject.optString("gps_lat").toString();
+                            Log.d("gps_lat", gps_lat);
+                            if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                ami.set_gps_lat(Double.parseDouble(gps_lat));
+                            }
+                            String gps_long = jsonObject.optString("gps_long").toString();
+                            Log.d("gps_long", gps_long);
+                            if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                ami.set_gps_long(Double.parseDouble(gps_long));
+                            }
+                            String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
+                            String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
+                            ami.set_datetimeCrea(datetimeCrea);
+                            Log.d("datetimeCrea", datetimeCrea);
+                            ami.set_datetimeMaj(datetimeMaj);
+                            Log.d("datetimeMaj", datetimeMaj);
+                            amis.add(ami);
+                        }
+                    }
                 }
                 else if (action.equalsIgnoreCase("one"))
                 {
