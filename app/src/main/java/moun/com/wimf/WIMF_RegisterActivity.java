@@ -21,17 +21,17 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
-import moun.com.wimf.database.UserDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.helper.RestHelper;
-import moun.com.wimf.model.User;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.model.*;
 
 
 public class WIMF_RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String LOG_TAG = RegisterActivity.class.getSimpleName();
+    private static final String LOG_TAG = WIMF_RegisterActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
     private EditText mInputUsername;
@@ -40,9 +40,9 @@ public class WIMF_RegisterActivity extends AppCompatActivity implements View.OnC
     private EditText mInputPhone;
     private EditText mInputPassword;
     private Button registerButton;
-    private User user;
+    private WIMF_Utilisateur user;
     private WIMF_Utilisateur utilisateur;
-    private UserDAO userDAO;
+    private WIMF_UserDAO userDAO;
     private UserRegisterTask task;
     private ProgressDialog progress;
 
@@ -64,7 +64,7 @@ public class WIMF_RegisterActivity extends AppCompatActivity implements View.OnC
         mInputPhone = (EditText) findViewById(R.id.phone);
         mInputPassword = (EditText) findViewById(R.id.password);
         registerButton = (Button) findViewById(R.id.register_btn);
-        userDAO = new UserDAO(this);
+        userDAO = new WIMF_UserDAO(this);
 
         registerButton.setOnClickListener(this);
     }
@@ -186,7 +186,7 @@ public class WIMF_RegisterActivity extends AppCompatActivity implements View.OnC
                     && !activityWeakRef.get().isFinishing()) {
                 if (result != -1) {
                     // successful registration
-                    Intent intent = new Intent(context, LoginActivity.class);
+                    Intent intent = new Intent(context, WIMF_LoginActivity.class);
                     // Closing all the Activities
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     // Add new Flag to start new Activity

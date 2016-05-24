@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.MenuListAdapter;
-import moun.com.wimf.database.ItemsDAO;
+import moun.com.wimf.database.WIMF_ItemsDAO;
 import moun.com.wimf.model.MenuItems;
 import moun.com.wimf.util.AppUtils;
 
@@ -34,7 +34,7 @@ public class WIMF_UserProfil_Info_Fragment extends Fragment implements MenuListA
     private MenuListAdapter menuListAdapter;
     ArrayList<MenuItems> listItems;
     private static final String ITEMS_STATE = "items_state";
-    private ItemsDAO itemDAO;
+    private WIMF_ItemsDAO itemDAO;
     private AddItemTask task;
     private MenuItems menuItemsFavorite = null;
 
@@ -43,7 +43,7 @@ public class WIMF_UserProfil_Info_Fragment extends Fragment implements MenuListA
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        itemDAO = new ItemsDAO(getActivity());
+        itemDAO = new WIMF_ItemsDAO(getActivity());
 
     }
 
@@ -110,10 +110,12 @@ public class WIMF_UserProfil_Info_Fragment extends Fragment implements MenuListA
                 arguments.putParcelable("selectedItem", menuItems);
                 // Create an instance of the dialog fragment and give it an argument for the selected article
                 // and show it
+                /*
                 CustomDialogFragment customDialogFragment = new CustomDialogFragment();
                 customDialogFragment.setArguments(arguments);
                 customDialogFragment.show(getFragmentManager(),
                         CustomDialogFragment.ARG_ITEM_ID);
+                        */
             }
         }
 
@@ -133,7 +135,8 @@ public class WIMF_UserProfil_Info_Fragment extends Fragment implements MenuListA
 
         @Override
         protected Long doInBackground(Void... arg0) {
-            long result = itemDAO.saveToFavoriteTable(menuItemsFavorite);
+            long result=0;
+            //long result = itemDAO.saveToFavoriteTable(menuItemsFavorite);
             return result;
         }
 

@@ -23,6 +23,7 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
+import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_ItemsDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.helper.RestHelper;
@@ -131,10 +132,12 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
                 arguments.putParcelable("selectedItem", menuItems);
                 // Create an instance of the dialog fragment and give it an argument for the selected article
                 // and show it
+                /*
                 CustomDialogFragment customDialogFragment = new CustomDialogFragment();
                 customDialogFragment.setArguments(arguments);
                 customDialogFragment.show(getFragmentManager(),
                         CustomDialogFragment.ARG_ITEM_ID);
+                        */
             }
         }
     }
@@ -175,20 +178,12 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
      */
 
     private ArrayList<WIMF_UserItems> getFriendsList() {
-        Log.d("getFriendsList : ", "---------------------------------------------------------------------");
-        Log.d("amis : ", String.valueOf(amis.size()));
+        WIMF_FriendDAO amiDAO = new WIMF_FriendDAO(this.getActivity());
+        amis = amiDAO.getUserFriends(1);
 
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1_60, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2_60px, 12.25, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
         for(WIMF_Ami ami : amis) {
-            menuItems.add(new WIMF_UserItems(ami.get_nom(), R.drawable.usericon2, 18.50, ami.get_tel()));
+            menuItems.add(new WIMF_UserItems(ami.get_idU_rcv(),ami.get_idU_snd()));
         }
         return menuItems;
     }

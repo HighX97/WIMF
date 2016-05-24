@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import moun.com.wimf.util.AppUtils;
-import moun.com.wimf.util.MenuPagerAdapter;
+import moun.com.wimf.util.WIMF_MenuPagerAdapter;
 
 /**
  * An Activity handling two custom {@link android.support.v4.app.Fragment}s,
@@ -46,7 +46,7 @@ public class MenuActivityWithTabs extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final MenuPagerAdapter adapter = new MenuPagerAdapter
+        final WIMF_MenuPagerAdapter adapter = new WIMF_MenuPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         int i = getIntent().getIntExtra("currentItem", 0);
@@ -90,9 +90,6 @@ public class MenuActivityWithTabs extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivityWithTabs.this, MyCartActivity.class);
-                startActivity(intent);
-                finish();
 
             }
         });
@@ -108,9 +105,6 @@ public class MenuActivityWithTabs extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_hot) {
-            Intent intent = new Intent(this, HotDealsActivity.class);
-            startActivity(intent);
-            finish();
             return true;
         }
 

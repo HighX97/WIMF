@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import moun.com.wimf.R;
-import moun.com.wimf.database.ItemsDAO;
+import moun.com.wimf.database.WIMF_ItemsDAO;
 import moun.com.wimf.model.MenuItems;
 import moun.com.wimf.util.AppUtils;
 
@@ -26,7 +26,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     private List<MenuItems> itemList;
     private Context context;
     private ClickListener clickListener;
-    private ItemsDAO itemsDAO;
+    private WIMF_ItemsDAO itemsDAO;
 
     /**
      * Create a new instance of {@link MenuListAdapter}.
@@ -62,7 +62,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
             price = (TextView) v.findViewById(R.id.menu_price);
             this.price.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
             heart = (ImageView) v.findViewById(R.id.heart);
-            itemsDAO = new ItemsDAO(v.getContext());
+            itemsDAO = new WIMF_ItemsDAO(v.getContext());
 
 
             v.setOnClickListener(new View.OnClickListener(){

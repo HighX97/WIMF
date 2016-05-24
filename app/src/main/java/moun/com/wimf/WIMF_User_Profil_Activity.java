@@ -161,9 +161,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Intent intent = new Intent(WIMF_User_Profil_Activity.this, MyCartActivity.class);
                 startActivity(intent);
                 finish();
+                */
 
             }
         });
@@ -179,9 +181,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_hot) {
+            /*
             Intent intent = new Intent(this, HotDealsActivity.class);
             startActivity(intent);
             finish();
+            */
             return true;
         }
 

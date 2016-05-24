@@ -36,12 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import moun.com.wimf.database.UserDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.fragment.WIMF_Main_Fragment;
-import moun.com.wimf.fragment.MenuBurgersFragment;
-import moun.com.wimf.fragment.MenuDessertsFragment;
-import moun.com.wimf.fragment.MenuDrinksFragment;
-import moun.com.wimf.fragment.MenuSaladsFragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
 import moun.com.wimf.helper.RestHelper;
@@ -69,7 +65,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     private static final String SELECTED_ITEM_ID = "selected_item_id";
     private int mSelectedId;
     private SessionManager session;
-    private UserDAO userDAO;
+    private WIMF_UserDAO userDAO;
     private boolean isTwoPane = false;
     public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
     private ProgressDialog progress;
@@ -143,18 +139,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         // Session manager
         session = new SessionManager(getApplicationContext());
 
-        userDAO = new UserDAO(this);
-
-        //
-        String url = "http://46.101.40.23:8585/ami/list";
-        HashMap<String, String> parametres = new HashMap<String, String>();
-        parametres.put("tel", "0695504940");
-        final String post_result = RestHelper.executePOST(url, parametres);
-        Log.d("post_result ", " post_result: " + post_result);
-        PostClass_U post = new PostClass_U(this,parametres,url);
-        post.execute();
-
-
+        userDAO = new WIMF_UserDAO(this);
     }
 
     /**
@@ -329,19 +314,13 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
-
-            case R.id.hot_deals:
-                intent = new Intent(this, HotDealsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                return true;
             case R.id.location:
                 intent = new Intent(this, LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.action_login:
-                Intent intentLogin = new Intent(this, LoginActivity.class);
+                Intent intentLogin = new Intent(this, WIMF_LoginActivity.class);
                 // Closing all the Activities
                 intentLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 // Add new Flag to start new Activity
@@ -374,7 +353,6 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         // re-create the Main Activity
         startActivity(intentLogout);
         finish();
-
     }
 
 
@@ -386,9 +364,6 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             if (position == 1) {
                 WIMF_UserProfil_Info_Fragment menuSandwichFragment = new WIMF_UserProfil_Info_Fragment();
                 switchContent(menuSandwichFragment);
-            } else if (position == 2) {
-                MenuBurgersFragment menuBurgersFragment = new MenuBurgersFragment();
-                switchContent(menuBurgersFragment);
             } else if (position == 3) {
                 for (WIMF_Ami ami : WIMF_MainActivity.amis )
                 {
@@ -396,15 +371,6 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 }
                 WIMF_UserProfil_Friends_Fragment menuPizzaFragment = new WIMF_UserProfil_Friends_Fragment(amis);
                 switchContent(menuPizzaFragment);
-            } else if (position == 4) {
-                MenuSaladsFragment menuSaladsFragment = new MenuSaladsFragment();
-                switchContent(menuSaladsFragment);
-            } else if (position == 5) {
-                MenuDessertsFragment menuSweetsFragment = new MenuDessertsFragment();
-                switchContent(menuSweetsFragment);
-            } else {
-                MenuDrinksFragment menuDrinksFragment = new MenuDrinksFragment();
-                switchContent(menuDrinksFragment);
             }
 
         } else {
@@ -433,127 +399,5 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             // Commit the transaction
             transaction.commit();
         }
-    }
-
-    private class PostClass_U extends AsyncTask<String, Void, Void> {
-
-        private Activity activity;
-        private final String url;
-        private final HashMap<String, String> parametres;
-        private final Context context;
-
-        public PostClass_U(Context context, HashMap<String, String> parametres, String url) {
-            this.context = context;
-            this.parametres = parametres;
-            this.url = url;
-        }
-
-        @Override
-        protected Void doInBackground(String... params) {
-            final String post_result = RestHelper.executePOST(this.url, this.parametres);
-            WIMF_MainActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject jsonRootObject = null;
-                    try {
-                        jsonRootObject = new JSONObject(post_result);
-                        String message = jsonRootObject.optString("message");
-                        String[] separated_message = message.split(":");
-                        String route = separated_message[0].trim();
-                        ; // this will contain "Fruit"
-                        String err = separated_message[1].trim();
-                        ; // this will contain "Fruit"
-                        String[] separated_route = route.split("/"); // this will contain "Fruit"
-                        String table = separated_route[0].trim();
-                        ; // this will contain " they taste good"
-                        String action = separated_route[1].trim();
-                        ; // this will contain " they taste good"
-                        JSONArray jsonArray = null;
-                        Log.d("route", route);
-                        Log.d("action", action);
-                        Log.d("err", err);
-                        Log.d("table", table);
-                        Boolean bool = table.equalsIgnoreCase("Utilisateur");
-                        Boolean bool2 = action.equalsIgnoreCase("connect");
-                        Log.d("table.equalsIgnoreCase(Utilisateur)", bool.toString());
-                        Log.d("action.equalsIgnoreCase(connect)", bool2.toString());
-
-                        if (err.equalsIgnoreCase("failed")) {
-                            Log.d(route, "failed");
-                        }
-                        else {
-                            Log.d(route, "not failed");
-                            //Get the instance of JSONArray that contains JSONObjects
-
-                            //Get the instance of JSONArray that contains JSONObjects
-                            jsonArray = jsonRootObject.optJSONArray("data");
-
-                            //Iterate the jsonArray and print the info of JSONObjects
-                        /*
-                            "idU": 4,
-                            "nom": "chahinaz",
-                            "tel": "0783573458",
-                            "datetimeCrea": "2016-05-22T08:47:38.000Z",
-                            "etat": 0
-                         */
-                            //
-                            List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                WIMF_Ami ami = new WIMF_Ami();
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                                int idU = Integer.parseInt(jsonObject.optString("idU").toString());
-                                ami.set_idU(idU);
-                                Log.d("idU", "" + idU);
-                                String nom = jsonObject.optString("nom").toString();
-                                ami.set_nom(nom);
-                                Log.d("nom", nom);
-                                String tel = jsonObject.optString("tel").toString();
-                                ami.set_tel(tel);
-                                Log.d("tel", tel);
-                                String gps_lat = jsonObject.optString("gps_lat").toString();
-                                Log.d("gps_lat", gps_lat);
-                                if (gps_lat != "null" && !gps_lat.isEmpty()) {
-                                    ami.set_gps_lat(Double.parseDouble(gps_lat));
-                                }
-                                String gps_long = jsonObject.optString("gps_long").toString();
-                                Log.d("gps_long", gps_long);
-                                if (gps_lat != "null" && !gps_lat.isEmpty()) {
-                                    ami.set_gps_long(Double.parseDouble(gps_long));
-                                }
-                                String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
-                                String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
-                                ami.set_datetimeCrea(datetimeCrea);
-                                Log.d("datetimeCrea", datetimeCrea);
-                                ami.set_datetimeMaj(datetimeMaj);
-                                Log.d("datetimeMaj", datetimeMaj);
-                                amis.add(ami);
-                                Log.d("ami", ami.toString());
-                            }
-                            WIMF_MainActivity.amis = amis;
-                            for (WIMF_Ami ami : WIMF_MainActivity.amis )
-                            {
-                                Toast.makeText(WIMF_MainActivity.this,ami.toString(),Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    progress.dismiss();
-                }
-            });
-            return null;
-        }
-
-        protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Loading");
-            progress.show();
-        }
-
-        protected void onPostExecute() {
-            progress.dismiss();
-        }
-
     }
 }

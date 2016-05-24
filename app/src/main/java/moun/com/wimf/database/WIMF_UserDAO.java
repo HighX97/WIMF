@@ -3,6 +3,7 @@ package moun.com.wimf.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import moun.com.wimf.LoginActivity;
+import moun.com.wimf.WIMF_LoginActivity;
 import moun.com.wimf.model.User;
 import moun.com.wimf.model.WIMF_Utilisateur;
 
@@ -19,11 +20,16 @@ import moun.com.wimf.model.WIMF_Utilisateur;
  * (Create, Read, Update, Delete) operations.
  */
 public class WIMF_UserDAO extends WIMF_ItemsDBDAO{
-    private static final String LOG_TAG = UserDAO.class.getSimpleName();
+    private static final String LOG_TAG = WIMF_UserDAO.class.getSimpleName();
+    WIMF_DataBaseHelper_new wimf_db;
 
+    private static final String DATABASE_NAME = "WIMFdb";
+    private static final int DATABASE_VERSION = 1;
 
-    public WIMF_UserDAO(Context context) {
+    public WIMF_UserDAO(Context context)
+    {
         super(context);
+        wimf_db = new WIMF_DataBaseHelper_new(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
     public long saveUserToTable(WIMF_Utilisateur user) {

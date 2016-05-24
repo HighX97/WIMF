@@ -6,9 +6,6 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.util.ArrayList;
-
-import moun.com.wimf.database.WIMF_DataBaseHelper;
-import moun.com.wimf.database.ItemsDBDAO;
 import moun.com.wimf.model.Items;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.model.Orders;
@@ -17,7 +14,7 @@ import moun.com.wimf.model.Orders;
  * This Class using SQLiteDatabase object provides methods for SQLite CRUD
  * (Create, Read, Update, Delete) operations.
  */
-public class WIMF_ItemsDAO extends ItemsDBDAO {
+public class WIMF_ItemsDAO extends WIMF_ItemsDBDAO {
     public static final String ITEM_ID_WITH_PREFIX = "cart.id";
     public static final String ITEM_NAME_WITH_PREFIX = "cart.name";
     public static final String ORDER_NAME_WITH_PREFIX = "orders.ordered";

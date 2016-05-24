@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import moun.com.wimf.WIMF_User_Profil_Activity;
+import moun.com.wimf.database.WIMF_DataBaseHelper;
 import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.fragment.WIMF_UserProfil_Conversations_Fragment;
@@ -111,6 +112,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                             "etat": 0
                          */
                         //
+                        WIMF_FriendDAO amiDao = new WIMF_FriendDAO(activity);
                         List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             WIMF_Ami ami = new WIMF_Ami();
@@ -141,7 +143,11 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                             Log.d("datetimeCrea", datetimeCrea);
                             ami.set_datetimeMaj(datetimeMaj);
                             Log.d("datetimeMaj", datetimeMaj);
+                            ami.set_idU_snd(1);
+                            ami.set_idU_rcv(ami.get_idU());
+                            ami.set_etat(1);
                             amis.add(ami);
+                            amiDao.saveFriendToTable(ami);
                         }
                     }
                 }
@@ -169,10 +175,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                   Log.d("route", route);
                   if (err.equalsIgnoreCase("failed")) {
                       Log.d(route, "failed");
-
-
-
-
 
                   }
                   else {
@@ -217,6 +219,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           Log.d("datetimeMaj", datetimeMaj);
                           // Session manager
                           WIMF_UserDAO userDAO = new WIMF_UserDAO(activity);
+                          userDAO.open();
                           userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);

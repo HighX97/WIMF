@@ -105,6 +105,7 @@ public class HotDealsListFragment extends Fragment implements HotDealsAdapter.Cl
         MenuItems menuItems = hotDealsList.get(position - 1);
         Log.i(LOG_TAG, menuItems.getItemName() + " clicked. Replacing fragment.");
         // We start the fragment transaction here. It is just an ordinary fragment transaction.
+        /*
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.hot_content_fragment,
@@ -116,6 +117,7 @@ public class HotDealsListFragment extends Fragment implements HotDealsAdapter.Cl
                 // previous fragment by pressing back button.
                 .addToBackStack("detail")
                 .commit();
+                */
 
     }
 

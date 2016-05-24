@@ -134,8 +134,8 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
         // with that element
         viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
         viewHolder.txtV_header.setText("");
-        viewHolder.nom.setText("Nom :");
-        viewHolder.tel.setText("Telephone :");
+        viewHolder.nom.setText("Nom :"+menuItems.get_id_rcv());
+        viewHolder.tel.setText("Telephone :"+menuItems.get_id_snd());
         viewHolder.txtV_footer.setText("");
 
         // If an item exists in favorite table then set heart_red drawable

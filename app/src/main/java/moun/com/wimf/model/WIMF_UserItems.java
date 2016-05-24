@@ -12,11 +12,28 @@ public class WIMF_UserItems implements Parcelable {
     private double itemPrice;
     private String itemDescription;
     private int itemQuantity;
+    private int id_snd;
+    private int id_rcv;
+
+    public int get_id_snd()
+    {
+        return id_snd;
+    }
+
+    public int get_id_rcv()
+    {
+        return id_rcv;
+    }
 
     public WIMF_UserItems() {
         super();
     }
 
+
+    public WIMF_UserItems(int id_rcv, int id_snd) {
+        this.id_snd = id_snd;
+        this.id_rcv = id_rcv;
+    }
 
     public WIMF_UserItems(String itemName, int itemImage) {
         this.itemName = itemName;

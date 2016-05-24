@@ -109,10 +109,12 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
                 arguments.putParcelable("selectedItem", menuItems);
                 // Create an instance of the dialog fragment and give it an argument for the selected article
                 // and show it
+                /*
                 CustomDialogFragment customDialogFragment = new CustomDialogFragment();
                 customDialogFragment.setArguments(arguments);
                 customDialogFragment.show(getFragmentManager(),
                         CustomDialogFragment.ARG_ITEM_ID);
+                        */
             }
         }
     }

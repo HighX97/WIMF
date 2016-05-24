@@ -38,11 +38,6 @@ import moun.com.wimf.LocationActivity;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
 import moun.com.wimf.database.WIMF_ItemsDBDAO;
-import moun.com.wimf.fragment.MenuBurgersFragment;
-import moun.com.wimf.fragment.MenuDessertsFragment;
-import moun.com.wimf.fragment.MenuDrinksFragment;
-import moun.com.wimf.fragment.MenuPizzaFragment;
-import moun.com.wimf.fragment.MenuSaladsFragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Conversations_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
@@ -70,7 +65,14 @@ public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    public WIMF_MenuPagerAdapter(FragmentManager fm, int NumOfTabs) {
+        super(fm);
+        this.mNumOfTabs = NumOfTabs;
+    }
+
     private static Context context;
+
+
 
     @Override
     public Fragment getItem(int position) {

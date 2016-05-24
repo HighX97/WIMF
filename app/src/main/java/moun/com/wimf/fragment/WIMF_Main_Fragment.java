@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
-import moun.com.wimf.HotDealsActivity;
 import moun.com.wimf.R;
 import moun.com.wimf.WIMF_User_Profil_Activity;
 import moun.com.wimf.adapter.HomeMenuCustomAdapter;

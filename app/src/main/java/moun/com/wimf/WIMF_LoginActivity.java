@@ -29,12 +29,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import moun.com.wimf.database.UserDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.fragment.ResetPasswordDialogFragment;
 import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.helper.PostClass;
 
 import moun.com.wimf.model.User;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.SessionManager;
 
@@ -55,7 +56,7 @@ public class WIMF_LoginActivity extends AppCompatActivity {
     private TextView mTitle;
     private EditText mInputUsername;
     private EditText mInputPassword;
-    private UserDAO userDAO;
+    private WIMF_UserDAO userDAO;
     private SessionManager session;
     WIMF_LoginActivity loginActivity = this;
     /**
@@ -80,13 +81,15 @@ public class WIMF_LoginActivity extends AppCompatActivity {
         mInputUsername = (EditText) findViewById(R.id.phone);
 
         mInputPassword = (EditText) findViewById(R.id.password);
-        userDAO = new UserDAO(this);
-        List<User> listUsers = userDAO.getAllUserDetails();
+        /*
+        userDAO = new WIMF_UserDAO(this);
+        List<WIMF_Utilisateur> listUsers = userDAO.getAllUserDetails();
         if (listUsers != null) {
-            for (User u : listUsers) {
+            for (WIMF_Utilisateur u : listUsers) {
                 Toast.makeText(this, listUsers.size() + " " + u.toString(), Toast.LENGTH_LONG).show();
             }
         }
+        */
         // Session manager
         session = new SessionManager(getApplicationContext());
 
@@ -174,7 +177,7 @@ public class WIMF_LoginActivity extends AppCompatActivity {
 
     // Link to Register Screen
     public void RegisteronClick(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, WIMF_RegisterActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.right_in, R.anim.left_out);
     }
