@@ -10,10 +10,10 @@ public class WIMF_Ami extends WIMF_Utilisateur{
     private int idU_snd;
     private int idU_rcv;
     private int etat;
-    private Date date_request;
-    private Date date_response;
+    private String date_request;
+    private String date_response;
 
-    public WIMF_Ami(int idU_snd, int idU_rcv, int etat, Date date_request, Date date_response)
+    public WIMF_Ami(int idU_snd, int idU_rcv, int etat, String date_request, String date_response)
     {
         super();
       this.idU_snd = idU_snd;
@@ -25,7 +25,7 @@ public class WIMF_Ami extends WIMF_Utilisateur{
 
     public WIMF_Ami(){}
 
-    public WIMF_Ami(int idU, String nom,String tel,double gps_lat,double gps_long, int idU_snd, int idU_rcv, int etat, Date datetimeCrea, Date datetimeMaj)
+    public WIMF_Ami(int idU, String nom,String tel,double gps_lat,double gps_long, int idU_snd, int idU_rcv, int etat, String datetimeCrea, String datetimeMaj)
     {
         this(idU_snd, idU_rcv, etat, datetimeCrea, datetimeMaj);
         this.idU = idU;
@@ -47,11 +47,11 @@ public class WIMF_Ami extends WIMF_Utilisateur{
     {
       return etat;
     }
-    public Date get_date_request()
+    public String get_date_request()
     {
       return date_request;
     }
-    public Date get_date_response()
+    public String get_date_response()
     {
       return date_response;
     }
@@ -71,15 +71,16 @@ public class WIMF_Ami extends WIMF_Utilisateur{
       this.etat = etat ;
     }
     
-    public void set_date_request(Date date_request)
+    public void set_date_request(String date_request)
     {
       this.date_request = date_request ;
     }
     
-    public void set_date_response(Date date_response)
+    public void set_date_response(String date_response)
     {
       this.date_response = date_response ;
     }
+
     
 
 

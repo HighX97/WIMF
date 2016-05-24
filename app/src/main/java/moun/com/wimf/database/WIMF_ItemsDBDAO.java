@@ -9,24 +9,29 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class WIMF_ItemsDBDAO {
     protected SQLiteDatabase database;
-    private WIMF_DataBaseHelper dbHelper;
+    private WIMF_DataBaseHelper_new dbHelper;
     private Context mContext;
 
     public WIMF_ItemsDBDAO(Context context) {
         this.mContext = context;
-        dbHelper = WIMF_DataBaseHelper.getHelper(mContext);
+        dbHelper = WIMF_DataBaseHelper_new.getHelper(mContext);
         open();
 
     }
 
     public void open() throws SQLException {
         if(dbHelper == null)
-            dbHelper = WIMF_DataBaseHelper.getHelper(mContext);
+            dbHelper = WIMF_DataBaseHelper_new.getHelper(mContext);
         database = dbHelper.getWritableDatabase();
     }
 
-	/*public void close() {
-		dbHelper.close();
-		database = null;
-	}*/
+    public void close()
+    {
+        database.close();
+    }
+
+    public SQLiteDatabase get_bd()
+    {
+        return database;
+    }
 }

@@ -23,6 +23,10 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
 
     public long saveMessageToTable(WIMF_Message mes) {
         ContentValues values = new ContentValues();
+        if(mes.get_idMsg() != 0)
+        {
+            values.put(WIMF_DataBaseHelper.ID_COLUMN_MESSAGE, mes.get_idMsg());
+        }
         values.put(WIMF_DataBaseHelper.MESSAGE_COLUMN, mes.get_valeur());
         values.put(WIMF_DataBaseHelper.SENDER_TEL_COLOMN, mes.get_tel_snd());
         values.put(WIMF_DataBaseHelper.RECEIVER_TEL_COLOMN, mes.get_tel_rcv());
@@ -45,7 +49,7 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         do {
             if (cursor.getCount() > 0) {
                 WIMF_Message message;
-                message = new WIMF_Message(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),new Date(cursor.getLong(5)),new Date(cursor.getLong(6)));
+                message = new WIMF_Message(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5),cursor.getString(6));
                 //Add to list
                 messages.add(message);
             }
@@ -71,7 +75,7 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         do {
             if (cursor.getCount() > 0) {
                 WIMF_Message message;
-                message = new WIMF_Message(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),new Date(cursor.getLong(5)),new Date(cursor.getLong(6)));
+                message = new WIMF_Message(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5),cursor.getString(6));
 
                 //Add to list
                 messages.add(message);
@@ -81,6 +85,11 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         cursor.close();
 
         return messages;
+    }
+
+    public void removeAllMessages(){
+        //Suppression d'un Message de la BDD grâce à l'ID
+        database.delete(WIMF_DataBaseHelper.Messages_TABLE, null, null);
     }
 
     public int removeMessageWithID(int id){

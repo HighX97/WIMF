@@ -9,35 +9,35 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import moun.com.wimf.R;
-import moun.com.wimf.database.WIMF_ItemsDAO;
-import moun.com.wimf.model.MenuItems;
+import moun.com.wimf.database.WIMF_ItemsDBDAO;
+import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
 
 /**
- * Provide view to Menu list RecyclerView with data from MenuItems object.
+ * Provide view to Menu list RecyclerView with data from WIMF_UserItems object.
  */
-public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder>{
-    private static final String LOG_TAG = MenuListAdapter.class.getSimpleName();
+public class WIMF_NotificationListAdapter extends RecyclerView.Adapter<WIMF_NotificationListAdapter.ViewHolder>{
+    private static final String LOG_TAG = WIMF_NotificationListAdapter.class.getSimpleName();
     private LayoutInflater mLayoutInflater;
     private int mResourceId;
-    private List<MenuItems> itemList;
+    private List<WIMF_UserItems> itemList;
     private Context context;
     private ClickListener clickListener;
-    private WIMF_ItemsDAO itemsDAO;
+    private WIMF_ItemsDBDAO itemsDAO;
 
     /**
-     * Create a new instance of {@link MenuListAdapter}.
-     *
-     * @param context    host Activity.
+     * Create a new instance of {@link WIMF_NotificationListAdapter}.
+     *  @param context    host Activity.
      * @param itemList   List of data.
      * @param inflater   The layout inflater.
      * @param resourceId The resource ID for the layout to be used. The layout should contain an
-     *                   ImageView with ID of "meat_image" and a TextView with ID of "meat_title".
      */
-    public MenuListAdapter(Context context, List<MenuItems> itemList, LayoutInflater inflater, int resourceId) {
+    public WIMF_NotificationListAdapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
+    {
         this.itemList = itemList;
         this.context = context;
         mLayoutInflater = inflater;
@@ -48,21 +48,25 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
-        public TextView title;
-        public TextView price;
-        private ImageView heart;
+        public TextView txtV_header;
+        public TextView nom;
+        public TextView tel;
+        public TextView txtV_footer;
+
+        private ImageView img_utilisateur;
 
         public ViewHolder(View v) {
             super(v);
-
-            title = (TextView) v.findViewById(R.id.menu_title);
-            this.title.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
-            image = (ImageView) v.findViewById(R.id.menu_image);
-            price = (TextView) v.findViewById(R.id.menu_price);
-            this.price.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
-            heart = (ImageView) v.findViewById(R.id.heart);
-            itemsDAO = new WIMF_ItemsDAO(v.getContext());
+            //
+            txtV_header= (TextView) v.findViewById(R.id.txtV_header);
+            nom= (TextView) v.findViewById(R.id.nom);
+            tel= (TextView) v.findViewById(R.id.tel);
+            txtV_footer= (TextView) v.findViewById(R.id.txtV_footer);
+            img_utilisateur= (ImageView) v.findViewById(R.id.img_utilisateur);
+            //
+            this.txtV_header.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
+            this.txtV_footer.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
+            itemsDAO = new WIMF_ItemsDBDAO(v.getContext());
 
 
             v.setOnClickListener(new View.OnClickListener(){
@@ -100,20 +104,43 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         //    Log.d(LOG_TAG, "Element " + position + " set.");
+       /* SessionManager session;
+        session.checkLogin();
 
-        MenuItems menuItems = itemList.get(position);
-        // Get element from MenuItems object at this position and replace the contents of the view
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+
+
+        String url = "http://46.101.40.23:8585/ami/list";
+        HashMap<String, String> parametres = new HashMap<String, String>();
+        parametres.put("tel", tel);
+        parametres.put("password", password);
+        final String post_result = RestHelper.executePOST(url, parametres);
+        Log.d("post_result ", " post_result: " + post_result);
+
+
+
+        new PostClass(this,parametres,url).execute();*/
+        WIMF_UserItems menuItems = itemList.get(position);
+        // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
-        viewHolder.image.setImageResource(menuItems.getItemImage());
-        viewHolder.title.setText(menuItems.getItemName());
-        viewHolder.price.setText("$" + Double.parseDouble(String.valueOf(menuItems.getItemPrice())));
+        viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
+        viewHolder.txtV_header.setText("");
+        viewHolder.nom.setText("Nom :"+menuItems.get_id_rcv());
+        viewHolder.tel.setText("Telephone :"+menuItems.get_id_snd());
+        viewHolder.txtV_footer.setText("");
 
         // If an item exists in favorite table then set heart_red drawable
+        /*
         if(itemsDAO.getItemFavorite(menuItems.getItemName()) == null){
             viewHolder.heart.setImageResource(R.mipmap.ic_favorite_white_24dp);
         } else {
             viewHolder.heart.setImageResource(R.mipmap.ic_favorite_red_24dp);
         }
+        */
     }
 
     @Override

@@ -13,11 +13,15 @@ public class WIMF_Message {
   private String tel_snd;
   private String tel_rcv;
   private int etat;
-  private Date date_create;
-  private Date date_open;
+  private String date_create;
+  private String date_open;
 
 
-   public WIMF_Message(int idMsg, String valeur, String tel_snd, String tel_rcv, int etat, Date date_create, Date date_open)
+  public WIMF_Message()
+  {
+  }
+
+   public WIMF_Message(int idMsg, String valeur, String tel_snd, String tel_rcv, int etat, String date_create, String date_open)
   {
     this.idMsg = idMsg;
     this.valeur = valeur;
@@ -54,12 +58,12 @@ public class WIMF_Message {
     return etat;
   }
 
-  public Date get_date_create()
+  public String get_date_create()
   {
     return date_create;
   }
 
-  public Date get_date_open()
+  public String get_date_open()
   {
     return date_open;
   }
@@ -90,12 +94,12 @@ public class WIMF_Message {
     this.etat = etat;
   }
 
-  public void set_date_create(Date date_create)
+  public void set_date_create(String date_create)
   {
     this.date_create = date_create;
   }
 
-  public void set_date_open(Date date_open)
+  public void set_date_open(String date_open)
   {
     this.date_open = date_open;
   }

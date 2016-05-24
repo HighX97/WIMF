@@ -2,8 +2,13 @@ package moun.com.wimf;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,9 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +37,20 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.WIMF_MenuPagerAdapter;
 
@@ -48,6 +66,8 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
     private static final String LOG_TAG = LocationActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
+    public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
+    private ProgressDialog progress;
 
     private static final LatLng MAIN_BRANCH = new LatLng(47.840769, -3.510437);
     private static final LatLng BRANCH_TWO = new LatLng(47.969653, -1.813049);
@@ -75,9 +95,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
 
     private int curMapTypeIndex = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -89,14 +111,28 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Infos"));
-        tabLayout.addTab(tabLayout.newTab().setText("Amis"));
+        WIMF_UserDAO userDAO = new WIMF_UserDAO(this);
+        WIMF_Utilisateur utilisateur = userDAO.getUserDetails();
+        if(utilisateur!=null) {
+            tabLayout.addTab(tabLayout.newTab().setText("Amis"));
+            String urlAmi = "http://46.101.40.23:8585/ami/list";
+            HashMap<String, String> parametres = new HashMap<String, String>();
+            parametres.put("tel", utilisateur.get_tel());
+
+
+        new PostClass(this,parametres,urlAmi).execute();
+
         tabLayout.addTab(tabLayout.newTab().setText("Messages"));
+        String url_messsage = "http://46.101.40.23:8585/message/list";
+        new PostClass(this,parametres,url_messsage).execute();
+        }
         tabLayout.addTab(tabLayout.newTab().setText("Locations"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+
         final WIMF_MenuPagerAdapter adapter = new WIMF_MenuPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), tabLayout.getTabCount(),amis);
         viewPager.setAdapter(adapter);
         int i = getIntent().getIntExtra("currentItem", 0);
         if (i == 1) {
@@ -140,9 +176,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Intent intent = new Intent(WIMF_User_Profil_Activity.this, MyCartActivity.class);
                 startActivity(intent);
                 finish();
+                */
 
             }
         });
@@ -158,9 +196,11 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_hot) {
+            /*
             Intent intent = new Intent(this, HotDealsActivity.class);
             startActivity(intent);
             finish();
+            */
             return true;
         }
 
@@ -271,7 +311,7 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
             final long start = SystemClock.uptimeMillis();
             final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
+            final BounceInterpolator interpolator = new BounceInterpolator();
 
             handler.post(new Runnable() {
                 @Override

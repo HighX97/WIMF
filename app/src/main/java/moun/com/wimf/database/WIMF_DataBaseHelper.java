@@ -101,7 +101,7 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    private WIMF_DataBaseHelper(Context context) {
+    public WIMF_DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -133,6 +133,7 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ITEMS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + ORDERS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + FAVORITE_TABLE);
+        onCreate(db);
 
     }
 }

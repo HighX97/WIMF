@@ -2,9 +2,6 @@ package moun.com.wimf.helper;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ParseException;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,12 +11,16 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import moun.com.wimf.database.WIMF_FriendDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.SessionManager;
 
@@ -83,7 +84,61 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                 }
                 else if (action.equalsIgnoreCase("list"))
                 {
+                    Log.d("route", route);
+                    if (err.equalsIgnoreCase("failed")) {
+                        Log.d(route, "failed");
+                    }
+                    else {
+                        Log.d(route, "not failed");
+                        //Get the instance of JSONArray that contains JSONObjects
 
+                        //Get the instance of JSONArray that contains JSONObjects
+                        jsonArray = jsonRootObject.optJSONArray("data");
+
+                        //Iterate the jsonArray and print the info of JSONObjects
+                        /*
+                            "idU": 4,
+                            "nom": "chahinaz",
+                            "tel": "0783573458",
+                            "datetimeCrea": "2016-05-22T08:47:38.000Z",
+                            "etat": 0
+                         */
+                        //
+                        WIMF_FriendDAO amiDao = new WIMF_FriendDAO(activity);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            WIMF_Ami ami = new WIMF_Ami();
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                            int idU = Integer.parseInt(jsonObject.optString("idU").toString());
+                            ami.set_idU(idU);
+                            Log.d("idU", "" + idU);
+                            String nom = jsonObject.optString("nom").toString();
+                            ami.set_nom(nom);
+                            Log.d("nom", nom);
+                            String tel = jsonObject.optString("tel").toString();
+                            ami.set_tel(tel);
+                            Log.d("tel", tel);
+                            String gps_lat = jsonObject.optString("gps_lat").toString();
+                            Log.d("gps_lat", gps_lat);
+                            if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                ami.set_gps_lat(Double.parseDouble(gps_lat));
+                            }
+                            String gps_long = jsonObject.optString("gps_long").toString();
+                            Log.d("gps_long", gps_long);
+                            if (gps_lat != "null" && !gps_lat.isEmpty()) {
+                                ami.set_gps_long(Double.parseDouble(gps_long));
+                            }
+                            String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
+                            String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
+                            ami.set_datetimeCrea(datetimeCrea);
+                            Log.d("datetimeCrea", datetimeCrea);
+                            ami.set_datetimeMaj(datetimeMaj);
+                            Log.d("datetimeMaj", datetimeMaj);
+                            ami.set_idU_snd(1);
+                            ami.set_idU_rcv(ami.get_idU());
+                            amiDao.saveFriendToTable(ami);
+                        }
+                    }
                 }
                 else if (action.equalsIgnoreCase("one"))
                 {
@@ -109,10 +164,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                   Log.d("route", route);
                   if (err.equalsIgnoreCase("failed")) {
                       Log.d(route, "failed");
-
-
-
-
 
                   }
                   else {
@@ -157,6 +208,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           Log.d("datetimeMaj", datetimeMaj);
                           // Session manager
                           WIMF_UserDAO userDAO = new WIMF_UserDAO(activity);
+                          userDAO.open();
                           userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
@@ -183,6 +235,51 @@ public class PostClass extends AsyncTask<String, Void, Void> {
               }
               else if (action.equalsIgnoreCase("list"))
               {
+                  Log.d("route", route);
+                  if (err.equalsIgnoreCase("failed")) {
+                      Log.d(route, "failed");
+                  }
+                  else {
+                      Log.d(route, "not failed");
+                      //Get the instance of JSONArray that contains JSONObjects
+
+                      //Get the instance of JSONArray that contains JSONObjects
+                      jsonArray = jsonRootObject.optJSONArray("data");
+
+                      //Iterate the jsonArray and print the info of JSONObjects
+                        /*
+                          "idMsg": 56,
+                          "valeur": "mon nouveau message",
+                          "etat": 0,
+                          "datetimeCrea": "2016-05-22T17:56:08.000Z",
+                          "tel_snd": "0695504940",
+                          "tel_rcv": "0753369827"
+                         */
+                      //
+                      WIMF_MessageDAO messageDao = new WIMF_MessageDAO(activity);
+                      for (int i = 0; i < jsonArray.length(); i++)
+                      {
+                          WIMF_Message msg = new WIMF_Message();
+                          JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                          int idMsg = Integer.parseInt(jsonObject.optString("idMsg").toString());
+                          msg.set_idMsg(idMsg);
+                          Log.d("idMsg", "" + idMsg);
+                          String valeur = jsonObject.optString("valeur").toString();
+                          msg.set_valeur(valeur);
+                          Log.d("valeur", valeur);
+                          int etat = Integer.parseInt(jsonObject.optString("etat").toString());
+                          msg.set_etat(etat);
+                          Log.d("etat", ""+etat);
+                          String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
+                          String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
+                          msg.set_date_create(datetimeCrea);
+                          Log.d("datetimeCrea", datetimeCrea);
+                          msg.set_date_open(datetimeMaj);
+                          Log.d("datetimeMaj", datetimeMaj);
+                          messageDao.saveMessageToTable(msg);
+                      }
+                  }
 
               }
               else if (action.equalsIgnoreCase("one"))

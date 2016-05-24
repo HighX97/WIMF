@@ -1,8 +1,13 @@
 package moun.com.wimf;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -13,21 +18,32 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import moun.com.wimf.database.UserDAO;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import moun.com.wimf.database.WIMF_FriendDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.fragment.WIMF_Main_Fragment;
-import moun.com.wimf.fragment.MenuBurgersFragment;
-import moun.com.wimf.fragment.MenuDessertsFragment;
-import moun.com.wimf.fragment.MenuDrinksFragment;
-import moun.com.wimf.fragment.MenuSaladsFragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.SessionManager;
 
@@ -51,8 +67,12 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     private static final String SELECTED_ITEM_ID = "selected_item_id";
     private int mSelectedId;
     private SessionManager session;
-    private UserDAO userDAO;
+    private WIMF_UserDAO userDAO;
+    private WIMF_FriendDAO friendDAO;
+    private WIMF_MessageDAO msgDAO;
     private boolean isTwoPane = false;
+    public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
+    private ProgressDialog progress;
 
 
     @Override
@@ -123,7 +143,9 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         // Session manager
         session = new SessionManager(getApplicationContext());
 
-        userDAO = new UserDAO(this);
+        userDAO = new WIMF_UserDAO(this);
+        msgDAO = new WIMF_MessageDAO(this);
+        friendDAO = new WIMF_FriendDAO(this);
 
 
     }
@@ -300,19 +322,13 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
-
-            case R.id.hot_deals:
-                intent = new Intent(this, HotDealsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                return true;
             case R.id.location:
                 intent = new Intent(this, LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.action_login:
-                Intent intentLogin = new Intent(this, LoginActivity.class);
+                Intent intentLogin = new Intent(this, WIMF_LoginActivity.class);
                 // Closing all the Activities
                 intentLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 // Add new Flag to start new Activity
@@ -337,6 +353,8 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     public void LogoutUser() {
         session.setLogin(false);
         userDAO.deleteUser();
+        msgDAO.removeAllMessages();
+        friendDAO.removeAllFriends();
         Intent intentLogout = new Intent(this, WIMF_MainActivity.class);
         // Closing all the Activities
         intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -345,7 +363,6 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         // re-create the Main Activity
         startActivity(intentLogout);
         finish();
-
     }
 
 
@@ -357,21 +374,13 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
             if (position == 1) {
                 WIMF_UserProfil_Info_Fragment menuSandwichFragment = new WIMF_UserProfil_Info_Fragment();
                 switchContent(menuSandwichFragment);
-            } else if (position == 2) {
-                MenuBurgersFragment menuBurgersFragment = new MenuBurgersFragment();
-                switchContent(menuBurgersFragment);
             } else if (position == 3) {
-                WIMF_UserProfil_Friends_Fragment menuPizzaFragment = new WIMF_UserProfil_Friends_Fragment();
+                for (WIMF_Ami ami : WIMF_MainActivity.amis )
+                {
+                    Toast.makeText(WIMF_MainActivity.this,ami.toString(),Toast.LENGTH_LONG).show();
+                }
+                WIMF_UserProfil_Friends_Fragment menuPizzaFragment = new WIMF_UserProfil_Friends_Fragment(amis);
                 switchContent(menuPizzaFragment);
-            } else if (position == 4) {
-                MenuSaladsFragment menuSaladsFragment = new MenuSaladsFragment();
-                switchContent(menuSaladsFragment);
-            } else if (position == 5) {
-                MenuDessertsFragment menuSweetsFragment = new MenuDessertsFragment();
-                switchContent(menuSweetsFragment);
-            } else {
-                MenuDrinksFragment menuDrinksFragment = new MenuDrinksFragment();
-                switchContent(menuDrinksFragment);
             }
 
         } else {

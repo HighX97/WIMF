@@ -1,6 +1,7 @@
 package moun.com.wimf.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,14 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
+import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
 
@@ -37,13 +45,28 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
     private AlphaInAnimationAdapter alphaAdapter;
     private WIMF_ItemsDAO itemDAO;
     private AddItemTask task;
+    public List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
     private WIMF_UserItems menuItemsFavorite = null;
 
+    @SuppressLint("ValidFragment")
+    public WIMF_UserProfil_Friends_Fragment(List<WIMF_Ami> amis)
+    {
+        super();
+        this.amis = amis;
+        for(WIMF_Ami ami : amis)
+        {
+            Log.d("amis",ami.toString());
+        }
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         itemDAO = new WIMF_ItemsDAO(getActivity());
+        for(WIMF_Ami ami : amis)
+        {
+            Log.d("amis",ami.toString());
+        }
     }
 
     @Override
@@ -109,10 +132,12 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
                 arguments.putParcelable("selectedItem", menuItems);
                 // Create an instance of the dialog fragment and give it an argument for the selected article
                 // and show it
+                /*
                 CustomDialogFragment customDialogFragment = new CustomDialogFragment();
                 customDialogFragment.setArguments(arguments);
                 customDialogFragment.show(getFragmentManager(),
                         CustomDialogFragment.ARG_ITEM_ID);
+                        */
             }
         }
     }
@@ -151,21 +176,15 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
      *
      * @return items list
      */
-    private ArrayList<WIMF_UserItems> getFriendsList()
-    {
 
-        
+    private ArrayList<WIMF_UserItems> getFriendsList() {
+        WIMF_FriendDAO amiDAO = new WIMF_FriendDAO(this.getActivity());
+        amis = amiDAO.getUserFriends(1);
 
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1_60, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2_60px, 12.25, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
-
+        for(WIMF_Ami ami : amis) {
+            menuItems.add(new WIMF_UserItems(ami.get_idU_rcv(),ami.get_idU_snd()));
+        }
         return menuItems;
     }
 
