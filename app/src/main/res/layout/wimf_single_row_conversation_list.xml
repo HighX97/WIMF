@@ -42,15 +42,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/nom" />
+                    android:text = "tel expediteur"
+                    android:id="@+id/tel_expediteur" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/tel"
+                    android:text = "message text"
+                    android:id="@+id/message_text"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -107,10 +107,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
+
                 android:id="@+id/txtV_header"
                 android:layout_gravity="center" />
         </LinearLayout>
     </RelativeLayout>
+
+
+
 
 </FrameLayout>

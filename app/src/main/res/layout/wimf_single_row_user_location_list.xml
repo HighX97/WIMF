@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Large Text"
-                    android:id="@+id/nom" />
+                    android:id="@+id/tel_expediteur3" />
 
             </RelativeLayout>
 
@@ -98,7 +98,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
                 android:id="@+id/txtV_header"
                 android:layout_gravity="center" />
         </LinearLayout>

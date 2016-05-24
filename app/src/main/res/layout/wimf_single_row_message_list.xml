@@ -43,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Large Text"
-                    android:id="@+id/nom" />
+                    android:id="@+id/tel_expediteur2" />
 
             </RelativeLayout>
 

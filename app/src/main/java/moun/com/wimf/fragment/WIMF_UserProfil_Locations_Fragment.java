@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
+import moun.com.wimf.adapter.WIMF_Location_Adapter;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
 import moun.com.wimf.database.WIMF_ItemsDAO;
 import moun.com.wimf.model.WIMF_UserItems;
@@ -27,11 +28,11 @@ import moun.com.wimf.util.AppUtils;
  * This Fragment used to handle the list of items under Sandwich category using
  * {@link RecyclerView} with a {@link LinearLayoutManager}.
  */
-public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF_UserListAdapter.ClickListener {
+public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF_Location_Adapter.ClickListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private WIMF_UserListAdapter menuListAdapter;
+    private WIMF_Location_Adapter menuListAdapter;
     ArrayList<WIMF_UserItems> listItems;
     private static final String ITEMS_STATE = "items_state";
     private AlphaInAnimationAdapter alphaAdapter;
@@ -63,7 +64,7 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
             listItems = getFriendsList();
 
         }
-        menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_conversation_list);
+        menuListAdapter = new WIMF_Location_Adapter(getActivity(), listItems, inflater, R.layout.activity_location);
         //menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
         mRecyclerView.setAdapter(menuListAdapter);
         menuListAdapter.setClickListener(this);

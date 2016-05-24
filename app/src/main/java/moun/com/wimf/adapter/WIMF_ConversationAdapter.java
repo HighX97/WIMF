@@ -10,23 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import moun.com.wimf.R;
 import moun.com.wimf.database.WIMF_ItemsDBDAO;
-import moun.com.wimf.helper.PostClass;
-import moun.com.wimf.helper.RestHelper;
-import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
-import moun.com.wimf.util.SessionManager;
 
 /**
- * Provide view to Menu list RecyclerView with data from WIMF_UserItems object.
+ * Created by maiga mariam on 24/05/2016.
  */
-public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdapter.ViewHolder>{
-    private static final String LOG_TAG = WIMF_UserListAdapter.class.getSimpleName();
+
+
+public class WIMF_ConversationAdapter extends RecyclerView.Adapter<WIMF_ConversationAdapter.ViewHolder>{
+    private static final String LOG_TAG = WIMF_ConversationAdapter.class.getSimpleName();
     private LayoutInflater mLayoutInflater;
     private int mResourceId;
     private List<WIMF_UserItems> itemList;
@@ -41,7 +38,7 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
      * @param inflater   The layout inflater.
      * @param resourceId The resource ID for the layout to be used. The layout should contain an
      */
-    public WIMF_UserListAdapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
+    public WIMF_ConversationAdapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
     {
         this.itemList = itemList;
         this.context = context;
@@ -53,28 +50,25 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-      //  public TextView txtV_header;
-       // public TextView nom;
-       // public TextView tel;
-       //  public TextView tel_expediteur;
-      //  public TextView message_text;
-       // public TextView txtV_footer;
+        public TextView txtV_header;
+        public TextView tel_expediteur;
+        public TextView message_text;
+        public TextView txtV_footer;
 
         private ImageView img_utilisateur;
 
         public ViewHolder(View v) {
             super(v);
             //
-           // txtV_header= (TextView) v.findViewById(R.id.txtV_header);
-           // nom= (TextView) v.findViewById(R.id.nom);
-           // tel= (TextView) v.findViewById(R.id.tel);
-           // tel_expediteur= (TextView) v.findViewById(R.id.tel_expediteur);
-          //  message_text= (TextView) v.findViewById(R.id.message_text);
-          //  txtV_footer= (TextView) v.findViewById(R.id.txtV_footer);
-           // img_utilisateur= (ImageView) v.findViewById(R.id.img_utilisateur);
+            txtV_header= (TextView) v.findViewById(R.id.txtV_header);
+
+            tel_expediteur= (TextView) v.findViewById(R.id.tel_expediteur);
+            message_text= (TextView) v.findViewById(R.id.message_text);
+            txtV_footer= (TextView) v.findViewById(R.id.txtV_footer);
+            img_utilisateur= (ImageView) v.findViewById(R.id.img_utilisateur);
             //
-           // this.txtV_header.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
-           // this.txtV_footer.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
+            this.txtV_header.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
+            this.txtV_footer.setTypeface(AppUtils.getTypeface(v.getContext(), AppUtils.FONT_BOLD));
             itemsDAO = new WIMF_ItemsDBDAO(v.getContext());
 
 
@@ -136,13 +130,11 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
         WIMF_UserItems menuItems = itemList.get(position);
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
-        //viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
-       // viewHolder.txtV_header.setText("");
-        //viewHolder.nom.setText("Nom :");
-        //viewHolder.tel.setText("Numero :");
-      //  viewHolder.tel_expediteur.setText("Expediteur :");
-       // viewHolder.message_text.setText("Message :");
-       // viewHolder.txtV_footer.setText("");
+        viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
+        viewHolder.txtV_header.setText("");
+        //viewHolder.tel_expediteur.setText("Expediteur :");
+        // viewHolder.message_text.setText("Message :");
+        viewHolder.txtV_footer.setText("");
 
         // If an item exists in favorite table then set heart_red drawable
         /*
