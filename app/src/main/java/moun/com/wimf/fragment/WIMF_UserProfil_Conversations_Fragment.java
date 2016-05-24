@@ -21,7 +21,10 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
+import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.model.WIMF_Ami;
@@ -161,33 +164,20 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
      *
      * @return items list
      */
-    private ArrayList<WIMF_UserItems> getFriendsList() {
-
-            String url = "http://46.101.40.23:8585/ami/list";
-            HashMap<String, String> parametres = new HashMap<String, String>();
-            parametres.put("tel", "0695504940");
-            final String post_result = RestHelper.executePOST(url, parametres);
-            Log.d("post_result ", " post_result: " + post_result);
-            new PostClass(getActivity(),parametres,url).execute();
-
-        Log.d("amis : ", String.valueOf(messages.size()));
-
-        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        for(WIMF_Message message : messages) {
-            menuItems.add(new WIMF_UserItems(message.get_valeur(), R.drawable.usericon2, 18.50, message.get_tel_snd()));
-        }
-
-        return menuItems;
-    }
-
-    public static ArrayList<WIMF_UserItems> get_rest(List<WIMF_Message> messages)
+    private ArrayList<WIMF_UserItems> getFriendsList()
     {
-        WIMF_UserProfil_Conversations_Fragment.messages = messages;
+        WIMF_UserDAO uDAO = new WIMF_UserDAO(this.getActivity());
+        WIMF_Utilisateur utilisateur = uDAO.getUserDetails();
+        WIMF_MessageDAO msgDAO = new WIMF_MessageDAO(this.getActivity());
+        messages = msgDAO.getAllUserMessages(utilisateur.get_tel());
+
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        for(WIMF_Message message : messages) {
-            menuItems.add(new WIMF_UserItems(message.get_valeur(), R.drawable.usericon2, 18.50, message.get_tel_snd()));
+        for(WIMF_Message msg : messages) {
+            menuItems.add(new WIMF_UserItems(msg.get_idMsg(),utilisateur.get_idU()));
         }
         return menuItems;
     }
+
+
 
 }

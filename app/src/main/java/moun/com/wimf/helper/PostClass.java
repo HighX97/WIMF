@@ -2,11 +2,7 @@ package moun.com.wimf.helper;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ParseException;
 import android.os.AsyncTask;
-import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,20 +11,16 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import moun.com.wimf.WIMF_User_Profil_Activity;
-import moun.com.wimf.database.WIMF_DataBaseHelper;
 import moun.com.wimf.database.WIMF_FriendDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
-import moun.com.wimf.fragment.WIMF_UserProfil_Conversations_Fragment;
-import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.SessionManager;
 
@@ -113,7 +105,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                          */
                         //
                         WIMF_FriendDAO amiDao = new WIMF_FriendDAO(activity);
-                        List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             WIMF_Ami ami = new WIMF_Ami();
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -145,8 +136,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                             Log.d("datetimeMaj", datetimeMaj);
                             ami.set_idU_snd(1);
                             ami.set_idU_rcv(ami.get_idU());
-                            ami.set_etat(1);
-                            amis.add(ami);
                             amiDao.saveFriendToTable(ami);
                         }
                     }
@@ -246,6 +235,51 @@ public class PostClass extends AsyncTask<String, Void, Void> {
               }
               else if (action.equalsIgnoreCase("list"))
               {
+                  Log.d("route", route);
+                  if (err.equalsIgnoreCase("failed")) {
+                      Log.d(route, "failed");
+                  }
+                  else {
+                      Log.d(route, "not failed");
+                      //Get the instance of JSONArray that contains JSONObjects
+
+                      //Get the instance of JSONArray that contains JSONObjects
+                      jsonArray = jsonRootObject.optJSONArray("data");
+
+                      //Iterate the jsonArray and print the info of JSONObjects
+                        /*
+                          "idMsg": 56,
+                          "valeur": "mon nouveau message",
+                          "etat": 0,
+                          "datetimeCrea": "2016-05-22T17:56:08.000Z",
+                          "tel_snd": "0695504940",
+                          "tel_rcv": "0753369827"
+                         */
+                      //
+                      WIMF_MessageDAO messageDao = new WIMF_MessageDAO(activity);
+                      for (int i = 0; i < jsonArray.length(); i++)
+                      {
+                          WIMF_Message msg = new WIMF_Message();
+                          JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                          int idMsg = Integer.parseInt(jsonObject.optString("idMsg").toString());
+                          msg.set_idMsg(idMsg);
+                          Log.d("idMsg", "" + idMsg);
+                          String valeur = jsonObject.optString("valeur").toString();
+                          msg.set_valeur(valeur);
+                          Log.d("valeur", valeur);
+                          int etat = Integer.parseInt(jsonObject.optString("etat").toString());
+                          msg.set_etat(etat);
+                          Log.d("etat", ""+etat);
+                          String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
+                          String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
+                          msg.set_date_create(datetimeCrea);
+                          Log.d("datetimeCrea", datetimeCrea);
+                          msg.set_date_open(datetimeMaj);
+                          Log.d("datetimeMaj", datetimeMaj);
+                          messageDao.saveMessageToTable(msg);
+                      }
+                  }
 
               }
               else if (action.equalsIgnoreCase("one"))

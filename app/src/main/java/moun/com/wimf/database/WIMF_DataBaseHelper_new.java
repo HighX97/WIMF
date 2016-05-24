@@ -35,15 +35,6 @@ public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
     public static final String STATE_COLUMN = "etat";
 
 
-
-
-
-    /*public static final String CREATE_USER_TABLE = "CREATE TABLE "
-            + USER_TABLE + "(" + ID_COLUMN + " INTEGER PRIMARY KEY, "
-            + NAME_COLUMN + " TEXT, " + EMAIL_COLOMN + " TEXT, "
-            + ADDRESS_COLOMN + " TEXT, " + PHONE_COLOMN + " TEXT"
-            + ")";*/
-
     public static final String CREATE_USER_TABLE = "CREATE TABLE "
             + USER_TABLE + "(" + ID_COLUMN_USER + " INTEGER PRIMARY KEY, "
             + NAME_COLUMN + " TEXT, " + PHONE_COLOMN + " TEXT, "
@@ -54,16 +45,16 @@ public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
 
     public static final String CREATE_Friends_TABLE = "CREATE TABLE "
             + Friends_TABLE + "(" + SENDER_ID_COLOMN + " TEXT, " + RECEIVER_ID_COLOMN + " TEXT, "
-            + STATE_COLUMN + " INTEGER, "  + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
-            + ")";
+            + STATE_COLUMN + " INTEGER, "  + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT ,"
+            + "PRIMARY KEY ("+SENDER_ID_COLOMN+","+RECEIVER_ID_COLOMN+"))";
 
     public static final String CREATE_Messages_TABLE = "CREATE TABLE "
-            + Messages_TABLE  + "(" + ID_COLUMN_MESSAGE + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + Messages_TABLE  + "(" + ID_COLUMN_MESSAGE + " INTEGERAUTOINCREMENT, "
             + MESSAGE_COLUMN + " TEXT, "
             + SENDER_TEL_COLOMN + " TEXT, " + RECEIVER_TEL_COLOMN + " TEXT, "
             + STATE_COLUMN + " INTEGER, "
-            + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
-            + ")";
+            + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT ,"
+            + "PRIMARY KEY ("+SENDER_TEL_COLOMN+","+SENDER_TEL_COLOMN+","+CREATION_DATE_COLUMN+"))";
 
 
 

@@ -128,7 +128,7 @@ public class WIMF_FriendDAO extends WIMF_ItemsDBDAO{
 
     public void removeAllFriends(){
         // Delete All Rows
-        database.delete(WIMF_DataBaseHelper.Messages_TABLE, null, null);
+        database.delete(WIMF_DataBaseHelper.Friends_TABLE, null, null);
 
         database.close();
     }

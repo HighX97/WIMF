@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import moun.com.wimf.database.WIMF_FriendDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.fragment.WIMF_Main_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
@@ -66,6 +68,8 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     private int mSelectedId;
     private SessionManager session;
     private WIMF_UserDAO userDAO;
+    private WIMF_FriendDAO friendDAO;
+    private WIMF_MessageDAO msgDAO;
     private boolean isTwoPane = false;
     public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();
     private ProgressDialog progress;
@@ -140,6 +144,10 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         session = new SessionManager(getApplicationContext());
 
         userDAO = new WIMF_UserDAO(this);
+        msgDAO = new WIMF_MessageDAO(this);
+        friendDAO = new WIMF_FriendDAO(this);
+
+
     }
 
     /**
@@ -345,6 +353,8 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     public void LogoutUser() {
         session.setLogin(false);
         userDAO.deleteUser();
+        msgDAO.removeAllMessages();
+        friendDAO.removeAllFriends();
         Intent intentLogout = new Intent(this, WIMF_MainActivity.class);
         // Closing all the Activities
         intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
