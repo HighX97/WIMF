@@ -2,6 +2,8 @@ package moun.com.wimf;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.model.WIMF_Utilisateur;
+import moun.com.wimf.service.WIMF_Gps;
 import moun.com.wimf.util.AppUtils;
 import android.location.LocationListener;
 import android.widget.Toast;
@@ -84,6 +87,7 @@ public class WIMF_LocationActivity extends AppCompatActivity implements  Locatio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +97,10 @@ public class WIMF_LocationActivity extends AppCompatActivity implements  Locatio
         mTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
         mTitle.setText(getString(R.string.locations));
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
+
+        Intent intent_service = new Intent(this, WIMF_Gps.class);
+        ComponentName service;
+        service = this.startService(intent_service);
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

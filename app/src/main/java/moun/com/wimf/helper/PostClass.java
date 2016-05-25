@@ -228,10 +228,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
-                          Intent intent_service = new Intent(activity, WIMF_Gps.class);
-                          ComponentName service;
-                          service = activity.startService(intent_service);
-                          Log.d("service", service.toString());
+
 
                           Intent intent = new Intent(activity, WIMF_MainActivity.class);
                           activity.startActivity(intent);
