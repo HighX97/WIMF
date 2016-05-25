@@ -17,6 +17,7 @@ import moun.com.wimf.R;
 import moun.com.wimf.database.WIMF_ItemsDBDAO;
 import moun.com.wimf.helper.PostClass;
 import moun.com.wimf.helper.RestHelper;
+import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
@@ -29,7 +30,7 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
     private static final String LOG_TAG = WIMF_UserListAdapter.class.getSimpleName();
     private LayoutInflater mLayoutInflater;
     private int mResourceId;
-    private List<WIMF_UserItems> itemList;
+    private List<WIMF_Ami> itemList;
     private Context context;
     private ClickListener clickListener;
     private WIMF_ItemsDBDAO itemsDAO;
@@ -41,7 +42,7 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
      * @param inflater   The layout inflater.
      * @param resourceId The resource ID for the layout to be used. The layout should contain an
      */
-    public WIMF_UserListAdapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
+    public WIMF_UserListAdapter(Context context, List<WIMF_Ami> itemList, LayoutInflater inflater, int resourceId)
     {
         this.itemList = itemList;
         this.context = context;
@@ -54,8 +55,8 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         //  public TextView txtV_header;
-        // public TextView nom;
-        // public TextView tel;
+         public TextView nom;
+         public TextView tel;
         //  public TextView tel_expediteur;
         //  public TextView message_text;
         // public TextView txtV_footer;
@@ -66,8 +67,8 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
             super(v);
             //
             // txtV_header= (TextView) v.findViewById(R.id.txtV_header);
-            // nom= (TextView) v.findViewById(R.id.nom);
-            // tel= (TextView) v.findViewById(R.id.tel);
+             nom= (TextView) v.findViewById(R.id.nom);
+             tel= (TextView) v.findViewById(R.id.tel);
             // tel_expediteur= (TextView) v.findViewById(R.id.tel_expediteur);
             //  message_text= (TextView) v.findViewById(R.id.message_text);
             //  txtV_footer= (TextView) v.findViewById(R.id.txtV_footer);
@@ -126,13 +127,14 @@ public class WIMF_UserListAdapter extends RecyclerView.Adapter<WIMF_UserListAdap
         final String post_result = RestHelper.executePOST(url, parametres);
         Log.d("post_result ", " post_result: " + post_result);
         new PostClass(this,parametres,url).execute();*/
-        WIMF_UserItems menuItems = itemList.get(position);
+        WIMF_Ami menuItems = itemList.get(position);
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
         //viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
         // viewHolder.txtV_header.setText("");
-        //viewHolder.nom.setText("Nom :");
-        //viewHolder.tel.setText("Numero :");
+        Log.d("menuItems",menuItems.toString());
+        viewHolder.nom.setText("nom : "+menuItems.get_nom());
+        viewHolder.tel.setText("tel : "+menuItems.get_tel());
         //  viewHolder.tel_expediteur.setText("Expediteur :");
         // viewHolder.message_text.setText("Message :");
         // viewHolder.txtV_footer.setText("");

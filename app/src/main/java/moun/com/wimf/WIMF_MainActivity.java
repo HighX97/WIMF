@@ -371,15 +371,18 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
      * preferences, Clears the user data from SQLite user table.
      */
     public void LogoutUser() {
-        session.setLogin(false);
+        msgDAO.removeAllMessages();
+        friendDAO.removeAllFriends();
         userDAO.deleteUser();
-//       msgDAO.removeAllMessages();
- //      friendDAO.removeAllFriends();
+        userDAO.close();
+        session.setLogin(false);
+        Intent intent_service = new Intent(this, WIMF_Gps.class);
+        this.stopService(intent_service);
         Intent intentLogout = new Intent(this, WIMF_LoginActivity.class);
         // Closing all the Activities
-        //intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // Add new Flag to start new Activity
-       // intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // re-create the Main Activity
         startActivity(intentLogout);
         finish();

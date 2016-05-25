@@ -76,6 +76,9 @@ public class PostClass extends AsyncTask<String, Void, Void> {
             Log.d("action", action);
             Log.d("err", err);
             Log.d("table", table);
+            Log.d("table", table);
+            Log.d("table.equalsIgnoreCase(\"Message\")", ""+table.equalsIgnoreCase("Message"));
+            Log.d("action.equalsIgnoreCase(\"list\")", ""+action.equalsIgnoreCase("list"));
 
           if(table.equalsIgnoreCase("Amis"))
             {
@@ -102,11 +105,17 @@ public class PostClass extends AsyncTask<String, Void, Void> {
 
                         //Iterate the jsonArray and print the info of JSONObjects
                         /*
-                            "idU": 4,
-                            "nom": "chahinaz",
-                            "tel": "0783573458",
-                            "datetimeCrea": "2016-05-22T08:47:38.000Z",
-                            "etat": 0
+                              "idU": 2,
+                              "nom": "mariam",
+                              "tel": "0753369827",
+                              "gps_lat": null,
+                              "gps_long": null,
+                              "datetimeMaj": "0000-00-00 00:00:00",
+                              "etat": 0,
+                              "idU_snd": 1,
+                              "idU_rcv": 2,
+                              "date_request": "2016-05-22T18:07:43.000Z",
+                              "date_response": "0000-00-00 00:00:00"
                          */
                         //
                         WIMF_FriendDAO amiDao = new WIMF_FriendDAO(activity);
@@ -133,14 +142,19 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                             if (gps_lat != "null" && !gps_lat.isEmpty()) {
                                 ami.set_gps_long(Double.parseDouble(gps_long));
                             }
-                            String datetimeCrea = jsonObject.optString("datetimeCrea").toString();
                             String datetimeMaj = jsonObject.optString("datetimeMaj").toString();
-                            ami.set_datetimeCrea(datetimeCrea);
-                            Log.d("datetimeCrea", datetimeCrea);
                             ami.set_datetimeMaj(datetimeMaj);
                             Log.d("datetimeMaj", datetimeMaj);
-                            ami.set_idU_snd(1);
-                            ami.set_idU_rcv(ami.get_idU());
+                            int idU_snd = Integer.parseInt(jsonObject.optString("idU_snd").toString());
+                            ami.set_idU_snd(idU_snd);
+                            int idU_rcv = Integer.parseInt(jsonObject.optString("idU_rcv").toString());
+                            ami.set_idU_rcv(idU_rcv);
+                            int etat = Integer.parseInt(jsonObject.optString("etat").toString());
+                            ami.set_etat(etat);
+                            String date_request = jsonObject.optString("date_request").toString();
+                            ami.set_date_request(date_request);
+                            String date_response = jsonObject.optString("date_response").toString();
+                            ami.set_date_response(date_response);
                             amiDao.saveFriendToTable(ami);
                         }
                     }
@@ -229,6 +243,9 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
 
+                          Intent intent_service = new Intent(activity, WIMF_Gps.class);
+                          activity.startService(intent_service);
+
 
                           Intent intent = new Intent(activity, WIMF_MainActivity.class);
                           activity.startActivity(intent);
@@ -247,7 +264,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                   }
                 }
             }
-            else if (action.equalsIgnoreCase("Message"))
+            else if (table.equalsIgnoreCase("Message"))
             {
               if (action.equalsIgnoreCase("update_state"))
               {
@@ -261,6 +278,7 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                   }
                   else {
                       Log.d(route, "not failed");
+                      Log.d(route, "PINGU LE PINGU");
                       //Get the instance of JSONArray that contains JSONObjects
 
                       //Get the instance of JSONArray that contains JSONObjects
@@ -297,6 +315,12 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           Log.d("datetimeCrea", datetimeCrea);
                           msg.set_date_open(datetimeMaj);
                           Log.d("datetimeMaj", datetimeMaj);
+
+                          String tel_snd = jsonObject.optString("tel_snd").toString();
+                          String tel_rcv = jsonObject.optString("tel_rcv").toString();
+                          msg.set_tel_snd(tel_snd);
+                          msg.set_tel_rcv(tel_rcv);
+
                           messageDao.saveMessageToTable(msg);
                       }
                   }

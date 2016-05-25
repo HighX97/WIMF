@@ -3,6 +3,7 @@ package moun.com.wimf.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
@@ -33,6 +34,8 @@ public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
     public static final String UPDATE_DATE_COLUMN = "datetimeMaj";
 
     public static final String STATE_COLUMN = "etat";
+    public static final String REQUEST_DATE_COLUMN = "date_request";
+    public static final String RESPONSE_DATE_COLUMN = "date_response";
 
 
     public static final String CREATE_USER_TABLE = "CREATE TABLE "
@@ -45,8 +48,12 @@ public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
 
     public static final String CREATE_Friends_TABLE = "CREATE TABLE "
             + Friends_TABLE + "(" + SENDER_ID_COLOMN + " TEXT, " + RECEIVER_ID_COLOMN + " TEXT, "
-            + STATE_COLUMN + " INTEGER, "  + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT ,"
+            + STATE_COLUMN + " INTEGER, "  + UPDATE_DATE_COLUMN + " TEXT, " + REQUEST_DATE_COLUMN + " TEXT, " + RESPONSE_DATE_COLUMN + " TEXT "
+            + ID_COLUMN_USER + " INTEGER , "
+            + NAME_COLUMN + " TEXT, " + PHONE_COLOMN + " TEXT, "
+            + GPS_lat_COLOMN + " REAL, "+  GPS_long_COLOMN + " REAL, "
             + "PRIMARY KEY ("+SENDER_ID_COLOMN+","+RECEIVER_ID_COLOMN+"))";
+
 
     public static final String CREATE_Messages_TABLE = "CREATE TABLE "
             + Messages_TABLE  + "(" + ID_COLUMN_MESSAGE + " INTEGERAUTOINCREMENT, "
@@ -78,6 +85,7 @@ public class WIMF_DataBaseHelper_new extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_Friends_TABLE);
+        Log.d("CREATE_Friends_TABLE",CREATE_Friends_TABLE);
         db.execSQL(CREATE_Messages_TABLE);
     }
 

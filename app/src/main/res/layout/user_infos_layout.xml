@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@color/windowBackgroudLight">
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,6 +28,9 @@
             android:layout_row="0"
 
             android:text="User Profil"
+            android:textColor="@color/colorTextPrimaryLight"
+            android:textColorHighlight="@color/gray"
+            android:textColorHint="@color/colorTextPrimaryLight"
             />
 
 
@@ -42,7 +45,7 @@
             />
 
         <GridLayout
-        android:layout_width="300px"
+        android:layout_width="418px"
             android:layout_height="300px"
             android:layout_column="1"
             android:layout_row="1">
@@ -54,15 +57,11 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_column="0"
                 android:layout_row="0"
-                android:text="Nom:" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_column="1"
-                android:layout_row="0"
                 android:text="NomU"
-                android:id="@+id/user_name" />
+                android:id="@+id/user_name"
+                android:textColor="@color/colorTextPrimaryLight"
+                android:textColorHighlight="@color/gray"
+                android:textColorHint="@color/colorTextPrimaryLight" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,15 +69,11 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_column="0"
                 android:layout_row="1"
-                android:text="Numéro:" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_column="1"
-                android:layout_row="1"
                 android:text="NuméroU"
-                android:id="@+id/user_tel" />
+                android:id="@+id/user_tel"
+                android:textColor="@color/colorTextPrimaryLight"
+                android:textColorHighlight="@color/gray"
+                android:textColorHint="@color/colorTextPrimaryLight" />
 
 
         </GridLayout>
@@ -98,7 +93,10 @@
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_row="4"
-            android:text="Message">
+            android:text="Message"
+            android:textColor="@color/colorTextPrimaryLight"
+            android:textColorHighlight="@color/gray"
+            android:textColorHint="@color/colorTextPrimaryLight" >
         </TextView>
 
         <EditText
@@ -113,7 +111,10 @@
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_row="5"
-            android:text="Numero">
+            android:text="Phone"
+            android:textColor="@color/colorTextPrimaryLight"
+            android:textColorHighlight="@color/gray"
+            android:textColorHint="@color/colorTextPrimaryLight" >
         </TextView>
 
         <EditText

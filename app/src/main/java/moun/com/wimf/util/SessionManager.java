@@ -1,8 +1,12 @@
 package moun.com.wimf.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import moun.com.wimf.WIMF_MainActivity;
+import moun.com.wimf.service.WIMF_Gps;
 
 /**
  * This class maintains session data across the app using the SharedPreferences.
@@ -34,12 +38,25 @@ public class SessionManager {
 
     public void setLogin(boolean isLoggedIn) {
 
+        if(isLoggedIn)
+        {
+
+            Intent intent = new Intent(_context, WIMF_Gps.class);
+            _context.startService(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(_context, WIMF_Gps.class);
+            _context.stopService(intent);
+        }
+
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
 
         // commit changes
         editor.commit();
-
         Log.d(LOG_TAG, "User login session modified!");
+
+;
     }
 
     public boolean isLoggedIn(){

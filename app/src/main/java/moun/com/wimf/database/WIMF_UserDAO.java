@@ -154,8 +154,8 @@ public class WIMF_UserDAO extends WIMF_ItemsDBDAO{
     // Delete user table and re-create again
     public void deleteUser() {
         // Delete All Rows
-        database.delete(WIMF_DataBaseHelper.USER_TABLE, null, null);
-        database.close();
+        database.delete(WIMF_DataBaseHelper.USER_TABLE, "", null);
+        //database.close();
 
         Log.d(LOG_TAG, "Deleted all user info from user table");
     }

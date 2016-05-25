@@ -38,6 +38,9 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
     public static final String CREATED_AT = "created_at";
     public static final String CREATION_DATE_COLUMN = "datetimeCrea";
     public static final String UPDATE_DATE_COLUMN = "datetimeMaj";
+    public static final String REQUEST_DATE_COLUMN = "date_request";
+    public static final String RESPONSE_DATE_COLUMN = "date_response";
+
     public static final String USER1_COLUMN = "user1";
     public static final String USER2_COLUMN = "user2";
     public static final String STATE_COLUMN = "etat";
@@ -63,7 +66,7 @@ public class WIMF_DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_Friends_TABLE = "CREATE TABLE "
             + Friends_TABLE + "(" + SENDER_ID_COLOMN + " TEXT, " + RECEIVER_ID_COLOMN + " TEXT, "
-            + STATE_COLUMN + " INTEGER, "  + CREATION_DATE_COLUMN + " TEXT, " + UPDATE_DATE_COLUMN + " TEXT "
+            + STATE_COLUMN + " INTEGER, "  + UPDATE_DATE_COLUMN + " TEXT, " + REQUEST_DATE_COLUMN + " TEXT, " + RESPONSE_DATE_COLUMN + " TEXT "
             + ")";
 
     public static final String CREATE_Messages_TABLE = "CREATE TABLE "

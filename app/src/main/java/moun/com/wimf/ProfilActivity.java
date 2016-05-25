@@ -17,6 +17,9 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.model.WIMF_Utilisateur;
+
 /**
  * Created by maiga mariam on 25/05/2016.
  */
@@ -25,15 +28,25 @@ public class ProfilActivity  extends Activity {
 
     private final int SELECT_PHOTO = 1;
     private ImageView imageView;
+    private TextView nom;
+    private TextView tel;
+    private WIMF_UserDAO userDAO;
+    private WIMF_Utilisateur utilisateur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_infos_layout);
         GridLayout vue = new GridLayout(this);
         vue.setBackgroundColor(Color.GREEN);
+        userDAO = new WIMF_UserDAO(this);
+        WIMF_Utilisateur utilisateur = userDAO.getUserDetails();
 
         imageView = (ImageView)findViewById(R.id.imageView);
+        tel = (TextView)findViewById(R.id.user_tel) ;
+        nom = (TextView)findViewById(R.id.user_name) ;
 
+        tel.setText(utilisateur.get_tel());
+        nom.setText(utilisateur.get_nom());
         Button pickImage = (Button) findViewById(R.id.btn_pick);
         pickImage.setOnClickListener(new View.OnClickListener() {
 

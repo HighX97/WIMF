@@ -27,8 +27,15 @@ public class WIMF_FriendDAO extends WIMF_ItemsDBDAO{
         values.put(WIMF_DataBaseHelper.SENDER_ID_COLOMN, friend.get_idU_snd());
         values.put(WIMF_DataBaseHelper.RECEIVER_ID_COLOMN, friend.get_idU_rcv());
         values.put(WIMF_DataBaseHelper.STATE_COLUMN, friend.get_etat());
-        values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, friend.get_date_request());
-        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, friend.get_date_response());
+        values.put(WIMF_DataBaseHelper.REQUEST_DATE_COLUMN, friend.get_date_request());
+        values.put(WIMF_DataBaseHelper.RESPONSE_DATE_COLUMN, friend.get_date_response());
+        //values.put(WIMF_DataBaseHelper.ID_COLUMN_USER, friend.get_idU());
+        values.put(WIMF_DataBaseHelper.NAME_COLUMN, friend.get_nom());
+        values.put(WIMF_DataBaseHelper.PHONE_COLOMN, friend.get_tel());
+        values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, friend.get_datetimeMaj());
+
+        values.put(WIMF_DataBaseHelper.GPS_lat_COLOMN, friend.get_gps_lat());
+        values.put(WIMF_DataBaseHelper.GPS_long_COLOMN, friend.get_gps_long());
         Log.d("saveFriendToTable",values.toString());
         Log.d("saveFriendToTable","*********************************************************");
         return database.insert(WIMF_DataBaseHelper.Friends_TABLE, null, values);
@@ -50,8 +57,13 @@ public class WIMF_FriendDAO extends WIMF_ItemsDBDAO{
                 frd.set_idU_snd(cursor.getInt(0));
                 frd.set_idU_rcv(cursor.getInt(1));
                 frd.set_etat(cursor.getInt(2));
-                frd.set_date_request(cursor.getString(3));
-                frd.set_date_response(cursor.getString(4));
+                frd.set_datetimeMaj(cursor.getString(3));
+                frd.set_date_request(cursor.getString(4));
+                frd.set_date_response(cursor.getString(5));
+                frd.set_nom(cursor.getString(6));
+                frd.set_tel(cursor.getString(7));
+                frd.set_gps_lat(cursor.getDouble(8));
+                frd.set_gps_long(cursor.getDouble(9));
 
                 //Add to list
                 friends.add(frd);
@@ -128,8 +140,6 @@ public class WIMF_FriendDAO extends WIMF_ItemsDBDAO{
 
     public void removeAllFriends(){
         // Delete All Rows
-        database.delete(WIMF_DataBaseHelper.Friends_TABLE, null, null);
-
-        database.close();
+        database.delete(WIMF_DataBaseHelper.Friends_TABLE, "", null);
     }
 }

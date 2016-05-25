@@ -86,7 +86,7 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
             listItems = getFriendsList();
 
         }
-        menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_user_list);
+        menuListAdapter = new WIMF_UserListAdapter(getActivity(), amis, inflater, R.layout.wimf_single_row_user_list);
         //menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
         mRecyclerView.setAdapter(menuListAdapter);
         menuListAdapter.setClickListener(this);

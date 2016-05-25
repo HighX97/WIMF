@@ -14,6 +14,7 @@ import java.util.List;
 
 import moun.com.wimf.R;
 import moun.com.wimf.database.WIMF_ItemsDBDAO;
+import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_UserItems;
 import moun.com.wimf.util.AppUtils;
 
@@ -26,7 +27,7 @@ public class WIMF_ConversationAdapter extends RecyclerView.Adapter<WIMF_Conversa
     private static final String LOG_TAG = WIMF_ConversationAdapter.class.getSimpleName();
     private LayoutInflater mLayoutInflater;
     private int mResourceId;
-    private List<WIMF_UserItems> itemList;
+    private List<WIMF_Message> itemList;
     private Context context;
     private ClickListener clickListener;
     private WIMF_ItemsDBDAO itemsDAO;
@@ -38,7 +39,7 @@ public class WIMF_ConversationAdapter extends RecyclerView.Adapter<WIMF_Conversa
      * @param inflater   The layout inflater.
      * @param resourceId The resource ID for the layout to be used. The layout should contain an
      */
-    public WIMF_ConversationAdapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
+    public WIMF_ConversationAdapter(Context context, ArrayList<WIMF_Message> itemList, LayoutInflater inflater, int resourceId)
     {
         this.itemList = itemList;
         this.context = context;
@@ -127,14 +128,14 @@ public class WIMF_ConversationAdapter extends RecyclerView.Adapter<WIMF_Conversa
 
 
         new PostClass(this,parametres,url).execute();*/
-        //WIMF_UserItems menuItems = itemList.get(position);
+        WIMF_Message menuItems = itemList.get(position);
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
         //viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
-        viewHolder.txtV_header.setText("---");
-        //viewHolder.tel_expediteur.setText("Expediteur :");
-        // viewHolder.message_text.setText("Message :");
-        viewHolder.txtV_footer.setText("---");
+        viewHolder.txtV_header.setText(""+menuItems.get_etat());
+        viewHolder.tel_expediteur.setText(menuItems.get_tel_snd());
+        viewHolder.message_text.setText(menuItems.get_valeur());
+        viewHolder.txtV_footer.setText(menuItems.get_date_create());
 
         // If an item exists in favorite table then set heart_red drawable
         /*

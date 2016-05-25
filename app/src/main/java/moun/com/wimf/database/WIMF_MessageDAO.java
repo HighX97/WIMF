@@ -33,7 +33,7 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         values.put(WIMF_DataBaseHelper.STATE_COLUMN, mes.get_etat());
         values.put(WIMF_DataBaseHelper.CREATION_DATE_COLUMN, mes.get_date_create().toString());
         values.put(WIMF_DataBaseHelper.UPDATE_DATE_COLUMN, mes.get_date_open().toString());
-
+        Log.d("saveMessageToTable",values.toString());
         return database.insert(WIMF_DataBaseHelper.Messages_TABLE, null, values);
     }
 
@@ -42,7 +42,8 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         List<WIMF_Message> messages = new ArrayList<WIMF_Message>();
 
         String sql = "SELECT * FROM " + WIMF_DataBaseHelper.Messages_TABLE
-                + " WHERE " + WIMF_DataBaseHelper.SENDER_TEL_COLOMN + " = ?";
+                + " WHERE " + WIMF_DataBaseHelper.SENDER_TEL_COLOMN + " = ? OR " +WIMF_DataBaseHelper.RECEIVER_TEL_COLOMN + " = ?";
+        Log.d("getAllUserMessages",sql);
         Cursor cursor = database.rawQuery(sql, new String[] { SenderPhone + "" });
         // Move to first row
         cursor.moveToFirst();
@@ -95,5 +96,10 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
     public int removeUserMessages(String sender){
 
         return database.delete(WIMF_DataBaseHelper.Messages_TABLE, WIMF_DataBaseHelper.SENDER_TEL_COLOMN + " = " +sender, null);
+    }
+
+    public int removeAllMessages(){
+
+        return database.delete(WIMF_DataBaseHelper.Messages_TABLE, "", null);
     }
 }

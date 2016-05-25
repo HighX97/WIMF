@@ -4,6 +4,7 @@ package moun.com.wimf.fragment;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,13 +16,20 @@ import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_ConversationAdapter;
 
+import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_ItemsDAO;
+import moun.com.wimf.database.WIMF_MessageDAO;
+import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_UserItems;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
 
 /**
@@ -34,6 +42,7 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
     private RecyclerView.LayoutManager mLayoutManager;
     private WIMF_ConversationAdapter menuListAdapter;
     ArrayList<WIMF_UserItems> listItems;
+    List<WIMF_Message> messages;
     private static final String ITEMS_STATE = "items_state";
     private AlphaInAnimationAdapter alphaAdapter;
     private WIMF_ItemsDAO itemDAO;
@@ -66,7 +75,7 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
             listItems = getFriendsList();
 
         }
-        menuListAdapter = new WIMF_ConversationAdapter(getActivity(), listItems, inflater, R.layout.wimf_single_row_conversation_list);
+        menuListAdapter = new WIMF_ConversationAdapter(getActivity(), (ArrayList<WIMF_Message>) messages, inflater, R.layout.wimf_single_row_conversation_list);
         //menuListAdapter = new WIMF_UserListAdapter(getActivity(), listItems, inflater, R.layout.single_row_menu_list);
         mRecyclerView.setAdapter(menuListAdapter);
         menuListAdapter.setClickListener(this);
@@ -159,15 +168,20 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
     private ArrayList<WIMF_UserItems> getFriendsList() {
 
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.pepperoni), R.drawable.usericon1, 13.20, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
-        menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
-
+        WIMF_UserDAO userDAO = new WIMF_UserDAO(this.getActivity());
+        WIMF_Utilisateur utilisateur = userDAO.getUserDetails();
+        WIMF_MessageDAO messageDAO = new WIMF_MessageDAO(this.getActivity());
+        messages = messageDAO.getAllUserMessages(utilisateur.get_tel());
+        if (messages == null || messages.size() < 1 )
+        {
+            menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
+        }
+        else
+        {
+            for (WIMF_Message message : messages) {
+                menuItems.add(new WIMF_UserItems(message.get_idMsg(), message.get_idMsg()));
+            }
+        }
         return menuItems;
     }
 
