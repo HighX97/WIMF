@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@color/common_action_bar_splitter">
+    android:background="@color/windowBackgroudLight">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:id="@+id/GridLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnCount="8"
+
         android:useDefaultMargins="true" >
 
         <TextView
@@ -26,6 +26,7 @@
             android:layout_marginTop="40dp"
             android:textSize="32dip"
             android:layout_row="0"
+
             android:text="User Profil"
             />
 
