@@ -33,7 +33,7 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private WIMF_Location_Adapter menuListAdapter;
-    ArrayList<WIMF_UserItems> listItems;
+    WIMF_UserItems listItems;
     private static final String ITEMS_STATE = "items_state";
     private AlphaInAnimationAdapter alphaAdapter;
     private WIMF_ItemsDAO itemDAO;
@@ -58,7 +58,7 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
         // Used for orientation change.
         if (savedInstanceState != null) {
             // We will restore the state of data list when the activity is re-created
-            listItems = savedInstanceState.getParcelableArrayList(ITEMS_STATE);
+            listItems = savedInstanceState.getParcelable(ITEMS_STATE);
         } else {
             // Initialize listItems.
             listItems = getFriendsList();
@@ -81,12 +81,12 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(ITEMS_STATE, listItems);
+        outState.putParcelable(ITEMS_STATE, listItems);
     }
 
     @Override
     public void itemClicked(View view, int position, boolean isLongClick) {
-        WIMF_UserItems menuItems = getFriendsList().get(position);
+        WIMF_UserItems menuItems = getFriendsList();
         if (isLongClick) {
             if (itemDAO.getItemFavorite(menuItems.getItemName()) == null) {
                 menuItemsFavorite = new WIMF_UserItems();
@@ -154,10 +154,10 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
      *
      * @return items list
      */
-    private ArrayList<WIMF_UserItems> getFriendsList() {
+    private WIMF_UserItems getFriendsList() {
 
-        ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
+        WIMF_UserItems menuItems = new WIMF_UserItems();
+        /*menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.margherita), R.drawable.usericon2, 12.25, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.vegetarian), R.drawable.usericon1, 10.00, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.supteme), R.drawable.usericon2, 15.50, getString(R.string.short_lorem)));
@@ -165,7 +165,7 @@ public class WIMF_UserProfil_Locations_Fragment extends Fragment implements WIMF
         menuItems.add(new WIMF_UserItems(getString(R.string.bbq), R.drawable.usericon2, 16.75, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.hot), R.drawable.usericon1, 14.00, getString(R.string.short_lorem)));
         menuItems.add(new WIMF_UserItems(getString(R.string.greek), R.drawable.usericon2, 18.50, getString(R.string.short_lorem)));
-
+*/
         return menuItems;
     }
 

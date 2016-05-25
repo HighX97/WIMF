@@ -25,7 +25,7 @@ public class WIMF_Location_Adapter extends RecyclerView.Adapter<WIMF_Location_Ad
     private static final String LOG_TAG = WIMF_Location_Adapter.class.getSimpleName();
     private LayoutInflater mLayoutInflater;
     private int mResourceId;
-    private List<WIMF_UserItems> itemList;
+    private WIMF_UserItems itemList;
     private Context context;
     private ClickListener clickListener;
     private WIMF_ItemsDBDAO itemsDAO;
@@ -37,7 +37,7 @@ public class WIMF_Location_Adapter extends RecyclerView.Adapter<WIMF_Location_Ad
      * @param inflater   The layout inflater.
      * @param resourceId The resource ID for the layout to be used. The layout should contain an
      */
-    public WIMF_Location_Adapter(Context context, ArrayList<WIMF_UserItems> itemList, LayoutInflater inflater, int resourceId)
+    public WIMF_Location_Adapter(Context context, WIMF_UserItems itemList, LayoutInflater inflater, int resourceId)
     {
         this.itemList = itemList;
         this.context = context;
@@ -96,7 +96,7 @@ public class WIMF_Location_Adapter extends RecyclerView.Adapter<WIMF_Location_Ad
 
     @Override
     public int getItemCount() {
-        return this.itemList.size();
+        return 1;
     }
 
     public void setClickListener(ClickListener clickListener){
