@@ -63,7 +63,7 @@ public class WIMF_User_Profil_Activity extends AppCompatActivity implements
         OnMapReadyCallback {
 
     FloatingActionButton fab;
-    private static final String LOG_TAG = LocationActivity.class.getSimpleName();
+    private static final String LOG_TAG = WIMF_LocationActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
     public static List<WIMF_Ami> amis = new ArrayList<WIMF_Ami>();

@@ -323,7 +323,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.location:
-                intent = new Intent(this, LocationActivity.class);
+                intent = new Intent(this, WIMF_LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;

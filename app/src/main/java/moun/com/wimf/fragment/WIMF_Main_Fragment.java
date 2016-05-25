@@ -111,10 +111,10 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        // Inflate the layout header
+        // Inflate the layout header/
         header = LayoutInflater.from(getActivity()).inflate(R.layout.home_menu_header, mRecyclerView, false);
-        hotDealheaderText = (TextView) header.findViewById(R.id.hot_deal_header_title);
-        hotDealheaderText.setTypeface(AppUtils.getTypeface(getActivity(), AppUtils.FONT_BOLD));
+        //hotDealheaderText = (TextView) header.findViewById(R.id.hot_deal_header_title);
+       // hotDealheaderText.setTypeface(AppUtils.getTypeface(getActivity(), AppUtils.FONT_BOLD));
 
         homeMenuCustomAdapter = new HomeMenuCustomAdapter(getActivity(), header, rowListItem, inflater, R.layout.wimf_single_row_grid_layout);
         alphaAdapter = new AlphaInAnimationAdapter(homeMenuCustomAdapter);

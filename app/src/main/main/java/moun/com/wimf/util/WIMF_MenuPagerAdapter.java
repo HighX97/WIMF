@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
-import moun.com.wimf.LocationActivity;
+import moun.com.wimf.WIMF_LocationActivity;
 import moun.com.wimf.R;
 import moun.com.wimf.adapter.WIMF_UserListAdapter;
 import moun.com.wimf.database.WIMF_ItemsDBDAO;
@@ -104,7 +104,7 @@ public class WIMF_MenuPagerAdapter extends FragmentStatePagerAdapter {
 
 
 
-    private static final String LOG_TAG = LocationActivity.class.getSimpleName();
+    private static final String LOG_TAG = WIMF_LocationActivity.class.getSimpleName();
     private Toolbar mToolbar;
     private TextView mTitle;
 

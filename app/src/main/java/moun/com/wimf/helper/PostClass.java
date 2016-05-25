@@ -2,6 +2,7 @@ package moun.com.wimf.helper;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,6 +25,7 @@ import moun.com.wimf.database.WIMF_UserDAO;
 import moun.com.wimf.model.WIMF_Ami;
 import moun.com.wimf.model.WIMF_Message;
 import moun.com.wimf.model.WIMF_Utilisateur;
+import moun.com.wimf.service.WIMF_Gps;
 import moun.com.wimf.util.SessionManager;
 
 /**
@@ -36,11 +38,16 @@ public class PostClass extends AsyncTask<String, Void, Void> {
   private final String url;
   private final HashMap<String, String> parametres;
 
-  public PostClass(Activity activity, HashMap<String, String> parametres, String url) {
-    this.activity = activity;
-    this.parametres = parametres;
-    this.url = url;
-  }
+    public PostClass(Activity activity, HashMap<String, String> parametres, String url) {
+        this.activity = activity;
+        this.parametres = parametres;
+        this.url = url;
+    }
+
+    public PostClass(HashMap<String, String> parametres, String url) {
+        this.parametres = parametres;
+        this.url = url;
+    }
 
   @Override
   protected Void doInBackground(String... params) {
@@ -69,10 +76,6 @@ public class PostClass extends AsyncTask<String, Void, Void> {
             Log.d("action", action);
             Log.d("err", err);
             Log.d("table", table);
-            Boolean bool = table.equalsIgnoreCase("Utilisateur");
-            Boolean bool2 = action.equalsIgnoreCase("connect");
-            Log.d("table.equalsIgnoreCase(Utilisateur)", bool.toString());
-            Log.d("action.equalsIgnoreCase(connect)", bool2.toString());
 
           if(table.equalsIgnoreCase("Amis"))
             {
@@ -162,6 +165,17 @@ public class PostClass extends AsyncTask<String, Void, Void> {
               {
 
               }
+              else if (action.equalsIgnoreCase("update_gps"))
+              {
+                  Log.d("route", route);
+                  if (err.equalsIgnoreCase("failed")) {
+                      Log.d(route, err);
+
+                  }
+                  else {
+                      Log.d(route, err);
+                  }
+              }
               else if (action.equalsIgnoreCase("connect")) {
                   Log.d("route", route);
                   if (err.equalsIgnoreCase("failed")) {
@@ -214,6 +228,11 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
+                          Intent intent_service = new Intent(activity, WIMF_Gps.class);
+                          ComponentName service;
+                          service = activity.startService(intent_service);
+                          Log.d("service", service.toString());
+
                           Intent intent = new Intent(activity, WIMF_MainActivity.class);
                           activity.startActivity(intent);
                       }

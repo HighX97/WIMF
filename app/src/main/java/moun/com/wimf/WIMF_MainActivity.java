@@ -1,6 +1,7 @@
 package moun.com.wimf;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,6 +45,7 @@ import moun.com.wimf.fragment.WIMF_UserProfil_Friends_Fragment;
 import moun.com.wimf.fragment.WIMF_UserProfil_Info_Fragment;
 import moun.com.wimf.helper.RestHelper;
 import moun.com.wimf.model.WIMF_Ami;
+import moun.com.wimf.service.WIMF_Gps;
 import moun.com.wimf.util.AppUtils;
 import moun.com.wimf.util.SessionManager;
 
@@ -88,7 +90,15 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         // Initialize the title of Toolbar
         mTitle = (TextView) mToolbar.findViewById(R.id.toolbar_title);
-        mTitle.setText(getString(R.string.app_name));
+        if (isMyServiceRunning(WIMF_Gps.class))
+        {
+            mTitle.setText(getString(R.string.app_name)+" ON");
+        }
+        else
+        {
+            mTitle.setText(getString(R.string.app_name)+" OFF");
+        }
+
         // Add a custom font to the title
         mTitle.setTypeface(AppUtils.getTypeface(this, AppUtils.FONT_BOLD));
 
@@ -323,7 +333,7 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
             case R.id.location:
-                intent = new Intent(this, LocationActivity.class);
+                intent = new Intent(this, WIMF_LocationActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 return true;
@@ -343,6 +353,16 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -180,10 +180,16 @@ public class WIMF_UserProfil_Friends_Fragment extends Fragment implements WIMF_U
     private ArrayList<WIMF_UserItems> getFriendsList() {
         WIMF_FriendDAO amiDAO = new WIMF_FriendDAO(this.getActivity());
         amis = amiDAO.getUserFriends(1);
-
         ArrayList<WIMF_UserItems> menuItems = new ArrayList<WIMF_UserItems>();
-        for(WIMF_Ami ami : amis) {
-            menuItems.add(new WIMF_UserItems(ami.get_idU_rcv(),ami.get_idU_snd()));
+        if (amis == null || amis.size() < 1 )
+        {
+            menuItems.add(new WIMF_UserItems(getString(R.string.cheeze), R.drawable.usericon1, 11.50, getString(R.string.short_lorem)));
+        }
+        else
+        {
+            for (WIMF_Ami ami : amis) {
+                menuItems.add(new WIMF_UserItems(ami.get_idU_rcv(), ami.get_idU_snd()));
+            }
         }
         return menuItems;
     }

@@ -116,6 +116,9 @@
         </activity>
 
 
+        <service android:name=".service.WIMF_Gps"
+            android:process=":remote" />
+
 
         <!-- this metadata informs the application that Play Services are used -->
         <meta-data

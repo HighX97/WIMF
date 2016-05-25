@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.BounceInterpolator;
@@ -27,12 +30,19 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import moun.com.wimf.database.WIMF_UserDAO;
+import moun.com.wimf.helper.PostClass;
+import moun.com.wimf.model.WIMF_Utilisateur;
 import moun.com.wimf.util.AppUtils;
+import android.location.LocationListener;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 /**
  * An Activity handling the Google maps and locations integration with your app.
  */
-public class WIMF_LocationActivity extends AppCompatActivity implements
+public class WIMF_LocationActivity extends AppCompatActivity implements  LocationListener,
         GoogleMap.OnMarkerClickListener,
         OnMapReadyCallback {
 
@@ -49,6 +59,11 @@ public class WIMF_LocationActivity extends AppCompatActivity implements
     private Marker branchTwo;
     private Marker branchThree;
     private Marker branchFour;
+
+    private LocationManager locationManager;
+    private GoogleMap gMap;
+    private Marker marker;
+    private WIMF_UserDAO userDAO;
 
     private GoogleMap mMap;
     /**
@@ -218,11 +233,101 @@ public class WIMF_LocationActivity extends AppCompatActivity implements
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+
+    public void abonnementGPS() {
+        //On s'abonne
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
     }
 
 
+    public void desabonnementGPS() {
+        //Si le GPS est disponible, on s'y abonne
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.removeUpdates(this);
+    }
+
+
+    @Override
+    public void onLocationChanged(final Location location) {
+        //On affiche dans un Toat la nouvelle Localisation
+        final StringBuilder msg = new StringBuilder("lat : ");
+        msg.append(location.getLatitude());
+        msg.append( "; lng : ");
+        msg.append(location.getLongitude());
+
+        Toast.makeText(this, msg.toString(), Toast.LENGTH_LONG).show();
+
+        //Mise à jour des coordonnées
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(latLng));
+
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        marker.setPosition(latLng);
+        latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        gMap.addMarker(new MarkerOptions().title("Vous êtes ici").position(latLng));
+
+        WIMF_Utilisateur utilisateur = userDAO.getUserDetails();
+        Log.d("gps", utilisateur.toString());
+        Log.d("gps","-------------------------------");
+        String url = "http://46.101.40.23:8585/utilisateur/update_gps";
+        Log.d("url", url);
+        HashMap<String, String> parametres = new HashMap<String, String>();
+        parametres.put("tel", "1234567890");
+        parametres.put("gps_lat", String.valueOf(location.getLatitude()));
+        parametres.put("gps_long", String.valueOf(location.getLatitude()));
+        new PostClass(parametres,url).execute();
+    }
+
+
+    @Override
+    public void onProviderDisabled(final String provider) {
+        //Si le GPS est désactivé on se désabonne
+        if("gps".equals(provider)) {
+            desabonnementGPS();
+        }
+    }
+
+
+    @Override
+    public void onProviderEnabled(final String provider) {
+        //Si le GPS est activé on s'abonne
+        if("gps".equals(provider)) {
+            abonnementGPS();
+        }
+    }
+
+
+    @Override
+    public void onStatusChanged(final String provider, final int status, final Bundle extras) { }
 }

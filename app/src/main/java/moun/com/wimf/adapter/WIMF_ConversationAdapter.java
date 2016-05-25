@@ -127,14 +127,14 @@ public class WIMF_ConversationAdapter extends RecyclerView.Adapter<WIMF_Conversa
 
 
         new PostClass(this,parametres,url).execute();*/
-        WIMF_UserItems menuItems = itemList.get(position);
+        //WIMF_UserItems menuItems = itemList.get(position);
         // Get element from WIMF_UserItems object at this position and replace the contents of the view
         // with that element
-        viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
-        viewHolder.txtV_header.setText("");
+        //viewHolder.img_utilisateur.setImageResource(menuItems.getItemImage());
+        viewHolder.txtV_header.setText("---");
         //viewHolder.tel_expediteur.setText("Expediteur :");
         // viewHolder.message_text.setText("Message :");
-        viewHolder.txtV_footer.setText("");
+        viewHolder.txtV_footer.setText("---");
 
         // If an item exists in favorite table then set heart_red drawable
         /*

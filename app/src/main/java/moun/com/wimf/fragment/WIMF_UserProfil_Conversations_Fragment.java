@@ -48,7 +48,9 @@ public class WIMF_UserProfil_Conversations_Fragment extends Fragment implements 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+
         View rootView = inflater.inflate(R.layout.fragment_menu_list_items, container, false);
 
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.sandwich_recyclerView);
