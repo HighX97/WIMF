@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
+import moun.com.wimf.ProfilActivity;
 import moun.com.wimf.R;
 import moun.com.wimf.WIMF_User_Profil_Activity;
 import moun.com.wimf.adapter.HomeMenuCustomAdapter;
@@ -132,7 +133,7 @@ public class WIMF_Main_Fragment extends Fragment implements HomeMenuCustomAdapte
     public void itemClicked(View view, int position) {
         if (position == 0) {
             // user click on the header(hot deals section), start the HotDealsActivity.
-            Intent intent = new Intent(getActivity(), WIMF_User_Profil_Activity.class);
+            Intent intent = new Intent(getActivity(), ProfilActivity.class);
             startActivity(intent);
         } else {
             // Send the event to the main activity
