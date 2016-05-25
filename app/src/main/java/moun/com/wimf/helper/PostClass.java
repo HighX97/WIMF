@@ -2,6 +2,7 @@ package moun.com.wimf.helper;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import moun.com.wimf.WIMF_MainActivity;
 import moun.com.wimf.database.WIMF_FriendDAO;
 import moun.com.wimf.database.WIMF_MessageDAO;
 import moun.com.wimf.database.WIMF_UserDAO;
@@ -212,6 +214,8 @@ public class PostClass extends AsyncTask<String, Void, Void> {
                           userDAO.saveUserToTable(utilisateur_connection);
                           SessionManager session = new SessionManager(activity);
                           session.setLogin(true);
+                          Intent intent = new Intent(activity, WIMF_MainActivity.class);
+                          activity.startActivity(intent);
                       }
                   }
               }

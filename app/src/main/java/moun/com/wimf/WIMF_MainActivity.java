@@ -353,13 +353,13 @@ public class WIMF_MainActivity extends AppCompatActivity implements NavigationVi
     public void LogoutUser() {
         session.setLogin(false);
         userDAO.deleteUser();
-        msgDAO.removeAllMessages();
-        friendDAO.removeAllFriends();
-        Intent intentLogout = new Intent(this, WIMF_MainActivity.class);
+//       msgDAO.removeAllMessages();
+ //      friendDAO.removeAllFriends();
+        Intent intentLogout = new Intent(this, WIMF_LoginActivity.class);
         // Closing all the Activities
-        intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intentLogout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // Add new Flag to start new Activity
-        intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+       // intentLogout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // re-create the Main Activity
         startActivity(intentLogout);
         finish();

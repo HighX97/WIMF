@@ -87,11 +87,6 @@ public class WIMF_MessageDAO extends WIMF_ItemsDBDAO{
         return messages;
     }
 
-    public void removeAllMessages(){
-        //Suppression d'un Message de la BDD grâce à l'ID
-        database.delete(WIMF_DataBaseHelper.Messages_TABLE, null, null);
-    }
-
     public int removeMessageWithID(int id){
         //Suppression d'un Message de la BDD grâce à l'ID
         return database.delete(WIMF_DataBaseHelper.Messages_TABLE, WIMF_DataBaseHelper.ID_COLUMN_MESSAGE + " = " +id, null);
